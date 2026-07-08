@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lost in the Clouds | Aether</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004493",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-container": "#c64f00",
+                        "on-background": "#181c23",
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3631b4",
+                        "inverse-on-surface": "#eef0fc",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface": "#181c23",
+                        "secondary-fixed-dim": "#c2c1ff",
+                        "background": "#f9f9ff",
+                        "tertiary": "#9e3d00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001a41",
+                        "surface-dim": "#d8d9e5",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb595",
+                        "secondary-fixed": "#e2dfff",
+                        "surface-container-highest": "#e0e2ed",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c1c6d7",
+                        "secondary-container": "#6664e4",
+                        "primary-container": "#0070eb",
+                        "on-primary-container": "#fefcff",
+                        "inverse-surface": "#2d3039",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "surface": "#f9f9ff",
+                        "on-tertiary-fixed": "#351000",
+                        "secondary": "#4c4aca",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#005bc1",
+                        "surface-container": "#ecedf9",
+                        "surface-container-low": "#f1f3fe",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-secondary-container": "#fffbff",
+                        "inverse-primary": "#adc6ff",
+                        "primary": "#0058bc",
+                        "on-surface-variant": "#414755",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e6e8f3",
+                        "surface-variant": "#e0e2ed",
+                        "outline": "#717786",
+                        "on-secondary-fixed": "#0c006a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "section-margin": "40px",
+                        "element-gap": "16px",
+                        "container-padding": "24px",
+                        "asymmetric-offset": "12px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "caption": ["Playfair Display"],
+                        "hero-temp": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.noise-texture {
+    position: relative
+    }
+.noise-texture::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA5IV3zLSjxG0l_RfIZtDQZ5Zww-L_TNNW9ngbNxCFVIY_-wfBBoM9reRK2y8fP_bnSS183KG4iXyVKJANFP9UoStVRjeR0e3aOpp6xUjUB6_Otn5cJAfrKHO-TxZDkLds1Rug28WJyKpuf3bKR0zGMI0rXC68iNIPKS0vPUdkYtGEaa3sxHhXSKOjPMbA-TfqUofbkTbdirghqXAIa4VVtg6KEXoDbFlxMgAB-iRjm5XofeirSamHQ);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1
+    }
+.parallax-cloud-1 {
+    animation: float 12s ease-in-out infinite
+    }
+.parallax-cloud-2 {
+    animation: float 18s ease-in-out infinite reverse
+    }
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        } 50% {
+        transform: translateY(-20px) translateX(10px);
+        }
+    }
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards
+    }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        } to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }
+.spring-active:active {
+    transform: scale(0.95);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)
+    }</style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-hidden noise-texture selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Shell visibility suppressed for 404 per instructions) -->
+<main class="relative h-screen flex flex-col items-center justify-center px-container-padding text-center overflow-hidden">
+<!-- Background Atmosphere (The Clouds) -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-40">
+<div class="parallax-cloud-1 absolute -bottom-10 -left-20 w-[120%] h-[60%] blur-3xl bg-gradient-to-t from-secondary-container/20 to-transparent rounded-full"></div>
+<div class="parallax-cloud-2 absolute -bottom-20 -right-20 w-[110%] h-[70%] blur-3xl bg-gradient-to-t from-primary-container/10 to-transparent rounded-full"></div>
+</div>
+<!-- Illustration Canvas -->
+<div class="relative z-10 w-full max-w-lg mx-auto mb-12 fade-in-up" style="animation-delay: 0.1s;">
+<div class="relative aspect-video rounded-3xl overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover grayscale-[0.2] sepia-[0.1] hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnW09MVbVSJ4ja0TzwTHBkr8D8-zAbjii06A3ZmWGvbM-BBqos5svHxUxAGExJOpTX0pogEI7Ukd9tOyTq6VVn8NORBB53WS8NPPgpy5zm1vxR31UTjnl4w79IjW1uV4n_gQ1lUrENC56rjHx53sylHaSF2T5iR-JbV5fV1p1YmOGivhA6f26w1Eed0waRemJV2VosndFddbKYz-wK5vmA8J9w4UkLY1GvhKvDhnPchbaC6IADBDzx"/>
+<!-- Overlay Gradient for editorial feel -->
+<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
+</div>
+<!-- Asymmetric Accent -->
+<div class="absolute -top-4 -right-4 w-16 h-16 bg-tertiary-fixed rounded-full flex items-center justify-center shadow-lg -rotate-12">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-2xl">explore_off</span>
+</div>
+</div>
+<!-- Content Content -->
+<div class="relative z-10 max-w-md mx-auto space-y-6">
+<header class="space-y-2">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight fade-in-up" style="animation-delay: 0.3s;">
+                    Lost in the Clouds
+                </h2>
+<h1 class="font-hero-temp text-[80px] leading-[80px] text-on-surface-variant/10 absolute -top-24 left-1/2 -translate-x-1/2 pointer-events-none select-none italic">
+                    404
+                </h1>
+</header>
+<p class="font-body-lg text-body-lg text-outline fade-in-up" style="animation-delay: 0.4s;">
+                This page has drifted away.
+            </p>
+<div class="flex flex-col gap-4 pt-8 fade-in-up" style="animation-delay: 0.5s;">
+<!-- Primary CTA -->
+<button class="bg-primary-container text-on-primary-container font-label-bold text-label-bold py-5 px-12 rounded-full shadow-lg shadow-primary-container/20 spring-active flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">home</span>
+                    Home
+                </button>
+<!-- Secondary CTA -->
+<button class="bg-surface text-secondary font-label-bold text-label-bold py-5 px-12 rounded-full border border-outline-variant/30 spring-active flex items-center justify-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">cloud_queue</span>
+                    Forecasts
+                </button>
+</div>
+</div>
+<!-- Atmospheric Floating Element -->
+<div class="absolute top-1/4 left-10 opacity-20 parallax-cloud-2 hidden md:block">
+<span class="material-symbols-outlined text-6xl text-primary-fixed-dim">air</span>
+</div>
+<div class="absolute bottom-1/4 right-10 opacity-20 parallax-cloud-1 hidden md:block">
+<span class="material-symbols-outlined text-7xl text-secondary-fixed-dim">wb_sunny</span>
+</div>
+</main>
+<!-- Interactive script for subtle mouse-parallax on the main illustration -->
+<script>
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            const illustration = document.querySelector('.fade-in-up img');
+            if(illustration) {
+                illustration.style.transform = `translateX(${x}px) translateY(${y}px) scale(1.05)`;
+            }
+        });
+    </script>
+</body></html>

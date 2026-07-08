@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Weekly Forecast</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#c64f00",
+                        "secondary-fixed-dim": "#c2c1ff",
+                        "secondary": "#4c4aca",
+                        "primary": "#0058bc",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed-dim": "#ffb595",
+                        "outline": "#717786",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#351000",
+                        "outline-variant": "#c1c6d7",
+                        "tertiary": "#9e3d00",
+                        "on-surface": "#181c23",
+                        "on-secondary-fixed-variant": "#3631b4",
+                        "on-primary-container": "#fefcff",
+                        "inverse-on-surface": "#eef0fc",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container-low": "#f1f3fe",
+                        "surface-dim": "#d8d9e5",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#005bc1",
+                        "secondary-fixed": "#e2dfff",
+                        "primary-fixed": "#d8e2ff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f9f9ff",
+                        "on-secondary-fixed": "#0c006a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "on-primary-fixed": "#001a41",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#6664e4",
+                        "surface-container": "#ecedf9",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "inverse-surface": "#2d3039",
+                        "on-background": "#181c23",
+                        "surface-container-high": "#e6e8f3",
+                        "on-secondary-container": "#fffbff",
+                        "on-surface-variant": "#414755",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-variant": "#e0e2ed"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "16px",
+                        "asymmetric-offset": "12px",
+                        "unit": "8px",
+                        "container-padding": "24px",
+                        "section-margin": "40px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "hero-temp": ["Playfair Display"],
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "caption": ["Playfair Display"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .grain-texture::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+            z-index: 10;
+        }
+        .bouncy-transition {
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .scroll-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .card-expanded {
+            height: 480px !important;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            z-index: 30;
+        }
+        .stagger-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease-out;
+        }
+        .card-expanded .stagger-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .vertical-spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(0,88,188,0.1) 10%, rgba(0,88,188,0.1) 90%, transparent);
+            z-index: 0;
+        }
+        .day-label-offset {
+            transform: translateX(-12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed-dim">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Aether Weather</h1>
+<div class="hidden md:flex gap-element-gap items-center">
+<a class="font-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary hover:text-primary transition-colors duration-300" href="#">Forecasts</a>
+<a class="font-body-md text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors duration-300" href="#">Packing Lists</a>
+<a class="font-body-md text-on-surface-variant dark:text-outline-variant hover:text-primary transition-colors duration-300" href="#">Destinations</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl cursor-pointer active:scale-95 transition-transform">search</span>
+<span class="material-symbols-outlined text-primary text-2xl cursor-pointer active:scale-95 transition-transform">account_circle</span>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-section-margin overflow-x-hidden relative min-h-screen">
+<!-- Background Decor -->
+<div class="absolute top-0 right-0 w-1/2 h-screen bg-gradient-to-l from-primary/5 to-transparent -z-10"></div>
+<!-- Header Content -->
+<div class="px-container-padding mb-10 max-w-7xl mx-auto">
+<span class="font-label-bold text-label-bold text-primary uppercase tracking-widest block mb-2">London, UK</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface leading-tight italic">
+                A Week in <br/>Atmospheric Clarity
+            </h2>
+</div>
+<!-- The Forecast Scroll Container -->
+<div class="relative px-container-padding max-w-3xl mx-auto">
+<!-- The Vertical Spine -->
+<div class="vertical-spine hidden md:block"></div>
+<!-- Forecast Cards -->
+<div class="space-y-6 md:space-y-12 relative z-10">
+<!-- Day 1: Sunday - Sunny -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-100/30 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-tertiary-fixed-variant uppercase mb-1">Today</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">Sunday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-primary-fixed-variant leading-none">24°</span>
+</div>
+</div>
+<!-- Expandable Details -->
+<div class="details hidden mt-8 grid grid-cols-2 gap-6 stagger-in">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Wind Velocity</span>
+<span class="font-headline-md text-headline-md text-on-surface">12 km/h <span class="text-caption font-caption text-outline">NW</span></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Humidity</span>
+<span class="font-headline-md text-headline-md text-on-surface">42%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Daylight</span>
+<span class="font-headline-md text-headline-md text-on-surface">14h 22m</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">UV Index</span>
+<span class="font-headline-md text-headline-md text-on-surface">6 High</span>
+</div>
+<div class="col-span-2 pt-4">
+<div class="w-full h-48 rounded-lg overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-fashion landscape photograph of London's skyline at golden hour. The lighting is soft and ethereal, capturing the city in a warm, optimistic amber glow. The style is minimalist and editorial, with a focus on geometric urban forms and clear, vibrant skies. The mood is serene and luxurious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyId4a7Lqo4eAIhyNhCG3HKutiWD5MZNiG0uvmPDjBFUjP1OiSAQdp1_1pZcSqIvx75FZZZ6SMW-mtloDO3_WzxoZeGBkxN69NfbmumLq13WnWSwNw_LcIz_QyCSqoG99BlgoNuNh1_Z0tnL0UKB1cC8AG7uF_yr5b0dWvHEavUZB3Yz1l2VGP1htVrhdAhWaO48ci6qKzO3KwRXfwNQ5tAavm5gcKewQQaXKBtebLc9Felbr5oeRo"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 2: Monday - Partly Cloudy -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-indigo-100/30 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 12</p>
+<h3 class="font-headline-md text-headline-md text-on-surface italic">Monday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-secondary leading-none">21°</span>
+</div>
+</div>
+<div class="details hidden mt-8 grid grid-cols-2 gap-6 stagger-in">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Wind</span>
+<span class="font-headline-md text-headline-md text-on-surface">8 km/h</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Precipitation</span>
+<span class="font-headline-md text-headline-md text-on-surface">5%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 3: Tuesday - Rain -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-slate-100 to-blue-200/40 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 13</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">Tuesday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-primary-container leading-none">18°</span>
+</div>
+</div>
+<div class="details hidden mt-8 grid grid-cols-2 gap-6 stagger-in">
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Rainfall</span>
+<span class="font-headline-md text-headline-md text-on-surface">4.2 mm</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-outline uppercase">Visibility</span>
+<span class="font-headline-md text-headline-md text-on-surface">Moderate</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 4: Wednesday - Overcast -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-gray-50 to-slate-200/30 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 14</p>
+<h3 class="font-headline-md text-headline-md text-on-surface italic">Wednesday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-on-surface-variant leading-none">19°</span>
+</div>
+</div>
+<div class="details hidden mt-8 grid grid-cols-2 gap-6 stagger-in">
+<!-- Shared metrics layout for expanded state -->
+</div>
+</div>
+</div>
+<!-- Day 5: Thursday - Sunny -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-yellow-50 to-amber-100/40 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 15</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">Thursday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-tertiary-container leading-none">26°</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 6: Friday - Windy -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-50 to-blue-100/30 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 16</p>
+<h3 class="font-headline-md text-headline-md text-on-surface italic">Friday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-primary-container leading-none">22°</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 7: Saturday - Clear Night -->
+<div class="group cursor-pointer relative bouncy-transition w-full bg-white rounded-xl overflow-hidden shadow-[0_40px_40px_-15px_rgba(76,74,202,0.04)] border border-outline-variant/10 grain-texture h-40 md:h-48" onclick="toggleExpand(this)">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-900/10 to-blue-900/5 opacity-60"></div>
+<div class="relative h-full flex flex-col justify-center p-6 md:p-8">
+<div class="flex justify-between items-end">
+<div class="day-label-offset">
+<p class="font-label-bold text-label-bold text-outline uppercase mb-1">June 17</p>
+<h3 class="font-headline-md text-headline-md text-on-surface">Saturday</h3>
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-[72px] md:text-hero-temp text-secondary leading-none">17°</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB: Floating Refresh -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-tertiary-container rounded-full flex items-center justify-center text-white shadow-2xl active:scale-90 transition-transform z-40 group overflow-hidden">
+<div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl">refresh</span>
+</button>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant/20 py-section-margin">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-element-gap px-container-padding max-w-7xl mx-auto">
+<div>
+<span class="font-headline-md text-headline-md italic text-primary dark:text-primary-fixed-dim block mb-4">Aether Weather</span>
+<p class="font-body-md text-on-surface-variant max-w-xs">Precision instrumentation for the modern traveler. Every forecast is an editorial statement.</p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Forecasts</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Packing Lists</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Destinations</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Privacy</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Support</a>
+<p class="font-body-md text-secondary dark:text-secondary-fixed mt-4 text-xs opacity-60">© 2024 Aether Weather.</p>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        function toggleExpand(element) {
+            // Find all cards and collapse them
+            const allCards = document.querySelectorAll('.group');
+            allCards.forEach(card => {
+                if (card !== element && card.classList.contains('card-expanded')) {
+                    card.classList.remove('card-expanded');
+                    const details = card.querySelector('.details');
+                    if (details) details.classList.add('hidden');
+                }
+            });
+
+            // Toggle clicked card
+            element.classList.toggle('card-expanded');
+            const details = element.querySelector('.details');
+            if (details) {
+                if (element.classList.contains('card-expanded')) {
+                    details.classList.remove('hidden');
+                    // Stagger animation happens via CSS
+                } else {
+                    details.classList.add('hidden');
+                }
+            }
+
+            // Scroll into view if expanded
+            if (element.classList.contains('card-expanded')) {
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+
+        // Parallax effect for the background text or clouds could go here
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            // Subtle motion logic
+        });
+    </script>
+</body></html>

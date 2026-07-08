@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004493",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-container": "#c64f00",
+                    "on-background": "#181c23",
+                    "surface-bright": "#f9f9ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "inverse-on-surface": "#eef0fc",
+                    "primary-fixed": "#d8e2ff",
+                    "on-surface": "#181c23",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "background": "#f9f9ff",
+                    "tertiary": "#9e3d00",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#001a41",
+                    "surface-dim": "#d8d9e5",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "secondary-fixed": "#e2dfff",
+                    "surface-container-highest": "#e0e2ed",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c1c6d7",
+                    "secondary-container": "#6664e4",
+                    "primary-container": "#0070eb",
+                    "on-primary-container": "#fefcff",
+                    "inverse-surface": "#2d3039",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "surface": "#f9f9ff",
+                    "on-tertiary-fixed": "#351000",
+                    "secondary": "#4c4aca",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#005bc1",
+                    "surface-container": "#ecedf9",
+                    "surface-container-low": "#f1f3fe",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-primary": "#adc6ff",
+                    "primary": "#0058bc",
+                    "on-surface-variant": "#414755",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8f3",
+                    "surface-variant": "#e0e2ed",
+                    "outline": "#717786",
+                    "on-secondary-fixed": "#0c006a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "section-margin": "40px",
+                    "element-gap": "16px",
+                    "container-padding": "24px",
+                    "asymmetric-offset": "12px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "caption": ["Playfair Display"],
+                    "hero-temp": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .noise-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 60;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .bouncy-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .bouncy-hover:active {
+            transform: scale(0.92);
+        }
+
+        .ambient-glow {
+            box-shadow: 0 40px 100px -10px rgba(76, 74, 202, 0.12);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(0, 88, 188, 0.3);
+        }
+
+        @keyframes drift {
+            from { transform: translateY(0px) rotate(0deg); }
+            to { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .floating-element {
+            animation: drift 6s ease-in-out infinite alternate;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden font-body-md">
+<div class="noise-texture"></div>
+<!-- Background Shader Layer -->
+<div class="fixed inset-0 z-0">
+
+</div>
+<!-- Navigation suppression: Following "Semantic Shell" mandate for error pages -->
+<!-- The TopAppBar and BottomNavBar are excluded for this focused task screen -->
+<main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-container-padding py-section-margin max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-unit items-center w-full">
+<!-- Visual Asset Column -->
+<div class="md:col-span-6 flex justify-center items-center relative mb-12 md:mb-0">
+<!-- Atmospheric Container -->
+<div class="relative w-full max-w-[500px] aspect-square flex items-center justify-center p-unit">
+<!-- Subtle Glow -->
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-[80px] floating-element"></div>
+<!-- Main Error Visual -->
+<div class="relative z-20 w-full h-full rounded-full overflow-hidden ambient-glow border border-surface-variant/30 backdrop-blur-sm group">
+<img alt="" class="w-full h-full object-cover grayscale-[0.2] transition-transform duration-1000 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6mdq5PddDwr1gm58tQcD8xB8laWSCRKHKmHUQExjAQLWX5cp5qA50GoMksp50aS1RnIYM41P5QT5gPIWA4ANgiENj6BsGLU0_ht-2Oh-BDaUo7Qgj1m0PBmxKPw_3hjFWwBNnDYPsxEZBebFKnpnrdxLvoamIni2qMzKbtV6L153BEQySHPqm_AnayTsmXzdbxBjBpLw4TOuiYT4Qoa5oUNOiPwbvUopGdz2BjvLlQD1v1-g9C1Nh"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary/20 to-transparent mix-blend-overlay"></div>
+</div>
+<!-- Asymmetric Decorative Elements (Editorial Minimalist) -->
+<div class="absolute top-0 -left-asymmetric-offset border-l-2 border-primary/40 h-24 hidden md:block"></div>
+<div class="absolute -bottom-8 right-asymmetric-offset text-label-bold font-label-bold text-outline uppercase tracking-[0.2em] hidden md:block">
+                        Status: 500_Critical
+                    </div>
+</div>
+</div>
+<!-- Content Column -->
+<div class="md:col-span-5 md:col-start-8 flex flex-col items-start text-left space-y-element-gap">
+<!-- Label/Category -->
+<div class="flex items-center space-x-2 mb-unit">
+<span class="w-8 h-[2px] bg-primary"></span>
+<span class="font-label-bold text-label-bold text-primary uppercase tracking-widest">System Anomaly</span>
+</div>
+<!-- Headline -->
+<h1 class="font-headline-lg text-headline-lg text-on-surface leading-tight tracking-tight text-glow">
+                    Atmospheric <br/>Disturbance
+                </h1>
+<!-- Body Text (Editorial White Space) -->
+<div class="max-w-md mt-4">
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        Our sensors are experiencing a rare electrical storm in the data core. We're recalibrating our instruments to restore synchronization.
+                    </p>
+</div>
+<!-- Progress / Status Indicator (Tactile Detail) -->
+<div class="w-full max-w-sm mt-8 space-y-2">
+<div class="flex justify-between font-label-bold text-label-bold text-outline">
+<span>Recalibrating Flux Nodes</span>
+<span>42%</span>
+</div>
+<div class="h-[2px] w-full bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-primary w-2/5 animate-[pulse_2s_infinite]"></div>
+</div>
+</div>
+<!-- CTA Group -->
+<div class="flex flex-col sm:flex-row gap-4 mt-12 w-full sm:w-auto">
+<!-- Primary CTA -->
+<button class="bouncy-hover px-10 py-4 bg-primary text-on-primary rounded-full font-label-bold text-label-bold flex items-center justify-center space-x-2 shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">refresh</span>
+<span>Retry Connection</span>
+</button>
+<!-- Secondary CTA -->
+<button class="bouncy-hover px-10 py-4 bg-surface-container-low text-primary border border-transparent hover:border-primary/20 rounded-full font-label-bold text-label-bold transition-all flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-[20px]">monitor_heart</span>
+<span>Check System Status</span>
+</button>
+</div>
+<!-- Footer-esque small print -->
+<div class="mt-16 pt-8 border-t border-surface-variant/50 w-full">
+<p class="font-caption text-caption text-outline italic">
+                        Reference Code: SC-104-ALPHA-STORM
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Layer: Mouse-following glow -->
+<div class="fixed top-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 opacity-0 z-0" id="cursor-glow"></div>
+<script>
+        // Micro-interaction for cursor light
+        const cursorGlow = document.getElementById('cursor-glow');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.opacity = '1';
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // Simulating the "bouncy" spring feel for buttons with JS if needed, 
+        // though CSS cubic-bezier is already handling most of it.
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                // Subtle scale or effect
+            });
+        });
+
+        // Theme sync check
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Keep light for this specific editorial design unless requested dark
+        }
+    </script>
+</body></html>

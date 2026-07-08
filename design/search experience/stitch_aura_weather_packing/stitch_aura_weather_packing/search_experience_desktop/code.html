@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Search</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#9e3d00",
+                    "tertiary-fixed": "#ffdbcc",
+                    "surface-container-high": "#e6e8f3",
+                    "surface-bright": "#f9f9ff",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "on-primary-fixed": "#001a41",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "primary": "#0058bc",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#c64f00",
+                    "inverse-surface": "#2d3039",
+                    "on-tertiary-fixed": "#351000",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#005bc1",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary-fixed-variant": "#004493",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#0c006a",
+                    "secondary": "#4c4aca",
+                    "inverse-primary": "#adc6ff",
+                    "inverse-on-surface": "#eef0fc",
+                    "background": "#f9f9ff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ecedf9",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#d8d9e5",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f1f3fe",
+                    "primary-container": "#0070eb",
+                    "on-surface": "#181c23",
+                    "on-secondary-container": "#fffbff",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#fefcff",
+                    "secondary-container": "#6664e4",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-surface-variant": "#414755",
+                    "surface-variant": "#e0e2ed",
+                    "surface-container-highest": "#e0e2ed",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f9f9ff",
+                    "outline-variant": "#c1c6d7",
+                    "on-tertiary-container": "#fffbff",
+                    "secondary-fixed": "#e2dfff",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "outline": "#717786",
+                    "on-background": "#181c23"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-padding": "24px",
+                    "section-margin": "40px",
+                    "element-gap": "16px",
+                    "asymmetric-offset": "12px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "caption": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "hero-temp": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAFAFA;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            background-repeat: repeat;
+            overflow-x: hidden;
+        }
+
+        .grain-texture {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 100;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .ambient-shadow {
+            box-shadow: 0 40px 60px -20px rgba(76, 74, 202, 0.08);
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .sparkline {
+            fill: none;
+            stroke: #4c4aca;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .perspective-card {
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .perspective-card:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
+        }
+
+        .checklist-line {
+            position: relative;
+        }
+        .checklist-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 2px;
+            background-color: #e0e2ed;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<div class="grain-texture"></div>
+<!-- Navigation Anchor -->
+<header class="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-xl shadow-sm flex justify-between items-center px-container-padding py-4">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-primary tracking-tight font-hero-temp">Aether Weather</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-primary font-bold transition-all font-label-bold text-label-bold" href="#">Explore</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/50 px-4 py-2 rounded-full transition-colors font-label-bold text-label-bold" href="#">Forecast</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/50 px-4 py-2 rounded-full transition-colors font-label-bold text-label-bold" href="#">Packing</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-high/50 rounded-full transition-colors">settings</button>
+<button class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-high/50 rounded-full transition-colors">account_circle</button>
+</div>
+</header>
+<main class="max-w-[1400px] mx-auto px-container-padding pt-12 pb-32">
+<!-- Floating Search Experience -->
+<div class="relative z-40 max-w-3xl mx-auto mb-section-margin">
+<div class="glass-panel ambient-shadow rounded-full px-8 py-6 flex items-center gap-4 transition-all duration-300 focus-within:ring-4 focus-within:ring-primary/10">
+<span class="material-symbols-outlined text-primary text-3xl">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-headline-md font-headline-md text-on-surface placeholder:text-outline/50 typing-cursor" id="main-search" placeholder="Search for a city..." type="text"/>
+<div class="flex gap-2">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest">⌘ K</span>
+</div>
+</div>
+<!-- Autocomplete Popover (Simulated as visible for the prompt context) -->
+<div class="absolute top-full left-0 w-full mt-4 glass-panel ambient-shadow rounded-3xl p-4 opacity-0 scale-95 pointer-events-none transition-all duration-300" id="autocomplete">
+<div class="space-y-1">
+<div class="flex items-center justify-between p-4 hover:bg-primary-container/10 rounded-2xl cursor-pointer group">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface">Reykjavík</p>
+<p class="text-caption font-caption text-on-surface-variant">Iceland</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-primary">-2°C</p>
+<p class="text-xs font-bold text-secondary">Light Snow</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left Column: Recent & Trending -->
+<div class="lg:col-span-4 space-y-section-margin">
+<!-- Recent Searches -->
+<section>
+<h2 class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-outline mb-6 ml-asymmetric-offset">Recent Explorations</h2>
+<div class="space-y-4">
+<!-- Search Result Item -->
+<div class="bg-surface-container-lowest glass-panel p-6 rounded-3xl ambient-shadow perspective-card cursor-pointer group">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Copenhagen</h3>
+<p class="font-caption text-caption text-on-surface-variant">Denmark</p>
+</div>
+<div class="text-right">
+<svg class="w-24 h-8 mb-2" viewbox="0 0 100 30">
+<path class="sparkline" d="M0 25 Q 10 5, 20 20 T 40 10 T 60 25 T 80 5 T 100 15"></path>
+</svg>
+<p class="font-label-bold text-label-bold text-primary">4° / 8°</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest glass-panel p-6 rounded-3xl ambient-shadow perspective-card cursor-pointer group translate-x-asymmetric-offset">
+<div class="flex justify-between items-end">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">Kyoto</h3>
+<p class="font-caption text-caption text-on-surface-variant">Japan</p>
+</div>
+<div class="text-right">
+<svg class="w-24 h-8 mb-2" viewbox="0 0 100 30">
+<path class="sparkline" d="M0 15 Q 25 25, 50 15 T 100 5" style="stroke: #ffb595"></path>
+</svg>
+<p class="font-label-bold text-label-bold text-tertiary">12° / 18°</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Searches -->
+<section>
+<h2 class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-outline mb-6 ml-asymmetric-offset">Trending Destinations</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-2xl bg-surface-container-high/50 hover:bg-secondary-container/10 transition-colors cursor-pointer border border-transparent hover:border-secondary/20">
+<span class="text-xs font-bold text-secondary mb-1 block">#1 NORTHERN LIGHTS</span>
+<p class="font-headline-md text-body-lg text-on-surface">Tromsø</p>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container-high/50 hover:bg-secondary-container/10 transition-colors cursor-pointer border border-transparent hover:border-secondary/20">
+<span class="text-xs font-bold text-secondary mb-1 block">#2 CHERRY BLOSSOM</span>
+<p class="font-headline-md text-body-lg text-on-surface">Seoul</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Weather Preview -->
+<div class="lg:col-span-8">
+<div class="bg-surface-container-lowest glass-panel rounded-[40px] p-10 ambient-shadow relative overflow-hidden h-full flex flex-col">
+<!-- Background Decoration -->
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute top-1/2 -left-24 w-64 h-64 bg-tertiary/5 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between gap-8 mb-12">
+<div class="flex-1">
+<div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full mb-6">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold uppercase tracking-wider">Top Match</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface leading-none mb-2">Reykjavík</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined">calendar_today</span>
+                                Friday, 24th Oct — 10:42 AM
+                            </p>
+</div>
+<div class="flex items-center md:items-end flex-col">
+<div class="relative w-32 h-32 md:w-48 md:h-48 mb-4">
+
+</div>
+<div class="text-right">
+<span class="font-hero-temp text-hero-temp text-primary leading-none">-2°</span>
+<p class="font-headline-md text-headline-md text-secondary mt-[-10px]">Scattered Snow</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-auto">
+<!-- Mini Map -->
+<div class="rounded-3xl overflow-hidden h-48 relative ambient-shadow group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A stylized minimalist map of Reykjavik, Iceland, rendered in a light mode aesthetic with soft blues and whites. The map features elegant topographic lines and subtle grain texture, looking like a page from a high-end architectural atlas. The lighting is diffused and even, emphasizing clarity and editorial precision." data-location="Reykjavik" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCMAuw7EtiQP8MoZUAXuPeHam9haw9FBjH29ADpHpgw7BQ0dlu7klvEUhtsjzXLMEtzMl3BYi247-km-oNOZShXTe5bffPkhtt2SOTzPIHyWyWNkZBTKUBk7KXt5RnHugHKjsXg5z-mpEXMrRy7YkC5PxM0T2ccGDEiJ815FwFcEfwWi4NuCwS7BX3qB84Txc-kzI2v0eZLvQ7a3JhUbcdQDBc69dipP8cElJME7SWWIsfhbll-dRMX')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<p class="text-xs font-bold uppercase tracking-widest opacity-80">Location</p>
+<p class="font-headline-md text-body-lg">64.1265° N, 21.8174° W</p>
+</div>
+<button class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/40 transition-all">
+<span class="material-symbols-outlined">open_in_full</span>
+</button>
+</div>
+<!-- Details Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-6 rounded-3xl checklist-line">
+<span class="material-symbols-outlined text-primary mb-2">air</span>
+<p class="text-xs font-bold text-outline uppercase tracking-widest">Wind Speed</p>
+<p class="font-headline-md text-headline-md text-on-surface">24 <span class="text-base font-normal">km/h</span></p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-3xl checklist-line">
+<span class="material-symbols-outlined text-primary mb-2">humidity_percentage</span>
+<p class="text-xs font-bold text-outline uppercase tracking-widest">Humidity</p>
+<p class="font-headline-md text-headline-md text-on-surface">82 <span class="text-base font-normal">%</span></p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-3xl checklist-line">
+<span class="material-symbols-outlined text-primary mb-2">wb_sunny</span>
+<p class="text-xs font-bold text-outline uppercase tracking-widest">UV Index</p>
+<p class="font-headline-md text-headline-md text-on-surface">1 <span class="text-base font-normal">Low</span></p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-3xl checklist-line">
+<span class="material-symbols-outlined text-primary mb-2">visibility</span>
+<p class="text-xs font-bold text-outline uppercase tracking-widest">Visibility</p>
+<p class="font-headline-md text-headline-md text-on-surface">10 <span class="text-base font-normal">km</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Adding Item (Contextual) -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Script for Interactions -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('main-search');
+            const autocomplete = document.getElementById('autocomplete');
+            const items = ["Tokyo", "New York", "London", "Paris", "Berlin"];
+            let currentItemIndex = 0;
+            let currentText = "";
+            let isDeleting = false;
+
+            // Typing Animation Logic
+            function type() {
+                const fullText = items[currentItemIndex];
+                if (isDeleting) {
+                    currentText = fullText.substring(0, currentText.length - 1);
+                } else {
+                    currentText = fullText.substring(0, currentText.length + 1);
+                }
+
+                if (!document.activeElement.isSameNode(searchInput) || searchInput.value === "") {
+                    searchInput.placeholder = currentText;
+                }
+
+                let typeSpeed = 200;
+                if (isDeleting) typeSpeed /= 2;
+
+                if (!isDeleting && currentText === fullText) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && currentText === "") {
+                    isDeleting = false;
+                    currentItemIndex = (currentItemIndex + 1) % items.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+
+            type();
+
+            // Toggle Autocomplete visibility
+            searchInput.addEventListener('input', (e) => {
+                if (e.target.value.length > 0) {
+                    autocomplete.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                    autocomplete.classList.add('opacity-100', 'scale-100');
+                } else {
+                    autocomplete.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                }
+            });
+
+            // Keyboard shortcut ⌘K
+            document.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        });
+    </script>
+</body></html>

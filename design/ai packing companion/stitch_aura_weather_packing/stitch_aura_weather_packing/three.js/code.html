@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_41 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_41" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_41');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const container = document.getElementById('threejs-container-ANIMATION_character');
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  container.appendChild(renderer.domElement);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+  const spotLight = new THREE.SpotLight(0xffffff, 1);
+  spotLight.position.set(5, 10, 5);
+  scene.add(spotLight);
+
+  // Companion Character: "Aura" - A friendly, floating cloud-spirit
+  const auraGroup = new THREE.Group();
+  
+  // Body (Soft, cloud-like spheres)
+  const bodyMat = new THREE.MeshPhongMaterial({ 
+    color: 0xffffff, 
+    emissive: 0x0058bc, 
+    emissiveIntensity: 0.1,
+    shininess: 100,
+    transparent: true,
+    opacity: 0.9
+  });
+
+  const mainBody = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), bodyMat);
+  auraGroup.add(mainBody);
+
+  // Eyes
+  const eyeGeo = new THREE.SphereGeometry(0.12, 16, 16);
+  const eyeMat = new THREE.MeshBasicMaterial({ color: 0x181c23 });
+  const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+  const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+  leftEye.position.set(-0.35, 0.1, 0.85);
+  rightEye.position.set(0.35, 0.1, 0.85);
+  auraGroup.add(leftEye, rightEye);
+
+  // Blushes
+  const blushGeo = new THREE.CircleGeometry(0.15, 16);
+  const blushMat = new THREE.MeshBasicMaterial({ color: 0xffb595, transparent: true, opacity: 0.4 });
+  const leftBlush = new THREE.Mesh(blushGeo, blushMat);
+  const rightBlush = new THREE.Mesh(blushGeo, blushMat);
+  leftBlush.position.set(-0.5, -0.15, 0.9);
+  rightBlush.position.set(0.5, -0.15, 0.9);
+  auraGroup.add(leftBlush, rightBlush);
+
+  scene.add(auraGroup);
+  camera.position.z = 5;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+
+    // Floating motion
+    auraGroup.position.y = Math.sin(time * 1.5) * 0.15;
+    auraGroup.rotation.y = Math.sin(time * 0.5) * 0.1;
+    auraGroup.rotation.z = Math.cos(time * 0.8) * 0.05;
+
+    // Pulse/Breath
+    const scale = 1 + Math.sin(time * 2) * 0.02;
+    auraGroup.scale.set(scale, scale, scale);
+
+    // Eye movement (curiosity)
+    leftEye.position.x = -0.35 + Math.sin(time * 0.7) * 0.05;
+    rightEye.position.x = 0.35 + Math.sin(time * 0.7) * 0.05;
+
+    renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  });
+
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_41 -->
+</body>
+</html>

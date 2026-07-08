@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings | Aether Weather</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-background": "#181c23",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-secondary-fixed": "#0c006a",
+                    "on-primary-container": "#fefcff",
+                    "outline": "#717786",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#0070eb",
+                    "surface-bright": "#f9f9ff",
+                    "secondary": "#4c4aca",
+                    "outline-variant": "#c1c6d7",
+                    "surface-dim": "#d8d9e5",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "on-primary-fixed": "#001a41",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eef0fc",
+                    "on-surface-variant": "#414755",
+                    "inverse-surface": "#2d3039",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#adc6ff",
+                    "secondary-container": "#6664e4",
+                    "tertiary": "#9e3d00",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "primary": "#0058bc",
+                    "background": "#f9f9ff",
+                    "on-tertiary-fixed": "#351000",
+                    "surface": "#f9f9ff",
+                    "surface-tint": "#005bc1",
+                    "surface-container": "#ecedf9",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#004493",
+                    "tertiary-container": "#c64f00",
+                    "surface-container-high": "#e6e8f3",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "surface-container-low": "#f1f3fe",
+                    "primary-fixed": "#d8e2ff",
+                    "on-surface": "#181c23",
+                    "surface-variant": "#e0e2ed",
+                    "surface-container-highest": "#e0e2ed"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "element-gap": "16px",
+                    "unit": "8px",
+                    "asymmetric-offset": "12px",
+                    "section-margin": "40px",
+                    "container-padding": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "caption": ["Playfair Display"],
+                    "label-bold": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "hero-temp": ["Playfair Display"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuADpZ8CXhxcpXXsLrjVrPvY5W3DaR4ztItAfewVIt92mPcXNHNW29gYSsAdDDG6Iw104BRwc735rBAHDVV19qO50_TkI73wzuHPuNoQ1GpT9H19IdtaKg-iHBM9PDy2cVU9tC0HgY9jfhPakugRf2kREsUm2IiONvlLlaYZ7d3liNA0q9g35Je1zqAcr6GlDvaA03cwHr1aw6SJ9MDnWogX7NxbII31IpOB4NrnHzKDTLH9Jd0a6UDt);
+    z-index: 10
+    }
+.bouncy-switch {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)
+    }
+.checklist-accent::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 2px;
+    background: #0058bc;
+    opacity: 0.2
+    }
+.nav-item-active {
+    transform: translatex(8px)
+    }</style>
+</head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">Aether Weather</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-label-bold text-on-surface-variant hover:text-primary transition-colors" href="#">Forecasts</a>
+<a class="font-label-bold text-on-surface-variant hover:text-primary transition-colors" href="#">Destinations</a>
+<a class="font-label-bold text-primary border-b-2 border-primary pb-1" href="#">Account</a>
+<div class="relative group">
+<span class="material-symbols-outlined text-primary cursor-pointer text-[28px]" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="pt-32 pb-section-margin px-container-padding max-w-7xl mx-auto relative">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-section-margin">
+<!-- Left Column: Navigation -->
+<aside class="md:col-span-4 lg:col-span-3 space-y-element-gap">
+<div class="mb-element-gap">
+<h1 class="font-headline-lg text-headline-lg mb-2">Settings</h1>
+<p class="font-body-md text-on-surface-variant opacity-70">Personalize your journey.</p>
+</div>
+<nav class="flex flex-col gap-2">
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group nav-item-active text-primary font-bold bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-body-md">Account</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="straighten">straighten</span>
+<span class="font-body-md">Units</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-body-md">Notifications</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span class="font-body-md">Theme</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+<span class="font-body-md">Privacy</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+<span class="font-body-md">Language</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-body-md">Location</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="devices">devices</span>
+<span class="font-body-md">Connected Devices</span>
+</button>
+<button class="flex items-center gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-surface-container-low group text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span class="font-body-md">Security</span>
+</button>
+</nav>
+</aside>
+<!-- Right Column: Content -->
+<section class="md:col-span-8 lg:col-span-9 space-y-section-margin">
+<!-- Account Profile Card -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-container-padding shadow-[0px_40px_40px_rgba(76,74,202,0.04)] checklist-accent">
+<div class="grain-overlay"></div>
+<div class="relative z-20 flex flex-col md:flex-row items-start gap-8">
+<div class="w-32 h-32 rounded-full border-4 border-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-end editorial portrait of a professional traveler in their late 20s. They are standing against a softly blurred, bright architectural background in Scandinavia. The lighting is high-key and soft, with a palette of whites and cool blues. The aesthetic is clean, minimalist, and emphasizes precision and clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU5bZ6Nir-xcC-qR5QkAhqYWzSfo5gqokb53em5lsTcDC-cQclhyRXk_-mvCje8cjTRhqShI_Xm-OJ3q1RtVSwJe15q2uPqD9UaQpeTWsQMjPlGssueN0IS9Uh3oYi071CSy1pGN0Eh7VKd-Uok8n5sHmGo7YRALURNWQJKFavlANWlPNEc5A2NASTjD0pEtlaFv_tYT9-iNxKa5i0WN_5IBg_bksO8Lofe4JO6scqfC9BWSkMNHMU"/>
+</div>
+<div class="flex-grow">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md">Julian Aether</h2>
+<p class="font-body-md text-on-surface-variant">Global Explorer &amp; Meteorologist</p>
+</div>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-label-bold hover:shadow-lg hover:scale-105 transition-all duration-300">Edit Profile</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/10">
+<p class="font-label-bold text-primary mb-1">EMAIL</p>
+<p class="font-body-md font-semibold">julian@aether.travel</p>
+</div>
+<div class="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/10">
+<p class="font-label-bold text-primary mb-1">MEMBER SINCE</p>
+<p class="font-body-md font-semibold">March 2022</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feature Toggles Group -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-element-gap">
+<!-- Notifications Card -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-[0px_40px_40px_rgba(76,74,202,0.04)] relative">
+<div class="grain-overlay"></div>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px]">Push Notifications</h3>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-container bouncy-switch"></div>
+</label>
+</div>
+<p class="font-body-md text-on-surface-variant opacity-70 mb-4">Receive real-time alerts for severe weather and packing checklist reminders based on your departure time.</p>
+<div class="space-y-3 pt-4 border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-caption font-label-bold uppercase tracking-wider text-on-surface-variant">
+<span>Storm Alerts</span>
+<span class="text-primary">High Priority</span>
+</div>
+</div>
+</div>
+<!-- Theme Card -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-[0px_40px_40px_rgba(76,74,202,0.04)] relative">
+<div class="grain-overlay"></div>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px]">Dark Mode</h3>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="dark-mode-toggle" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-secondary bouncy-switch"></div>
+</label>
+</div>
+<p class="font-body-md text-on-surface-variant opacity-70 mb-4">Switch to a high-contrast dark palette designed for low-light environments and overnight commutes.</p>
+<div class="flex gap-2">
+<div class="px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">OLED Optimized</div>
+</div>
+</div>
+<!-- Location Services -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-3xl p-8 shadow-[0px_40px_40px_rgba(76,74,202,0.04)] relative overflow-hidden">
+<div class="grain-overlay"></div>
+<div class="flex flex-col md:flex-row gap-8 relative z-20">
+<div class="md:w-1/2">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="share_location">share_location</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px]">Location Services</h3>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-8 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-container bouncy-switch"></div>
+</label>
+</div>
+<p class="font-body-md text-on-surface-variant mb-6">Aether uses your location to provide micro-climate updates and precision transit timing. We never sell your movement data to third parties.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-4 p-4 rounded-2xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary" data-icon="my_location">my_location</span>
+<div>
+<p class="font-label-bold">CURRENT ACCURACY</p>
+<p class="font-body-md">Precise (within 5 meters)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 h-64 md:h-auto rounded-2xl overflow-hidden relative border border-outline-variant/20 shadow-inner">
+<div class="w-full h-full bg-cover bg-center" data-alt="A minimalist digital map of a city like Paris or Tokyo, rendered in a sophisticated editorial style. The map uses a palette of soft greys, whites, and subtle indigo accents. A single vibrant blue pulsating dot represents a location. The map is clean, lacking typical dense labels, focusing on the geometry of the urban layout." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqCea7D9JQZ7icaKi_yFIxHBqQCBQYAxSSRDDDadm3vSiG3GIqE7rQP7HYD6NdyJdpU8ocQ9W3R7I7-Fh9vvK3IA9nkaOCff1hrJA1b4Zt57XDYAku68OBT35NiMaFX_qoUrPWD8SzVpof8tOeDmd9uM8iJI-ttUOOEXut-e9OCbhCU9mUoUkprFTfdrCPUVJrGYid2DsD0de77RmYyJx661ZP-l4vpcJ3Cwjtsk639SbvhGXDIprz')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/40 to-transparent"></div>
+<div class="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/50 text-[12px] font-bold text-primary shadow-sm">
+                                    Live Tracking Active
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone / Bottom Actions -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-section-margin">
+<div class="space-y-1">
+<h4 class="font-headline-md text-[18px] text-error">Security &amp; Privacy</h4>
+<p class="font-body-md text-on-surface-variant opacity-60">Manage your data and account deletion.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 rounded-full border border-outline text-on-surface-variant font-label-bold hover:bg-surface-container hover:text-on-surface transition-all">Sign Out</button>
+<button class="px-8 py-3 rounded-full bg-error-container text-on-error-container font-label-bold hover:bg-error hover:text-on-error transition-all hover:shadow-xl active:scale-95">Delete Account</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/20 w-full py-section-margin">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-element-gap px-container-padding max-w-7xl mx-auto">
+<div>
+<div class="font-headline-md italic text-primary mb-4">Aether Weather</div>
+<p class="font-body-md text-on-surface-variant max-w-xs">Precision weather data for the discerning traveler. Travel with precision, pack with confidence.</p>
+</div>
+<div class="flex flex-col md:items-end justify-between">
+<div class="flex flex-wrap gap-6 mb-8">
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Forecasts</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Packing Lists</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Destinations</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy</a>
+<a class="font-body-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Support</a>
+</div>
+<p class="font-body-md text-on-surface-variant opacity-50">© 2024 Aether Weather. Travel with Precision.</p>
+</div>
+</div>
+</footer>
+<!-- FAB Action (Contextual) -->
+<div class="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-50">
+<button class="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0px_20px_40px_rgba(0,88,188,0.3)] hover:scale-110 active:scale-90 transition-all duration-300">
+<span class="material-symbols-outlined text-[32px]" data-icon="chat_bubble">chat_bubble</span>
+</button>
+</div>
+<script>
+        // Simple dark mode toggle visual feedback
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.documentElement.classList.add('dark');
+                // In a real app, this would persist and change colors
+                console.log('Dark mode requested (visual prototype)');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Add subtle parallax to grain or surfaces on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const surfaces = document.querySelectorAll('.rounded-3xl');
+            const x = (e.clientX - window.innerWidth / 2) / 50;
+            const y = (e.clientY - window.innerHeight / 2) / 50;
+            
+            surfaces.forEach(surface => {
+                // Apply very subtle shift for organic feel
+                surface.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+        });
+
+        // Smooth nav switching visual
+        const navButtons = document.querySelectorAll('nav button');
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => {
+                    b.classList.remove('nav-item-active', 'text-primary', 'font-bold', 'bg-surface-container-low');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('nav-item-active', 'text-primary', 'font-bold', 'bg-surface-container-low');
+                btn.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

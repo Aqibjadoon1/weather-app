@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Stockholm</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#fefcff",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "inverse-on-surface": "#eef0fc",
+                    "inverse-primary": "#adc6ff",
+                    "tertiary": "#9e3d00",
+                    "on-surface": "#181c23",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#351000",
+                    "outline-variant": "#c1c6d7",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "tertiary-container": "#c64f00",
+                    "primary": "#0058bc",
+                    "on-tertiary-container": "#fffbff",
+                    "secondary": "#4c4aca",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "outline": "#717786",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#414755",
+                    "surface-container-highest": "#e0e2ed",
+                    "primary-container": "#0070eb",
+                    "surface-bright": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e0e2ed",
+                    "tertiary-fixed": "#ffdbcc",
+                    "inverse-surface": "#2d3039",
+                    "on-background": "#181c23",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-high": "#e6e8f3",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "secondary-container": "#6664e4",
+                    "on-primary-fixed": "#001a41",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ecedf9",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9ff",
+                    "on-primary-fixed-variant": "#004493",
+                    "surface-dim": "#d8d9e5",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f1f3fe",
+                    "primary-fixed": "#d8e2ff",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#005bc1",
+                    "secondary-fixed": "#e2dfff",
+                    "surface": "#f9f9ff",
+                    "on-secondary-fixed": "#0c006a",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "element-gap": "16px",
+                    "asymmetric-offset": "12px",
+                    "unit": "8px",
+                    "container-padding": "24px",
+                    "section-margin": "40px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-bold": ["Inter"],
+                    "hero-temp": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "caption": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .grain-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 80px -20px rgba(76, 74, 202, 0.04);
+        }
+        .bouncy-hover {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bouncy-hover:hover {
+            transform: scale(1.02) translateY(-4px);
+        }
+        .parallax-container {
+            perspective: 1000px;
+        }
+        .parallax-layer {
+            transition: transform 0.1s ease-out;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .mask-fade-right {
+            mask-image: linear-gradient(to right, black 80%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-sm opacity-90">
+<nav class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="text-headline-md font-headline-md tracking-tighter text-primary">Aether Weather</div>
+<div class="hidden md:flex gap-element-gap items-center">
+<a class="text-primary border-b-2 border-primary font-label-bold text-label-bold px-2 py-1" href="#">Forecast</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-bold text-label-bold px-2 py-1" href="#">Packing</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-bold text-label-bold px-2 py-1" href="#">Explore</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary transition-all active:scale-95 duration-200">account_circle</button>
+<button class="material-symbols-outlined text-primary transition-all active:scale-95 duration-200">settings</button>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding pb-32">
+<!-- Hero Section: Dynamic Atmosphere -->
+<section class="relative min-h-[70vh] flex flex-col justify-end py-section-margin overflow-hidden rounded-[2rem] mt-4 mb-section-margin parallax-container">
+<!-- STITCH_SHADER_START:ANIMATION_25 class="absolute inset-0 w-full h-full opacity-60" -->
+<div class="absolute inset-0 w-full h-full opacity-60" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_25" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_25');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec3 skyTop = vec3(0.0, 0.48, 1.0); // Primary Blue
+    vec3 skyBottom = vec3(0.97, 0.98, 1.0); // Light Surface
+    float n = snoise(uv * 1.0 + u_time * 0.03);
+    vec3 color = mix(skyBottom, skyTop, uv.y + n * 0.1);
+    float cloud = snoise(uv * 1.2 + vec2(u_time * 0.02, 0.0));
+    cloud = smoothstep(0.4, 1.0, cloud);
+    color = mix(color, vec3(1.0), cloud * 0.4);
+    float dist = distance(uv, vec2(0.8, 0.8));
+    float glow = smoothstep(0.8, 0.0, dist);
+    color += vec3(1.0, 0.85, 0.4) * glow * 0.2;
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_25 -->
+<!-- STITCH_THREEJS_START:ANIMATION_26 class="absolute right-0 top-0 w-1/2 h-full z-10 opacity-80 pointer-events-none" -->
+<div class="absolute right-0 top-0 w-1/2 h-full z-10 opacity-80 pointer-events-none" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_26" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_26');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  container.appendChild(renderer.domElement);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+  const pointLight = new THREE.PointLight(0xffcc33, 2, 50);
+  pointLight.position.set(5, 5, 2);
+  scene.add(pointLight);
+
+  const sunGroup = new THREE.Group();
+  const sunGeo = new THREE.SphereGeometry(1, 64, 64);
+  const sunMat = new THREE.MeshPhongMaterial({ 
+      color: 0xffdd44, 
+      emissive: 0xffaa00,
+      emissiveIntensity: 0.6,
+      shininess: 100 
+  });
+  const sun = new THREE.Mesh(sunGeo, sunMat);
+  sunGroup.add(sun);
+
+  const raysGroup = new THREE.Group();
+  for(let i=0; i<16; i++) {
+      const rayGeo = new THREE.CylinderGeometry(0.01, 0.08, 1.6, 8);
+      const rayMat = new THREE.MeshPhongMaterial({ color: 0xffcc33, transparent: true, opacity: 0.4 });
+      const ray = new THREE.Mesh(rayGeo, rayMat);
+      const angle = (i / 16) * Math.PI * 2;
+      ray.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, 0);
+      ray.rotation.z = angle + Math.PI/2;
+      raysGroup.add(ray);
+  }
+  sunGroup.add(raysGroup);
+  sunGroup.position.set(width > 768 ? 4 : 0, 3, -5);
+  scene.add(sunGroup);
+
+  const birds = [];
+  function createBird() {
+      const b = new THREE.Group();
+      const w = new THREE.PlaneGeometry(0.3, 0.08);
+      const m = new THREE.MeshBasicMaterial({ color: 0x111111, side: THREE.DoubleSide });
+      const lw = new THREE.Mesh(w, m); const rw = lw.clone();
+      lw.position.x = -0.15; rw.position.x = 0.15;
+      b.add(lw, rw);
+      b.position.set(-15 - Math.random() * 10, 2 + Math.random() * 4, -6);
+      scene.add(b);
+      return { mesh: b, lw, rw, speed: 0.02 + Math.random() * 0.05, phase: Math.random() * Math.PI };
+  }
+  for(let i=0; i<5; i++) birds.push(createBird());
+
+  const particlesCount = 200;
+  const posArray = new Float32Array(particlesCount * 3);
+  const vels = [];
+  for(let i=0; i<particlesCount; i++) {
+      posArray[i*3] = (Math.random() - 0.5) * 30;
+      posArray[i*3+1] = (Math.random() - 0.5) * 20;
+      posArray[i*3+2] = (Math.random() - 0.5) * 10;
+      vels.push({ x: 0.01 + Math.random() * 0.04, y: (Math.random() - 0.5) * 0.02, phase: Math.random() * Math.PI * 2 });
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+  const mat = new THREE.PointsMaterial({ size: 0.06, color: 0xffffff, transparent: true, opacity: 0.4 });
+  const wind = new THREE.Points(geo, mat);
+  scene.add(wind);
+
+  camera.position.z = 10;
+
+  function animate() {
+      requestAnimationFrame(animate);
+      const time = Date.now() * 0.001;
+      sunGroup.rotation.z += 0.002;
+      sun.scale.setScalar(1 + Math.sin(time * 1.5) * 0.03);
+      birds.forEach(b => {
+          b.mesh.position.x += b.speed;
+          b.mesh.position.y += Math.sin(time + b.phase) * 0.005;
+          const flap = Math.sin(time * 8 + b.phase) * 0.5;
+          b.lw.rotation.z = flap; b.rw.rotation.z = -flap;
+          if(b.mesh.position.x > 15) b.mesh.position.x = -15;
+      });
+      const p = wind.geometry.attributes.position.array;
+      for(let i=0; i<particlesCount; i++) {
+          p[i*3] += vels[i].x;
+          if(p[i*3] > 15) p[i*3] = -15;
+      }
+      wind.geometry.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+  });
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_26 -->
+<div class="relative z-20 flex flex-col items-start p-10 md:p-16">
+<span class="text-label-bold font-label-bold uppercase tracking-widest text-primary mb-2">Current Location</span>
+<h1 class="font-hero-temp text-headline-lg-mobile md:text-hero-temp text-on-surface mb-4 leading-none tracking-tight">Stockholm</h1>
+<div class="flex flex-wrap items-end gap-8 mt-6">
+<div class="flex flex-col">
+<span class="font-hero-temp text-hero-temp leading-none text-primary">18°C</span>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">cloud</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant">Partly Cloudy</span>
+</div>
+</div>
+<div class="flex flex-col border-l border-outline-variant pl-8 pb-4">
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase">Feels Like</span>
+<span class="font-headline-md text-headline-md text-on-surface">16°C</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Metrics Bento Grid (8 cols) -->
+<div class="lg:col-span-8 space-y-section-margin">
+<!-- Metrics Grid: Asymmetrical Rhythm -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Humidity Card -->
+<div class="bg-surface-container-low rounded-3xl p-6 editorial-shadow bouncy-hover relative overflow-hidden group">
+<div class="grain-texture absolute inset-0"></div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block mb-6">HUMIDITY</span>
+<div class="flex items-center justify-between">
+<span class="font-headline-lg text-headline-lg text-secondary">45%</span>
+<div class="w-12 h-12 rounded-full border-4 border-secondary/20 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full border-4 border-secondary border-t-transparent animate-spin duration-[3s]" style="clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);"></div>
+</div>
+</div>
+</div>
+<!-- Wind Card -->
+<div class="bg-surface-container rounded-3xl p-6 editorial-shadow bouncy-hover relative overflow-hidden">
+<div class="grain-texture absolute inset-0"></div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block mb-6">WIND</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">12 <small class="text-body-md font-normal">km/h</small></span>
+<div class="mt-4 flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined animate-pulse">navigation</span>
+<span class="text-label-bold font-label-bold">NE</span>
+</div>
+</div>
+</div>
+<!-- UV Card -->
+<div class="bg-surface-container-highest rounded-3xl p-6 editorial-shadow bouncy-hover relative overflow-hidden">
+<div class="grain-texture absolute inset-0"></div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block mb-6">UV INDEX</span>
+<div class="flex flex-col gap-2">
+<span class="font-headline-lg text-headline-lg text-tertiary">Low</span>
+<div class="h-1.5 w-full bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+<!-- Visibility & AQI (Spanning 2 cols) -->
+<div class="col-span-2 bg-surface-bright rounded-3xl p-6 editorial-shadow bouncy-hover relative overflow-hidden border border-outline-variant/30">
+<div class="grain-texture absolute inset-0"></div>
+<div class="grid grid-cols-2 gap-8">
+<div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block mb-2">VISIBILITY</span>
+<span class="font-headline-md text-headline-md text-on-surface">10 <span class="text-body-md">km</span></span>
+<p class="text-caption font-caption text-on-surface-variant mt-2">Clear horizon view</p>
+</div>
+<div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block mb-2">AIR QUALITY</span>
+<span class="font-headline-md text-headline-md text-on-surface">Excellent</span>
+<div class="mt-2 flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-caption font-caption text-primary">Healthy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Moon Card -->
+<div class="bg-primary-container text-on-primary-container rounded-3xl p-6 editorial-shadow bouncy-hover relative overflow-hidden">
+<span class="text-label-bold font-label-bold opacity-80 block mb-6">MOON PHASE</span>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-4xl mb-2" style="font-variation-settings: 'opsz' 48;">brightness_3</span>
+<span class="font-label-bold text-label-bold">Waning Crescent</span>
+</div>
+</div>
+</div>
+<!-- Forecast Horizontal Scroll -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-md text-headline-md">7-Day Forecast</h2>
+<button class="text-primary font-label-bold text-label-bold hover:underline">View Details</button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-8 mask-fade-right -mx-2 px-2">
+<!-- Mon -->
+<div class="min-w-[140px] bg-surface rounded-2xl p-6 editorial-shadow border border-outline-variant/20 flex flex-col items-center bouncy-hover flex-shrink-0">
+<span class="text-label-bold font-label-bold text-on-surface-variant">MON</span>
+<span class="material-symbols-outlined text-primary my-4" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+<span class="font-headline-md text-headline-md">22°</span>
+<span class="text-caption font-caption opacity-60">12°</span>
+</div>
+<!-- Tue -->
+<div class="min-w-[140px] bg-primary-fixed text-on-primary-fixed rounded-2xl p-6 editorial-shadow flex flex-col items-center bouncy-hover flex-shrink-0">
+<span class="text-label-bold font-label-bold">TUE</span>
+<span class="material-symbols-outlined my-4" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+<span class="font-headline-md text-headline-md">19°</span>
+<span class="text-caption font-caption opacity-60">14°</span>
+</div>
+<!-- Wed -->
+<div class="min-w-[140px] bg-surface rounded-2xl p-6 editorial-shadow border border-outline-variant/20 flex flex-col items-center bouncy-hover flex-shrink-0">
+<span class="text-label-bold font-label-bold text-on-surface-variant">WED</span>
+<span class="material-symbols-outlined text-secondary my-4" style="font-variation-settings: 'FILL' 1;">rainy</span>
+<span class="font-headline-md text-headline-md">16°</span>
+<span class="text-caption font-caption opacity-60">10°</span>
+</div>
+<!-- Thu -->
+<div class="min-w-[140px] bg-surface rounded-2xl p-6 editorial-shadow border border-outline-variant/20 flex flex-col items-center bouncy-hover flex-shrink-0">
+<span class="text-label-bold font-label-bold text-on-surface-variant">THU</span>
+<span class="material-symbols-outlined text-primary my-4" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+<span class="font-headline-md text-headline-md">24°</span>
+<span class="text-caption font-caption opacity-60">15°</span>
+</div>
+<!-- Fri -->
+<div class="min-w-[140px] bg-surface rounded-2xl p-6 editorial-shadow border border-outline-variant/20 flex flex-col items-center bouncy-hover flex-shrink-0">
+<span class="text-label-bold font-label-bold text-on-surface-variant">FRI</span>
+<span class="material-symbols-outlined text-primary my-4" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+<span class="font-headline-md text-headline-md">25°</span>
+<span class="text-caption font-caption opacity-60">16°</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Contextual Modules (4 cols) -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Sunrise/Sunset Card -->
+<div class="bg-surface-container-high rounded-[2.5rem] p-8 editorial-shadow relative overflow-hidden">
+<div class="grain-texture absolute inset-0"></div>
+<div class="flex justify-between items-center mb-8">
+<div>
+<span class="text-label-bold font-label-bold text-on-surface-variant block">SUNRISE</span>
+<span class="font-headline-md text-headline-md">04:12</span>
+</div>
+<div class="text-right">
+<span class="text-label-bold font-label-bold text-on-surface-variant block">SUNSET</span>
+<span class="font-headline-md text-headline-md">21:45</span>
+</div>
+</div>
+<!-- Visual Arc -->
+<div class="relative h-24 w-full flex items-center justify-center">
+<div class="absolute inset-0 border-t-2 border-dashed border-outline rounded-[100%] opacity-20"></div>
+<div class="w-4 h-4 bg-tertiary-fixed-dim rounded-full shadow-[0_0_15px_rgba(255,181,149,0.5)] absolute left-1/4 top-0 -translate-y-1/2"></div>
+</div>
+</div>
+<!-- Packing Companion: Editorial Checklist -->
+<div class="bg-white rounded-[2.5rem] p-8 editorial-shadow relative overflow-hidden border-l-4 border-primary">
+<div class="grain-texture absolute inset-0"></div>
+<h3 class="font-headline-md text-headline-md mb-6">What to Wear</h3>
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-2xl overflow-hidden flex-shrink-0 p-2">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="A stylish, minimalist light beige trench coat photograph in a high-end editorial fashion style. The lighting is soft and natural, emphasizing the texture of the fabric. It is set against a clean, off-white background with a cool blue accent shadow to match a modern light-mode weather app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg5C4VT4dUi2Ty314AZ4Dn2biVat_B1WeoDhEbcn_AaUIO9n9qGIA5UXxkvPcy9BHXa_3E0r1RjwE_wagXY66KVUxIAlvzEvg5ilUhu7BKGKCu61TCL-h3HeOBBdIV0Ggb-8u1X7AC-RRBKt7ERnOLTPco4kYu8NQ7mt_tGnV19t8dUPcKaIiClqseyTXNlwJDzptixhpouOKX1NJC_B_WZuvjNfvhXtpXu7ZZawKCKSWythRIPCRz"/>
+</div>
+<div>
+<span class="font-body-md font-medium text-on-surface block">Light Trench Coat</span>
+<span class="text-caption font-caption text-on-surface-variant">Ideal for the 18°C breeze</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline-variant group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-2xl overflow-hidden flex-shrink-0 p-2">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="Close up studio shot of premium dark brown leather boots on a minimalist white surface. The photography style is editorial and sharp with soft shadows. The color palette is warm but grounded in a clean, airy digital interface design with sky blue highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj4HpkasOGxGYeJTUEcBXclFT1u3AELpHiezLh4RaNHlF7Ov_Y2Aopgk2XnczsL-0ADkUcfuhdUnXFT_zGoKCFaXzOw-61Soq0Nv1qFmzRZY__VwLGe4DQtqgdMZmstFDjgBPSu3TZNyJRsHnVccaQYZwPKvxj2bNls1p8bOudkgUpUvvTV0XsQCiuRbnt4VSrE13PRLrNzenNAQwO-jVHj6fc5e2460WDqpqhRDRlal1uZb2BP7C6"/>
+</div>
+<div>
+<span class="font-body-md font-medium text-on-surface block">Leather Boots</span>
+<span class="text-caption font-caption text-on-surface-variant">Walk-ready for city paths</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline-variant group-hover:text-primary transition-colors">check_circle</span>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-16 h-16 bg-surface-container rounded-2xl overflow-hidden flex-shrink-0 p-2">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="A delicate silk scarf with an abstract indigo and sky blue pattern, draped elegantly on a white marble surface. High-key lighting and a high-end fashion magazine aesthetic. Perfect for a luxury travel and weather application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQU6vDqqu2D5zv1l2Btg3Ee2Hk-iz6c48jGJKpCgF-oRny-V_Kzr2QNULAhSm4BK_uRGNzeG34dOB8z4csRT9CHuRm5iZD16RvBKyHcT1WMkEjT2nUHSkXug0xd6SHhTk1au4WgXyIxv37h-vIcyofjH97yxiZzR6VVITWve3WPBTHUGo5F0U0o8WdENKX37bG9eagXhH4Dm-o7KOcp8IOvieUHOxO2mu4o1eBUgGEz9sn2VGG_Lor"/>
+</div>
+<div>
+<span class="font-body-md font-medium text-on-surface block">Silk Scarf</span>
+<span class="text-caption font-caption text-on-surface-variant">Extra warmth for the evening</span>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline-variant group-hover:text-primary transition-colors">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Saved Cities Module -->
+<div class="bg-surface-dim rounded-3xl p-6">
+<h3 class="text-label-bold font-label-bold text-on-surface-variant uppercase mb-4">Saved Cities</h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center p-3 bg-surface-container-lowest rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer group">
+<span class="font-body-md font-medium">London</span>
+<span class="font-headline-md text-headline-md group-hover:text-on-primary-container">14°</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-lowest rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer group">
+<span class="font-body-md font-medium">Paris</span>
+<span class="font-headline-md text-headline-md group-hover:text-on-primary-container">21°</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-lowest rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all cursor-pointer group">
+<span class="font-body-md font-medium">New York</span>
+<span class="font-headline-md text-headline-md group-hover:text-on-primary-container">28°</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-tertiary-container text-on-tertiary-container rounded-full shadow-2xl flex items-center justify-center z-50 transition-transform active:scale-90 animate-spring hover:scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'opsz' 40;">add</span>
+</button>
+<!-- Bottom Nav Bar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-surface-container-low/90 backdrop-blur-2xl rounded-t-xl shadow-[0_-4px_40px_rgba(76,74,202,0.04)]">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-2 scale-110 transition-transform">
+<span class="material-symbols-outlined">cloud</span>
+<span class="font-label-bold text-label-bold">Forecast</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">luggage</span>
+<span class="font-label-bold text-label-bold">Packing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-bold text-label-bold">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-bold text-label-bold">Profile</span>
+</div>
+</nav>
+<!-- Footer -->
+<footer class="bg-surface border-t border-outline-variant w-full py-10 mt-section-margin">
+<div class="max-w-7xl mx-auto px-container-padding flex flex-col md:flex-row justify-between items-center gap-element-gap">
+<div class="font-hero-temp text-headline-md text-primary">Aether Weather</div>
+<div class="flex gap-6 text-on-surface-variant font-body-md">
+<a class="hover:text-primary transition-all" href="#">Privacy</a>
+<a class="hover:text-primary transition-all" href="#">Terms</a>
+<a class="hover:text-primary transition-all" href="#">Support</a>
+<a class="hover:text-primary transition-all" href="#">Press</a>
+</div>
+<div class="text-on-surface-variant text-body-md">© 2024 Aether Weather Editorial. All rights reserved.</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions & Parallax logic
+        document.addEventListener('mousemove', (e) => {
+            const parallaxLayers = document.querySelectorAll('.parallax-layer');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            parallaxLayers.forEach(layer => {
+                layer.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        });
+
+        // Simple smooth scroll for forecast
+        const forecastContainer = document.querySelector('.overflow-x-auto');
+        if (forecastContainer) {
+            forecastContainer.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                forecastContainer.scrollLeft += evt.deltaY;
+            });
+        }
+    </script>
+</body></html>

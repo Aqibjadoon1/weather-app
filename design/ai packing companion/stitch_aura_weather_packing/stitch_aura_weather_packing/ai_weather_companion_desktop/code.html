@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | AI Companion</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container": "#ecedf9",
+                "on-primary-fixed-variant": "#004493",
+                "on-background": "#181c23",
+                "on-surface": "#181c23",
+                "on-primary-container": "#fefcff",
+                "error-container": "#ffdad6",
+                "secondary-fixed-dim": "#c2c1ff",
+                "primary-container": "#0070eb",
+                "tertiary-container": "#c64f00",
+                "primary-fixed": "#d8e2ff",
+                "background": "#f9f9ff",
+                "on-tertiary-fixed": "#351000",
+                "on-tertiary-container": "#fffbff",
+                "on-primary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed-variant": "#3631b4",
+                "surface-container-lowest": "#ffffff",
+                "inverse-surface": "#2d3039",
+                "surface-container-low": "#f1f3fe",
+                "on-tertiary": "#ffffff",
+                "surface-variant": "#e0e2ed",
+                "on-tertiary-fixed-variant": "#7c2e00",
+                "outline-variant": "#c1c6d7",
+                "on-surface-variant": "#414755",
+                "on-error-container": "#93000a",
+                "surface-tint": "#005bc1",
+                "on-primary-fixed": "#001a41",
+                "outline": "#717786",
+                "tertiary": "#9e3d00",
+                "on-secondary-container": "#fffbff",
+                "tertiary-fixed": "#ffdbcc",
+                "surface-container-high": "#e6e8f3",
+                "surface-bright": "#f9f9ff",
+                "inverse-primary": "#adc6ff",
+                "primary-fixed-dim": "#adc6ff",
+                "secondary-container": "#6664e4",
+                "primary": "#0058bc",
+                "inverse-on-surface": "#eef0fc",
+                "surface-dim": "#d8d9e5",
+                "on-secondary-fixed": "#0c006a",
+                "tertiary-fixed-dim": "#ffb595",
+                "surface-container-highest": "#e0e2ed",
+                "secondary-fixed": "#e2dfff",
+                "on-error": "#ffffff",
+                "surface": "#f9f9ff",
+                "secondary": "#4c4aca",
+                "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "section-margin": "40px",
+                "element-gap": "16px",
+                "asymmetric-offset": "12px",
+                "container-padding": "24px",
+                "unit": "8px"
+            },
+            "fontFamily": {
+                "hero-temp": ["Playfair Display"],
+                "caption": ["Playfair Display"],
+                "headline-md": ["Playfair Display"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Playfair Display"],
+                "headline-lg": ["Playfair Display"],
+                "label-bold": ["Inter"]
+            },
+            "fontSize": {
+                "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .grain-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .atmosphere-gradient {
+            background: linear-gradient(180deg, #F9F9FF 0%, #D8E2FF 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 40px 60px -15px rgba(76, 74, 202, 0.04);
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .bouncy-hover {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .bouncy-hover:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+
+        .notebook-margin {
+            position: relative;
+        }
+        .notebook-margin::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 10%;
+            bottom: 10%;
+            width: 2px;
+            background: rgba(0, 88, 188, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">Aether Weather</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform duration-200">account_circle</span>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="relative pt-24 pb-section-margin min-h-screen atmosphere-gradient overflow-hidden">
+<div class="grain-texture absolute inset-0 z-0"></div>
+<!-- 3D Companion Layer (Aura) -->
+<div class="absolute inset-0 z-10 pointer-events-none md:flex md:justify-center lg:justify-end lg:pr-24 lg:pt-24">
+<div class="w-full h-[60vh] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] pointer-events-auto">
+
+</div>
+</div>
+<div class="relative z-20 max-w-7xl mx-auto px-container-padding">
+<!-- Hero Title & Wisdom -->
+<section class="mb-section-margin max-w-2xl">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4 text-on-surface">Good Morning, Traveler.</h1>
+<div class="glass-card p-container-padding rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div class="flex flex-col gap-2 notebook-margin pl-8">
+<span class="font-label-bold text-primary uppercase tracking-widest">Daily Wisdom</span>
+<p class="font-headline-md text-headline-md italic leading-tight text-on-surface-variant">
+                            "The sky is feeling a bit dramatic today. Pack an umbrella not because of the rain, but because it's a great defensive tool against over-enthusiastic pigeons."
+                        </p>
+</div>
+</div>
+</section>
+<!-- Recommendation Cards Grid (Asymmetric Layout) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-element-gap items-start">
+<!-- Card 1: Sunglasses -->
+<div class="glass-card p-6 rounded-xl float-animation bouncy-hover group" style="animation-delay: 0.2s;">
+<div class="flex flex-col gap-4">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary-fixed-dim shadow-inner">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">dark_mode</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Solar Filters</h3>
+<p class="font-body-md text-on-surface-variant">Sunglasses: Because the sun is currently acting like a diva and needs to be filtered through dark plastic. Don't let it win.</p>
+</div>
+<div class="mt-2">
+<button class="bg-primary text-on-primary font-label-bold px-6 py-3 rounded-full hover:shadow-lg transition-shadow active:scale-95 duration-200">
+                                Packing List +
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 2: Umbrella -->
+<div class="glass-card p-6 rounded-xl float-animation bouncy-hover group md:mt-asymmetric-offset" style="animation-delay: 0.8s;">
+<div class="flex flex-col gap-4">
+<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-inner">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">umbrella</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Portable Roof</h3>
+<p class="font-body-md text-on-surface-variant">The clouds are holding a meeting and water might be the main agenda item. Bring your own handheld shelter just in case.</p>
+</div>
+<div class="mt-2">
+<button class="bg-primary text-on-primary font-label-bold px-6 py-3 rounded-full hover:shadow-lg transition-shadow active:scale-95 duration-200">
+                                Packing List +
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 3: SPF -->
+<div class="glass-card p-6 rounded-xl float-animation bouncy-hover group md:col-span-2 lg:col-span-1 lg:-mt-asymmetric-offset" style="animation-delay: 0.5s;">
+<div class="flex flex-col gap-4">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">sanitizer</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Invisible Shield</h3>
+<p class="font-body-md text-on-surface-variant">SPF 50: Apply generously unless you are aiming for that 'overcooked lobster' aesthetic this season. Aura recommends the glow, not the burn.</p>
+</div>
+<div class="mt-2">
+<button class="bg-primary text-on-primary font-label-bold px-6 py-3 rounded-full hover:shadow-lg transition-shadow active:scale-95 duration-200">
+                                Packing List +
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 4: Forecast Glance -->
+<div class="glass-card p-8 rounded-xl md:col-span-2 flex flex-col md:flex-row gap-8 items-center border-primary/20">
+<div class="flex-1 flex flex-col items-center md:items-start">
+<span class="font-hero-temp text-hero-temp text-primary">72°</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant -mt-4 italic">Mostly Sassy Skies</span>
+</div>
+<div class="w-full md:w-auto grid grid-cols-4 gap-4">
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container-low">
+<span class="font-label-bold text-primary">MON</span>
+<span class="material-symbols-outlined py-2 text-secondary">sunny</span>
+<span class="font-label-bold">75°</span>
+</div>
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container-low">
+<span class="font-label-bold text-primary">TUE</span>
+<span class="material-symbols-outlined py-2 text-secondary">cloud</span>
+<span class="font-label-bold">68°</span>
+</div>
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container-low">
+<span class="font-label-bold text-primary">WED</span>
+<span class="material-symbols-outlined py-2 text-secondary">rainy</span>
+<span class="font-label-bold">64°</span>
+</div>
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container-low border border-primary/30 shadow-md">
+<span class="font-label-bold text-primary">THU</span>
+<span class="material-symbols-outlined py-2 text-secondary" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+<span class="font-label-bold">72°</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB Action -->
+<button class="fixed bottom-10 right-10 w-16 h-16 rounded-full bg-tertiary text-on-tertiary shadow-[0_20px_40px_rgba(158,61,0,0.4)] flex items-center justify-center z-50 hover:scale-110 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest py-section-margin border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-element-gap px-container-padding max-w-7xl mx-auto">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md italic text-primary">Aether Weather</span>
+<p class="font-body-md text-on-surface-variant max-w-xs">Precision weather data served with a side of personality for the modern traveler.</p>
+<p class="font-caption text-caption text-outline">© 2024 Aether Weather. Travel with Precision.</p>
+</div>
+<div class="flex flex-wrap gap-x-8 gap-y-4 items-start md:justify-end">
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Forecasts</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Packing Lists</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Destinations</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Support</a>
+</div>
+</div>
+</footer>
+<!-- Micro-interaction Script -->
+<script>
+        // Subtle mouse tracking for the glass cards
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 10;
+                const xOffset = (x - 0.5) * speed;
+                const yOffset = (y - 0.5) * speed;
+                // Only apply if not currently hovering for cleaner effect
+                if (!card.matches(':hover')) {
+                    card.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                }
+            });
+        });
+    </script>
+</body></html>

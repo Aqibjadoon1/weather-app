@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Visual Journey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Hanken+Grotesk:wght@300;400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=Libre+Caslon+Text:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "surface-container-highest": "#353434",
+                    "primary-container": "#e2e2e2",
+                    "on-surface-variant": "#c4c7c8",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-variant": "#353434",
+                    "tertiary": "#ffffff",
+                    "outline-variant": "#444748",
+                    "on-tertiary-container": "#636565",
+                    "on-primary": "#2f3131",
+                    "on-primary-fixed": "#1a1c1c",
+                    "primary-fixed": "#e2e2e2",
+                    "surface-dim": "#141313",
+                    "on-primary-fixed-variant": "#454747",
+                    "tertiary-container": "#e2e2e2",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "surface": "#141313",
+                    "on-primary-container": "#636565",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-error": "#690005",
+                    "secondary-container": "#454747",
+                    "secondary-fixed": "#e2e2e2",
+                    "surface-bright": "#3a3939",
+                    "surface-tint": "#c6c6c7",
+                    "on-secondary": "#2f3131",
+                    "primary": "#ffffff",
+                    "on-surface": "#e5e2e1",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b4b5b5",
+                    "background": "#141313",
+                    "secondary": "#c6c6c7",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary": "#2f3131",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "outline": "#8e9192",
+                    "inverse-primary": "#5d5f5f",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#2a2a2a",
+                    "on-background": "#e5e2e1",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-xl": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0e;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+        }
+        section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+        .glass-panel {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            background: rgba(20, 19, 19, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Persistent Global Header -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-unit backdrop-blur-md bg-surface/10 border-b border-white/10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-tertiary tracking-tight">Aether Weather</h1>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="search">search</span>
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+</div>
+</header>
+<!-- Background Elements -->
+<div class="fixed inset-0 z-0 opacity-40">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.1;
+    
+    // Cycle through day parts based on uv.x for a "journey" effect
+    // 0.0-0.25: Morning, 0.25-0.5: Afternoon, 0.5-0.75: Evening, 0.75-1.0: Night
+    
+    vec3 morningTop = vec3(1.0, 0.7, 0.5); // Peach
+    vec3 morningBot = vec3(1.0, 0.9, 0.8);
+    
+    vec3 noonTop = vec3(0.1, 0.5, 0.9); // Blue
+    vec3 noonBot = vec3(0.7, 0.9, 1.0);
+    
+    vec3 sunsetTop = vec3(0.4, 0.1, 0.6); // Violet
+    vec3 sunsetBot = vec3(1.0, 0.5, 0.3); // Orange
+    
+    vec3 nightTop = vec3(0.02, 0.05, 0.1); // Deep Navy
+    vec3 nightBot = vec3(0.05, 0.1, 0.2);
+    
+    vec3 top, bot;
+    
+    if (uv.x < 0.25) {
+        float t = uv.x / 0.25;
+        top = morningTop; bot = morningBot;
+    } else if (uv.x < 0.5) {
+        float t = (uv.x - 0.25) / 0.25;
+        top = mix(morningTop, noonTop, t);
+        bot = mix(morningBot, noonBot, t);
+    } else if (uv.x < 0.75) {
+        float t = (uv.x - 0.5) / 0.25;
+        top = mix(noonTop, sunsetTop, t);
+        bot = mix(noonBot, sunsetBot, t);
+    } else {
+        float t = (uv.x - 0.75) / 0.25;
+        top = mix(sunsetTop, nightTop, t);
+        bot = mix(sunsetBot, nightBot, t);
+    }
+    
+    float noise = snoise(uv * 1.5 + vec2(time, 0.0));
+    vec3 color = mix(bot, top, uv.y + noise * 0.1);
+    
+    // Clouds
+    float cloudNoise = snoise(uv * 2.0 + vec2(time * 0.5, 0.0));
+    float clouds = smoothstep(0.4, 0.8, cloudNoise);
+    color = mix(color, vec3(1.0), clouds * 0.2);
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
+</div>
+<main class="relative z-10">
+<!-- Morning Section -->
+<section class="h-screen w-full flex flex-col justify-end p-margin-mobile relative overflow-hidden" id="morning">
+<div class="absolute inset-0 z-[-1] opacity-20">
+<!-- STITCH_THREEJS_START:ANIMATION_35 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_35" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_35');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const sunLight = new THREE.PointLight(0xffcc33, 2, 50);
+sunLight.position.set(5, 5, 2);
+scene.add(sunLight);
+
+// Create 4 atmospheric states (Morning, Afternoon, Evening, Night)
+// Distributed across the horizontal plane for a "scrollable journey"
+const states = [
+    { name: 'Morning', color: 0xffccaa, x: -15 },
+    { name: 'Afternoon', color: 0xffdd44, x: -5 },
+    { name: 'Evening', color: 0xff5522, x: 5 },
+    { name: 'Night', color: 0x88aaff, x: 15 }
+];
+
+const suns = [];
+states.forEach((s, i) => {
+    const sunGroup = new THREE.Group();
+    const sunGeo = new THREE.SphereGeometry(1.2, 64, 64);
+    const sunMat = new THREE.MeshPhongMaterial({ 
+        color: s.color, 
+        emissive: s.color,
+        emissiveIntensity: 0.5,
+        shininess: 100 
+    });
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sun);
+    
+    // Rays
+    for(let j=0; j<12; j++) {
+        const rayGeo = new THREE.CylinderGeometry(0.01, 0.1, 2, 8);
+        const rayMat = new THREE.MeshPhongMaterial({ color: s.color, transparent: true, opacity: 0.3 });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        const angle = (j / 12) * Math.PI * 2;
+        ray.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+        ray.rotation.z = angle + Math.PI/2;
+        sunGroup.add(ray);
+    }
+    
+    sunGroup.position.set(s.x, 3, -8);
+    if (s.name === 'Night') {
+        sun.material.color.setHex(0xcccccc);
+        sun.material.emissive.setHex(0xaaaaaa);
+    }
+    scene.add(sunGroup);
+    suns.push(sunGroup);
+});
+
+// Particles
+const particlesCount = 500;
+const positions = new Float32Array(particlesCount * 3);
+for(let i = 0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 60;
+    positions[i*3+1] = (Math.random() - 0.5) * 20;
+    positions[i*3+2] = (Math.random() - 0.5) * 10;
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+const particles = new THREE.Points(partGeo, partMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    suns.forEach((sun, i) => {
+        sun.rotation.z += 0.002;
+        sun.scale.setScalar(1 + Math.sin(time + i) * 0.03);
+    });
+    
+    const p = particles.geometry.attributes.position.array;
+    for(let i=0; i<particlesCount; i++) {
+        p[i*3] += 0.02;
+        if(p[i*3] > 30) p[i*3] = -30;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_35 -->
+</div>
+<div class="mb-20">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim tracking-[0.2em] mb-2 block reveal-up">06:00 — 11:59</span>
+<h2 class="font-display-xl text-[64px] leading-tight md:text-display-xl mb-6 reveal-up">Morning</h2>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-6 reveal-up">
+<div class="flex items-end justify-between border-b border-outline-variant pb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Temperature</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">18°C</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Condition</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">Mist</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Feels Like</p>
+<p class="text-body-md font-bold">16°</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Wind</p>
+<p class="text-body-md font-bold">4 km/h</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Humidity</p>
+<p class="text-body-md font-bold">88%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Afternoon Section -->
+<section class="h-screen w-full flex flex-col justify-end p-margin-mobile relative" id="afternoon">
+<div class="mb-20">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim tracking-[0.2em] mb-2 block reveal-up">12:00 — 16:59</span>
+<h2 class="font-display-xl text-[64px] leading-tight md:text-display-xl mb-6 reveal-up">Afternoon</h2>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-6 reveal-up">
+<div class="flex items-end justify-between border-b border-outline-variant pb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Temperature</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">24°C</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Condition</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">Clear</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Feels Like</p>
+<p class="text-body-md font-bold">25°</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Wind</p>
+<p class="text-body-md font-bold">12 km/h</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Humidity</p>
+<p class="text-body-md font-bold">42%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Evening Section -->
+<section class="h-screen w-full flex flex-col justify-end p-margin-mobile relative" id="evening">
+<div class="mb-20">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim tracking-[0.2em] mb-2 block reveal-up">17:00 — 20:59</span>
+<h2 class="font-display-xl text-[64px] leading-tight md:text-display-xl mb-6 reveal-up">Evening</h2>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-6 reveal-up">
+<div class="flex items-end justify-between border-b border-outline-variant pb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Temperature</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">21°C</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Condition</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">Sunset</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Feels Like</p>
+<p class="text-body-md font-bold">20°</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Wind</p>
+<p class="text-body-md font-bold">8 km/h</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Humidity</p>
+<p class="text-body-md font-bold">55%</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Night Section -->
+<section class="h-screen w-full flex flex-col justify-end p-margin-mobile relative" id="night">
+<div class="mb-24">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim tracking-[0.2em] mb-2 block reveal-up">21:00 — 05:59</span>
+<h2 class="font-display-xl text-[64px] leading-tight md:text-display-xl mb-6 reveal-up">Night</h2>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-6 reveal-up">
+<div class="flex items-end justify-between border-b border-outline-variant pb-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Temperature</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">14°C</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Condition</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile">Stellar</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Feels Like</p>
+<p class="text-body-md font-bold">12°</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Wind</p>
+<p class="text-body-md font-bold">6 km/h</p>
+</div>
+<div>
+<p class="text-[10px] font-label-caps text-on-surface-variant uppercase mb-1">Humidity</p>
+<p class="text-body-md font-bold">70%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Integration -->
+<footer class="w-full py-8 flex flex-col items-center gap-4 border-t border-outline-variant mt-10">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Aether Weather</h3>
+<p class="font-body-md text-on-surface-variant text-center px-4">Atmospheric Intelligence for the Modern Observant.</p>
+<div class="flex gap-gutter font-body-md text-on-surface-variant">
+<a class="hover:text-primary transition-all" href="#">Editorial</a>
+<a class="hover:text-primary transition-all" href="#">Data</a>
+</div>
+<p class="text-[10px] font-label-caps text-outline uppercase">© 2024 Aether Weather.</p>
+</footer>
+</section>
+</main>
+<!-- Scroll Indicator -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary ring-2 ring-primary/20 transition-all duration-300" id="dot-morning"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-outline transition-all duration-300" id="dot-afternoon"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-outline transition-all duration-300" id="dot-evening"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-outline transition-all duration-300" id="dot-night"></div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Reveal elements in section
+                        const reveals = entry.target.querySelectorAll('.reveal-up');
+                        reveals.forEach((el, index) => {
+                            setTimeout(() => {
+                                el.classList.add('active');
+                            }, index * 150);
+                        });
+
+                        // Update dots
+                        const id = entry.target.id;
+                        document.querySelectorAll('[id^="dot-"]').forEach(dot => {
+                            dot.classList.remove('bg-primary', 'ring-2', 'ring-primary/20', 'h-4');
+                            dot.classList.add('bg-outline', 'h-1.5');
+                        });
+                        const activeDot = document.getElementById(`dot-${id}`);
+                        if(activeDot) {
+                            activeDot.classList.remove('bg-outline', 'h-1.5');
+                            activeDot.classList.add('bg-primary', 'ring-2', 'ring-primary/20', 'h-4');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Simple parallax on background based on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bg = document.querySelector('webgl-shader');
+            if(bg) {
+                bg.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body></html>

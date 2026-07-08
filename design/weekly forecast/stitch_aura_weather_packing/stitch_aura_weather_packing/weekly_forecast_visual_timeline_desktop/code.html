@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weekly Forecast | Aether Weather</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+    }
+.glass-header {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px)
+    }
+.grain-texture {
+    position: relative
+    }
+.grain-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCJZ00vxFXLYCnUf4dIwL1tuwh0xQYTED27IxfXRbA8c0ciaF6LdbNx3hDmXwgyiMUpCwY_yzboK2-cf9RnQdae1wiwpTvz5k8Kzr0bTOjDu35y_cDH5IOz4FVnH-t7c2qvDtj_FuhtodbkSEw-ytqNbXH-djs6eBLwvyx8900Id7W9fZQPe_rsvQ5LsuHxr59Ms9N8jJiqTXorf8LcAr4-YsuhsfSYBaEUazbamLjApj0y7KSOXUOi);
+    z-index: 1
+    }
+.spring-transition {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    }
+.vertical-card:hover {
+    flex-grow: 2.5;
+    z-index: 10
+    }
+.card-details {
+    opacity: 0;
+    transform: translatey(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    }
+.vertical-card:hover .card-details {
+    opacity: 1;
+    transform: translatey(0)
+    }
+.floating-temp {
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.05)
+    }
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+        } 100% {
+        transform: translateX(-50%);
+        }
+    }
+.animate-wave {
+    animation: wave 15s linear infinite
+    }</style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#c64f00",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "secondary": "#4c4aca",
+                    "primary": "#0058bc",
+                    "on-tertiary-container": "#fffbff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "outline": "#717786",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#351000",
+                    "outline-variant": "#c1c6d7",
+                    "tertiary": "#9e3d00",
+                    "on-surface": "#181c23",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "on-primary-container": "#fefcff",
+                    "inverse-on-surface": "#eef0fc",
+                    "inverse-primary": "#adc6ff",
+                    "surface-container-low": "#f1f3fe",
+                    "surface-dim": "#d8d9e5",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#005bc1",
+                    "secondary-fixed": "#e2dfff",
+                    "primary-fixed": "#d8e2ff",
+                    "error-container": "#ffdad6",
+                    "surface": "#f9f9ff",
+                    "on-secondary-fixed": "#0c006a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "on-primary-fixed": "#001a41",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#6664e4",
+                    "surface-container": "#ecedf9",
+                    "on-primary-fixed-variant": "#004493",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "inverse-surface": "#2d3039",
+                    "on-background": "#181c23",
+                    "surface-container-high": "#e6e8f3",
+                    "on-secondary-container": "#fffbff",
+                    "on-surface-variant": "#414755",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e2ed",
+                    "primary-container": "#0070eb",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f9f9ff",
+                    "surface-variant": "#e0e2ed"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "element-gap": "16px",
+                    "asymmetric-offset": "12px",
+                    "unit": "8px",
+                    "container-padding": "24px",
+                    "section-margin": "40px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "hero-temp": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "caption": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<nav class="flex justify-between items-center px-container-padding py-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary">Aether Weather</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary border-b-2 border-primary font-body-md" href="#">Weekly</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md" href="#">Destinations</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md" href="#">Packing</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-md focus:ring-2 focus:ring-primary w-48 transition-all duration-300 focus:w-64" placeholder="Search city..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-primary text-2xl hover:scale-110 transition-transform">account_circle</button>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-section-margin px-container-padding max-w-7xl mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-section-margin relative">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">London, UK</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">A subtle transition from spring showers to golden afternoons. Your weekly precision guide.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-bold hover:shadow-lg transition-shadow flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">notifications</span>
+                        ALERTS ACTIVE
+                    </button>
+</div>
+</div>
+<!-- Dynamic Background Element -->
+<div class="absolute -top-20 -right-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+</header>
+<!-- Visual Timeline -->
+<section class="relative h-[700px] flex gap-2 items-stretch mb-20 overflow-visible">
+<!-- Temperature Connection Graph (SVG Overlay) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-20 overflow-visible" preserveaspectratio="none">
+<defs>
+<lineargradient id="tempGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:rgba(0,88,188,0.3)"></stop>
+<stop offset="50%" style="stop-color:rgba(158,61,0,0.3)"></stop>
+<stop offset="100%" style="stop-color:rgba(0,88,188,0.3)"></stop>
+</lineargradient>
+</defs>
+<!-- Smoothed temperature path across cards -->
+<path class="opacity-40" d="M 0 350 C 100 320, 200 280, 300 300 S 500 400, 600 380 S 800 250, 900 320 S 1100 350, 1200 340" fill="none" stroke="url(#tempGradient)" stroke-dasharray="10 5" stroke-width="3"></path>
+</svg>
+<!-- Monday - Sunny -->
+<div class="vertical-card group relative flex-1 bg-[#FFF9E6] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-tertiary-fixed-variant uppercase tracking-widest block mb-4">MON</span>
+<h3 class="font-headline-lg text-headline-lg text-tertiary">24°</h3>
+<span class="material-symbols-outlined text-tertiary text-4xl mt-2" data-weight="fill">wb_sunny</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-tertiary/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary/60">water_drop</span>
+<span class="font-label-bold">HUMIDITY 12%</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary/60">air</span>
+<span class="font-label-bold">WIND 8mph</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary/60">light_mode</span>
+<span class="font-label-bold">UV INDEX 6</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-tertiary font-semibold">Bright &amp; Golden</p>
+</div>
+</div>
+</div>
+<!-- Tuesday - Overcast -->
+<div class="vertical-card group relative flex-1 bg-[#F5F3FF] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-secondary uppercase tracking-widest block mb-4">TUE</span>
+<h3 class="font-headline-lg text-headline-lg text-secondary">19°</h3>
+<span class="material-symbols-outlined text-secondary text-4xl mt-2">filter_drama</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-secondary/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary/60">water_drop</span>
+<span class="font-label-bold">HUMIDITY 45%</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary/60">air</span>
+<span class="font-label-bold">WIND 12mph</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-secondary font-semibold">Soft Lavender Skies</p>
+</div>
+</div>
+</div>
+<!-- Wednesday - Rain -->
+<div class="vertical-card group relative flex-1 bg-[#F1F5F9] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-primary uppercase tracking-widest block mb-4">WED</span>
+<h3 class="font-headline-lg text-headline-lg text-primary">16°</h3>
+<span class="material-symbols-outlined text-primary text-4xl mt-2" data-weight="fill">rainy</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-primary/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60">rainy</span>
+<span class="font-label-bold">PRECIP. 80%</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary/60">water_drop</span>
+<span class="font-label-bold">HUMIDITY 88%</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-primary font-semibold">Deep Slate Rhythms</p>
+</div>
+</div>
+</div>
+<!-- Thursday - Windy -->
+<div class="vertical-card group relative flex-1 bg-[#ECFDF5] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-[#065F46] uppercase tracking-widest block mb-4">THU</span>
+<h3 class="font-headline-lg text-headline-lg text-[#065F46]">21°</h3>
+<span class="material-symbols-outlined text-[#065F46] text-4xl mt-2">air</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-[#065F46]/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#065F46]/60">air</span>
+<span class="font-label-bold">WIND 24mph</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-[#065F46] font-semibold">Crisp Mint Breeze</p>
+</div>
+</div>
+</div>
+<!-- Friday - Sunny -->
+<div class="vertical-card group relative flex-1 bg-[#FFFBEB] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-tertiary-fixed-variant uppercase tracking-widest block mb-4">FRI</span>
+<h3 class="font-headline-lg text-headline-lg text-tertiary">26°</h3>
+<span class="material-symbols-outlined text-tertiary text-4xl mt-2" data-weight="fill">sunny</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-tertiary/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary/60">light_mode</span>
+<span class="font-label-bold">UV INDEX 8</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-tertiary font-semibold">Peak Radiance</p>
+</div>
+</div>
+</div>
+<!-- Saturday - Partly Cloudy -->
+<div class="vertical-card group relative flex-1 bg-[#FDF2F8] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-[#9D174D] uppercase tracking-widest block mb-4">SAT</span>
+<h3 class="font-headline-lg text-headline-lg text-[#9D174D]">22°</h3>
+<span class="material-symbols-outlined text-[#9D174D] text-4xl mt-2">partly_cloudy_day</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-[#9D174D]/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#9D174D]/60">cloud</span>
+<span class="font-label-bold">CLOUDS 30%</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-[#9D174D] font-semibold">Pink Twilight Mist</p>
+</div>
+</div>
+</div>
+<!-- Sunday - Stormy -->
+<div class="vertical-card group relative flex-1 bg-[#EEF2FF] rounded-3xl overflow-hidden spring-transition cursor-pointer grain-texture shadow-xl flex flex-col border border-white/50">
+<div class="p-8 h-full flex flex-col justify-between">
+<div>
+<span class="font-label-bold text-secondary-fixed-variant uppercase tracking-widest block mb-4">SUN</span>
+<h3 class="font-headline-lg text-headline-lg text-secondary">18°</h3>
+<span class="material-symbols-outlined text-secondary text-4xl mt-2" data-weight="fill">thunderstorm</span>
+</div>
+<div class="card-details space-y-6">
+<div class="h-px bg-secondary/10 w-full"></div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary/60">bolt</span>
+<span class="font-label-bold">LIGHTNING 40%</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-body-md text-secondary font-semibold">Indigo Electric</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Travel Insight -->
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-[32px] shadow-sm grain-texture relative overflow-hidden group">
+<div class="absolute -bottom-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+<div class="relative z-10 flex flex-col h-full">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-4">Weekend Packing Guide</h4>
+<p class="text-on-surface-variant font-body-lg mb-8 max-w-md">Expect a high-contrast weekend. Saturday's mild evening is perfect for linen, while Sunday's storm suggests your premium rain shell.</p>
+<div class="flex gap-4 mt-auto">
+<div class="flex flex-col items-center p-4 bg-surface-container rounded-2xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-2">checkroom</span>
+<span class="font-label-bold text-[10px]">JACKET</span>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-container rounded-2xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-2">umbrella</span>
+<span class="font-label-bold text-[10px]">TRAVEL KIT</span>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-container rounded-2xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-primary mb-2">eyeglasses</span>
+<span class="font-label-bold text-[10px]">EYEWEAR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pollen/Air Quality -->
+<div class="bg-secondary-container p-8 rounded-[32px] text-on-secondary-container relative overflow-hidden flex flex-col justify-between">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-4xl">eco</span>
+<span class="bg-on-secondary-container/20 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Excellent</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2 italic">Air Quality</h4>
+<p class="font-body-md opacity-90">PM 2.5 is at record lows. Perfect for morning runs along the Thames.</p>
+</div>
+<div class="h-2 w-full bg-on-secondary-container/20 rounded-full mt-8">
+<div class="h-full w-4/5 bg-on-secondary-container rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Floating Action Button -->
+<button class="fixed bottom-12 right-12 w-16 h-16 bg-tertiary text-on-tertiary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group z-40">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-180 transition-transform duration-500">refresh</span>
+</button>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest w-full py-section-margin border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-element-gap px-container-padding max-w-7xl mx-auto">
+<div class="space-y-4">
+<span class="font-headline-md text-headline-md italic text-primary">Aether Weather</span>
+<p class="text-on-surface-variant max-w-sm">Combining editorial elegance with meteorological precision. Travel with absolute certainty.</p>
+<p class="text-secondary font-body-md">© 2024 Aether Weather. Travel with Precision.</p>
+</div>
+<div class="grid grid-cols-2 gap-8 md:justify-items-end">
+<div class="flex flex-col gap-2">
+<span class="font-label-bold text-on-surface uppercase mb-2">Explore</span>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Forecasts</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Packing Lists</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Destinations</a>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-bold text-on-surface uppercase mb-2">Legal</span>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Support</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors duration-200" href="#">Terms</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Micro-interaction: Update graph path on mouse movement for parallax feel
+        document.addEventListener('mousemove', (e) => {
+            const path = document.querySelector('path');
+            if (path) {
+                const moveX = (e.clientX / window.innerWidth) * 20;
+                const moveY = (e.clientY / window.innerHeight) * 20;
+                path.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                path.style.transition = 'transform 0.5s ease-out';
+            }
+        });
+
+        // Add subtle bounce to cards on entry
+        const cards = document.querySelectorAll('.vertical-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    </script>
+</body></html>

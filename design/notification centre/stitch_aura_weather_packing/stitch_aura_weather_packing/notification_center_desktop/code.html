@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Notification Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#001a41",
+                    "surface-dim": "#d8d9e5",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "secondary-fixed": "#e2dfff",
+                    "on-surface": "#181c23",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "background": "#f9f9ff",
+                    "tertiary": "#9e3d00",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "inverse-on-surface": "#eef0fc",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary-fixed-variant": "#004493",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary-container": "#c64f00",
+                    "on-background": "#181c23",
+                    "surface-bright": "#f9f9ff",
+                    "primary": "#0058bc",
+                    "on-surface-variant": "#414755",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8f3",
+                    "surface-variant": "#e0e2ed",
+                    "outline": "#717786",
+                    "on-secondary-fixed": "#0c006a",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#005bc1",
+                    "surface-container": "#ecedf9",
+                    "surface-container-low": "#f1f3fe",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-secondary-container": "#fffbff",
+                    "inverse-primary": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "surface": "#f9f9ff",
+                    "on-tertiary-fixed": "#351000",
+                    "secondary": "#4c4aca",
+                    "surface-container-highest": "#e0e2ed",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c1c6d7",
+                    "secondary-container": "#6664e4",
+                    "primary-container": "#0070eb",
+                    "on-primary-container": "#fefcff",
+                    "inverse-surface": "#2d3039"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-margin": "40px",
+                    "unit": "8px",
+                    "container-padding": "24px",
+                    "asymmetric-offset": "12px",
+                    "element-gap": "16px"
+            },
+            "fontFamily": {
+                    "hero-temp": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-bold": ["Inter"],
+                    "caption": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #f9f9ff;
+    background-image: radial-gradient(at 0% 0%, rgba(76, 74, 202, 0.03) 0, transparent 50%), radial-gradient(at 100% 100%, rgba(0, 88, 188, 0.03) 0, transparent 50%);
+    min-height: 100vh
+    }
+.notification-card {
+    animation: slideFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+    transform: translatey(20px)
+    }
+@keyframes slideFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+    }
+.timeline-track::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #c1c6d7 15%, #c1c6d7 85%, transparent);
+    transform: translatex(-50%)
+    }
+.glass-surface {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 40px 40px rgba(76, 74, 202, 0.04)
+    }
+.grain-texture {
+    position: relative
+    }
+.grain-texture::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAYXTDsLP6N1xzrAMImIXY-Hz7MlHPIeMCsRRXFH4oQRXExcGFdKjyMyLYBZkqFLDR8tx-zSYd4oP1UDwRIW7Yt2hOs346KS_eXHRgi-9pFlVBanoUbvoPb0ccoaSn78DxZhgPomD6KIpPmXYSZpaRHcd2l2yCQOdH9DmnZ2lsOnPm5f9PdHwmHx3Feca42xtjQRAbERQ3SNDAtzumXUJo7_UQ3pfkTc9bZn5rgC_tbYjb5Lhg7xwuT);
+    z-index: 10
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation -->
+<header class="bg-background/80 backdrop-blur-xl dark:bg-background/80 flex justify-between items-center w-full px-container-padding py-4 sticky top-0 z-50">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed tracking-tight">Atmospheric</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:opacity-70 transition-opacity font-label-bold text-label-bold" href="#">Forecast</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:opacity-70 transition-opacity font-label-bold text-label-bold" href="#">Packing</a>
+<a class="text-primary dark:text-primary-fixed font-bold hover:opacity-70 transition-opacity font-label-bold text-label-bold" href="#">Alerts</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:opacity-70 transition-opacity font-label-bold text-label-bold" href="#">Journal</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:opacity-70 transition-opacity scale-95 active:scale-90 transition-transform duration-200">notifications_active</button>
+<button class="material-symbols-outlined text-primary hover:opacity-70 transition-opacity scale-95 active:scale-90 transition-transform duration-200">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a traveler with a warm, welcoming expression, soft natural lighting, and a shallow depth of field, set against a neutral, airy background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRKNqGCk5MUAvy0X8qHnRsKLOF60sxSb9Y8RP6J0-mWIK1-fljImbyuKaelh0gn1NOlYY9l54ZozRL81f53LVrWgB0xh-e5_Ur5k4KSrQdtSHD46JChlZWUt73WRQ5iPyffsIqRIB8GL9yB6qoMd-anserAt5iYGHBjHnKClZGGl--4boZC3k3SQHnoTOV0i69lSGX-YLp2-rssj2TiujbrjZvzN1D6HTTQkqHRz2MZ8AyJ6r6TUCQ"/>
+</div>
+</div>
+</header>
+<main class="max-w-5xl mx-auto px-container-padding py-12">
+<div class="mb-12">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Pulse</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Real-time atmosphere and essential updates.</p>
+</div>
+<!-- Timeline Grid -->
+<div class="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-x-8 relative">
+<!-- Left Side: Time Markers -->
+<div class="relative timeline-track flex flex-col items-center gap-32 py-8">
+<!-- Marker 1 -->
+<div class="sticky top-24 z-20 bg-background px-2">
+<span class="font-label-bold text-label-bold text-outline text-right block">08:14 AM</span>
+</div>
+<!-- Marker 2 -->
+<div class="bg-background px-2">
+<span class="font-label-bold text-label-bold text-outline text-right block">09:30 AM</span>
+</div>
+<!-- Marker 3 -->
+<div class="bg-background px-2">
+<span class="font-label-bold text-label-bold text-outline text-right block">10:45 AM</span>
+</div>
+<!-- Marker 4 -->
+<div class="bg-background px-2">
+<span class="font-label-bold text-label-bold text-outline text-right block">11:15 AM</span>
+</div>
+</div>
+<!-- Right Side: Content -->
+<div class="space-y-12">
+<!-- Notification 1: Severe Storm Warning -->
+<article class="notification-card group relative" style="animation-delay: 0.1s;">
+<div class="glass-surface grain-texture rounded-xl p-6 transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 overflow-hidden border-l-4 border-error">
+<!-- Alert Pulse Background -->
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-error/5 rounded-full blur-3xl group-hover:bg-error/10 transition-colors"></div>
+<div class="flex flex-col md:flex-row gap-6 relative z-10">
+<div class="flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-error-container flex items-center justify-center text-on-error-container shadow-inner">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">thunderstorm</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-bold text-label-bold text-error uppercase tracking-widest">High Priority</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Severe Storm Warning</h2>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+<button class="bg-surface-container-high px-4 py-1.5 rounded-full text-label-bold font-label-bold text-on-surface-variant hover:bg-surface-dim transition-colors">Dismiss</button>
+<button class="bg-error text-on-error px-4 py-1.5 rounded-full text-label-bold font-label-bold hover:shadow-lg transition-all">Action</button>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant max-w-2xl">A high-velocity storm system is approaching your current coordinates. Winds exceeding 50mph expected within the hour. Secure loose items and seek indoor shelter.</p>
+<div class="mt-6 flex items-center gap-4 overflow-x-auto pb-2">
+<div class="flex flex-col items-center bg-surface-container/50 px-3 py-2 rounded-lg min-w-[80px]">
+<span class="text-label-bold text-[10px] text-outline uppercase">Wind</span>
+<span class="font-body-md font-bold">54mph</span>
+</div>
+<div class="flex flex-col items-center bg-surface-container/50 px-3 py-2 rounded-lg min-w-[80px]">
+<span class="text-label-bold text-[10px] text-outline uppercase">Precip</span>
+<span class="font-body-md font-bold">85%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Notification 2: Rain Approaching -->
+<article class="notification-card group relative" style="animation-delay: 0.2s;">
+<div class="glass-surface grain-texture rounded-xl p-6 transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 border-l-4 border-primary">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">rainy</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-bold text-label-bold text-primary uppercase tracking-widest">Medium Priority</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Rain Approaching</h2>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-surface-container-high px-4 py-1.5 rounded-full text-label-bold font-label-bold text-on-surface-variant">Detail</button>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant">Light showers are expected in approximately 15 minutes. It might be a good time to head inside or grab your umbrella.</p>
+</div>
+</div>
+</div>
+</article>
+<!-- Notification 3: Packing Reminder -->
+<article class="notification-card group relative" style="animation-delay: 0.3s;">
+<div class="glass-surface grain-texture rounded-xl p-6 transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 border-l-4 border-tertiary">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl">luggage</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-bold text-label-bold text-tertiary uppercase tracking-widest">Packing Guide</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Last Call for Linen</h2>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant italic mb-4">"Kyoto is preparing for a heatwave."</p>
+<p class="text-body-md text-on-surface-variant">Based on your upcoming trip and the predicted 34°C weather, we recommend swapping heavy cottons for breathable linen. Don't forget your SPF 50.</p>
+<div class="mt-4 flex gap-3">
+<div class="flex items-center gap-2 bg-white/50 border border-outline-variant/30 px-3 py-1.5 rounded-full text-caption font-caption text-on-surface">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                        Linen Shirt
+                                    </div>
+<div class="flex items-center gap-2 bg-white/50 border border-outline-variant/30 px-3 py-1.5 rounded-full text-caption font-caption text-on-surface">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                        Wide-brim Hat
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Notification 4: Travel Suggestion -->
+<article class="notification-card group relative" style="animation-delay: 0.4s;">
+<div class="surface-container-low grain-texture rounded-xl overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 border border-outline-variant/20">
+<div class="flex flex-col md:flex-row">
+<div class="w-full md:w-48 h-48 md:h-auto overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic, moody photograph of the Golden Gate Bridge partially obscured by thick, rolling white fog at sunrise. The lighting is ethereal and soft, with cool blue and muted gray tones reflecting the atmospheric aesthetic of a quiet San Francisco morning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN3OL-MkAT3QK6LvL50naaqct8txwP218hFyakoy-Phan7sywqa225x1AUOIoz-M76CpTW7xriwcMK7Twy75UbI3pdhLrq2ke3judzHXpTsc0_KOjupyWYNERqPzlElRgk6ZX-E8DSOFmTV2StyEVa0nvRK8LaH2JX0lZaCAJ2Wa2MrDCioGKEnnkXSm66p_bqmq1rviYIbCD-RaWVZ0Kp9Z96ETd8UHaB7T3S7SlBJq1VX-k0U8xx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">location_on</span>
+<span class="text-[10px] font-label-bold uppercase">San Francisco</span>
+</div>
+</div>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-widest opacity-60">Atmospheric Suggestion</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1 italic">The Mist is Calling</h2>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant">The morning marine layer is perfectly balanced today. We suggest a 20-minute walk through Land's End. The humidity is ideal for your skin, and the visibility offers a unique perspective of the fog's movement.</p>
+<div class="mt-4">
+<button class="text-primary font-label-bold text-label-bold flex items-center gap-1 group/btn">
+                                        Explore Path
+                                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-8 w-16 h-16 rounded-full bg-secondary text-on-secondary shadow-2xl flex items-center justify-center group hover:scale-110 transition-transform duration-300 z-50">
+<span class="material-symbols-outlined text-3xl transition-transform duration-300 group-hover:rotate-90">refresh</span>
+</button>
+<!-- Bottom Navigation (Mobile) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface md:hidden rounded-t-xl shadow-2xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">cloud</span>
+<span class="font-label-bold text-label-bold">Forecast</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">luggage</span>
+<span class="font-label-bold text-label-bold">Packing</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-6 py-2 scale-110 transition-transform duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-bold text-label-bold">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant p-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-bold text-label-bold">Journal</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for notification cards
+        document.querySelectorAll('.notification-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for more complex JS-driven atmosphere effects
+            });
+        });
+
+        // Sticky observer for timeline markers (optional enhancement)
+        const observerOptions = {
+            rootMargin: '0px',
+            threshold: 1.0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('text-primary');
+                    entry.target.classList.remove('text-outline');
+                } else {
+                    entry.target.classList.remove('text-primary');
+                    entry.target.classList.add('text-outline');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-track span').forEach(el => observer.observe(el));
+    </script>
+</body></html>

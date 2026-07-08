@@ -1,0 +1,577 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Aether Weather | Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "surface": "#f9f9ff",
+                    "on-primary-container": "#fefcff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#6664e4",
+                    "secondary-fixed": "#e2dfff",
+                    "surface-bright": "#f9f9ff",
+                    "surface-tint": "#005bc1",
+                    "on-secondary": "#ffffff",
+                    "primary": "#0058bc",
+                    "on-surface": "#181c23",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#fffbff",
+                    "background": "#f9f9ff",
+                    "surface-container-low": "#f1f3fe",
+                    "secondary": "#4c4aca",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#717786",
+                    "inverse-primary": "#adc6ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e6e8f3",
+                    "on-background": "#181c23",
+                    "inverse-surface": "#2d3039",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "on-secondary-fixed": "#0c006a",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#ecedf9",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "surface-container-highest": "#e0e2ed",
+                    "primary-container": "#0070eb",
+                    "on-surface-variant": "#414755",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "surface-variant": "#e0e2ed",
+                    "tertiary": "#9e3d00",
+                    "outline-variant": "#c1c6d7",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d8d9e5",
+                    "primary-fixed": "#d8e2ff",
+                    "on-primary-fixed": "#001a41",
+                    "tertiary-container": "#c64f00",
+                    "on-primary-fixed-variant": "#004493",
+                    "inverse-on-surface": "#eef0fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "element-gap": "16px",
+                    "container-padding": "24px",
+                    "section-margin": "40px",
+                    "asymmetric-offset": "12px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "caption": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "hero-temp": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #f9f9ff;
+    overflow-x: hidden
+    }
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0.03;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBgBQ8q8Dk9DC77XqdxwikEWgdaxzVyshkCoE2d-6sv_RTIQvCvMqXxlplQoqulQEa8bN807cryDmWl-Fs8gAvoCPHldsWF4BSiSWysIosFgjIDedgvmYlYg7ArEo10ATOQjhBmjdmVvmxWkR7qovd4phfPzCbgXK-P0Q2kdydY-OxxZNRFsCdgd1zvEoLSBSp9u0dm1ENhZY9ST3touTRGnji-OdYehyH4E4VCOiOCkkfMzsOYN6rl)
+    }
+.bouncy-hover {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)
+    }
+.bouncy-hover:active {
+    transform: scale(0.95)
+    }
+.floating-label-input:focus-within label, .floating-label-input input:not(:placeholder-shown) + label {
+    transform: translatey(-24px) scale(0.85);
+    color: #0058bc
+    }
+.input-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #0058bc;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+    }
+.floating-label-input:focus-within .input-underline {
+    width: 100%
+    }
+.atmospheric-card {
+    box-shadow: 0 40px 80px -20px rgba(76, 74, 202, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.8)
+    }</style>
+</head>
+<body class="font-body-md text-on-surface">
+<div class="grain-overlay"></div>
+<main class="min-h-screen flex flex-col md:flex-row">
+<!-- Left Side: Atmospheric Canvas -->
+<section class="relative w-full md:w-1/2 h-[40vh] md:h-screen overflow-hidden bg-primary-fixed">
+<!-- Shader Background -->
+<!-- STITCH_SHADER_START:ANIMATION_14 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_14" style="display:block;width:100%;height:100%" width="640" height="1024"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_14');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Atmospheric colors from the Editorial system
+    vec3 skyTop = vec3(0.0, 0.48, 1.0); // Primary Blue
+    vec3 skyBottom = vec3(0.97, 0.98, 1.0); // Light Surface
+    
+    // Smooth shifting atmospheric noise
+    float n = snoise(uv * 1.2 + u_time * 0.04);
+    float n2 = snoise(uv * 2.5 - u_time * 0.02);
+    
+    vec3 color = mix(skyBottom, skyTop, uv.y + n * 0.15);
+    
+    // Cloud-like softness
+    float cloud = snoise(uv * 1.5 + vec2(u_time * 0.01, 0.0));
+    cloud = smoothstep(0.3, 0.9, cloud);
+    color = mix(color, vec3(1.0), cloud * 0.4);
+    
+    // Warm sun rays influence from the top right
+    float dist = distance(uv, vec2(0.9, 0.9));
+    float glow = smoothstep(0.8, 0.0, dist);
+    color += vec3(1.0, 0.85, 0.5) * glow * 0.25;
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_14 -->
+<!-- Three.js Overlay (Sun, Birds, Particles) -->
+<!-- STITCH_THREEJS_START:ANIMATION_15 class="absolute inset-0 w-full h-full opacity-80 mix-blend-screen" -->
+<div class="absolute inset-0 w-full h-full opacity-80 mix-blend-screen" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_15" style="width:100%;height:100%"><canvas width="640" height="1024" style="display: block; width: 640px; height: 1024px;"></canvas><canvas width="640" height="1024" style="display: block; width: 640px; height: 1024px;"></canvas></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_15');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  container.appendChild(renderer.domElement);
+
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+  const pointLight = new THREE.PointLight(0xffcc33, 2, 50);
+  pointLight.position.set(5, 5, 2);
+  scene.add(pointLight);
+
+  // Sun Core
+  const sunGroup = new THREE.Group();
+  const sunGeo = new THREE.SphereGeometry(1, 64, 64);
+  const sunMat = new THREE.MeshPhongMaterial({ 
+      color: 0xffdd44, 
+      emissive: 0xffaa00,
+      emissiveIntensity: 0.8,
+      shininess: 100 
+  });
+  const sun = new THREE.Mesh(sunGeo, sunMat);
+  sunGroup.add(sun);
+
+  // Rays
+  const raysGroup = new THREE.Group();
+  for(let i=0; i<16; i++) {
+      const rayGeo = new THREE.CylinderGeometry(0.01, 0.06, 1.4, 8);
+      const rayMat = new THREE.MeshPhongMaterial({ 
+          color: 0xffcc33,
+          transparent: true,
+          opacity: 0.5
+      });
+      const ray = new THREE.Mesh(rayGeo, rayMat);
+      const angle = (i / 16) * Math.PI * 2;
+      ray.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, 0);
+      ray.rotation.z = angle + Math.PI/2;
+      raysGroup.add(ray);
+  }
+  sunGroup.add(raysGroup);
+  
+  // Position sun in the top right of the illustration area
+  sunGroup.position.set(3, 3, -5);
+  scene.add(sunGroup);
+
+  // Floating Weather Particles (Snow/Pollen/Dust)
+  const particlesCount = 300;
+  const positions = new Float32Array(particlesCount * 3);
+  const velocities = [];
+
+  for(let i = 0; i < particlesCount; i++) {
+      positions[i*3] = (Math.random() - 0.5) * 20;
+      positions[i*3+1] = (Math.random() - 0.5) * 20;
+      positions[i*3+2] = (Math.random() - 0.5) * 10;
+      velocities.push({
+          x: (Math.random() - 0.5) * 0.02,
+          y: -0.01 - Math.random() * 0.02,
+          z: (Math.random() - 0.5) * 0.01,
+          phase: Math.random() * Math.PI * 2
+      });
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({ size: 0.06, color: 0xffffff, transparent: true, opacity: 0.4 });
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  // Birds
+  const birds = [];
+  function createBird() {
+      const bird = new THREE.Group();
+      const wingGeo = new THREE.PlaneGeometry(0.25, 0.08);
+      const wingMat = new THREE.MeshBasicMaterial({ color: 0x1a1a1a, side: THREE.DoubleSide });
+      const lw = new THREE.Mesh(wingGeo, wingMat);
+      const rw = lw.clone();
+      lw.position.x = -0.12;
+      rw.position.x = 0.12;
+      bird.add(lw, rw);
+      bird.position.set(-10 - Math.random() * 10, 2 + Math.random() * 4, -4);
+      scene.add(bird);
+      return { mesh: bird, lw, rw, speed: 0.02 + Math.random() * 0.03, phase: Math.random() * Math.PI };
+  }
+  for(let i=0; i<4; i++) birds.push(createBird());
+
+  camera.position.z = 10;
+
+  function animate() {
+      requestAnimationFrame(animate);
+      const time = Date.now() * 0.001;
+
+      sunGroup.rotation.z += 0.003;
+      raysGroup.rotation.z -= 0.005;
+      sun.scale.setScalar(1 + Math.sin(time * 2) * 0.04);
+
+      const pos = particles.geometry.attributes.position.array;
+      for(let i=0; i<particlesCount; i++) {
+          pos[i*3] += velocities[i].x;
+          pos[i*3+1] += velocities[i].y + Math.sin(time + velocities[i].phase) * 0.005;
+          if(pos[i*3+1] < -10) pos[i*3+1] = 10;
+          if(pos[i*3] > 10) pos[i*3] = -10;
+          if(pos[i*3] < -10) pos[i*3] = 10;
+      }
+      particles.geometry.attributes.position.needsUpdate = true;
+
+      birds.forEach(b => {
+          b.mesh.position.x += b.speed;
+          b.mesh.position.y += Math.sin(time + b.phase) * 0.006;
+          const flap = Math.sin(time * 8 + b.phase) * 0.5;
+          b.lw.rotation.z = flap;
+          b.rw.rotation.z = -flap;
+          if(b.mesh.position.x > 15) b.mesh.position.x = -15;
+      });
+
+      renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+  });
+
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_15 -->
+<!-- Brand Overlay -->
+<div class="absolute inset-0 flex flex-col justify-center px-container-padding z-10">
+<div class="max-w-xl">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-[40px]">cloud_queue</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg md:text-[64px] text-on-primary-fixed leading-tight tracking-tight mb-4">Aether<br><span class="italic">Weather</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-primary-fixed-variant max-w-sm opacity-80">
+                        Precision in every breeze. Experience the next generation of atmospheric intelligence.
+                    </p>
+</div>
+</div>
+<!-- Bottom Left Decorative Hint -->
+<div class="absolute bottom-8 left-8 hidden md:block">
+<div class="flex items-center gap-4 text-on-primary-fixed-variant/50">
+<span class="w-12 h-[1px] bg-current"></span>
+<span class="font-label-bold text-label-bold uppercase tracking-widest">Editorial Series Vol. 04</span>
+</div>
+</div>
+</section>
+<!-- Right Side: Login Form -->
+<section class="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-surface">
+<div class="w-full max-w-[440px] animate-fade-in-up">
+<header class="mb-12">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Welcome Back</h2>
+<p class="text-on-surface-variant font-body-md">Enter your credentials to access your dashboard.</p>
+</header>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest atmospheric-card rounded-xl p-8 md:p-10 relative overflow-hidden">
+<!-- Subtle Notebook Texture line -->
+<div class="absolute left-0 top-0 bottom-0 w-[4px] bg-secondary/10"></div>
+<form class="space-y-8" id="loginForm" onsubmit="return false;">
+<!-- Email Input -->
+<div class="relative floating-label-input">
+<input class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary peer transition-all" id="email" name="email" placeholder=" " required="" type="email">
+<label class="absolute left-0 top-3 text-on-surface-variant font-body-md transition-all pointer-events-none origin-left" for="email">
+                                Email Address
+                            </label>
+<div class="input-underline"></div>
+<span class="hidden text-error font-label-bold text-[11px] mt-2 block animate-pulse" id="emailError">Please enter a valid atmospheric identity</span>
+</div>
+<!-- Password Input -->
+<div class="relative floating-label-input">
+<input class="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary peer transition-all" id="password" name="password" placeholder=" " required="" type="password">
+<label class="absolute left-0 top-3 text-on-surface-variant font-body-md transition-all pointer-events-none origin-left" for="password">
+                                Password
+                            </label>
+<div class="input-underline"></div>
+</div>
+<!-- Options -->
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-5 h-5 flex items-center justify-center">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-sm checked:bg-primary checked:border-primary transition-all" type="checkbox">
+<span class="material-symbols-outlined text-white text-[16px] absolute opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<span class="text-on-surface-variant font-label-bold text-label-bold group-hover:text-on-surface transition-colors">Remember me</span>
+</label>
+<a class="text-primary font-label-bold text-label-bold hover:text-on-primary-fixed-variant transition-colors" href="#">Forgot Password?</a>
+</div>
+<!-- Buttons -->
+<div class="space-y-4 pt-4">
+<button class="w-full h-14 bg-primary text-on-primary rounded-full font-label-bold text-[14px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 bouncy-hover flex items-center justify-center gap-2" type="submit">
+<span class="">Sign In</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full h-14 bg-transparent border border-outline-variant text-on-surface rounded-full font-label-bold text-[14px] uppercase tracking-widest hover:bg-surface-container-low transition-all flex items-center justify-center gap-3" type="button">
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="">Continue with Google</span>
+</button>
+</div>
+</form>
+</div>
+<footer class="mt-10 text-center">
+<p class="font-body-md text-on-surface-variant">
+                        New to the Aether? 
+                        <a class="text-primary font-bold hover:underline decoration-2 underline-offset-4 ml-1" href="#">Create Account</a>
+</p>
+</footer>
+</div>
+</section>
+</main>
+<!-- Top Bar Component - From JSON Guidance -->
+<div class="fixed top-0 w-full z-50 flex justify-between items-center px-container-padding py-4 backdrop-blur-xl bg-surface/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">cloud_queue</span>
+<span class="font-headline-md text-headline-md text-primary tracking-tight">Live&nbsp; Weather</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high/50 transition-colors p-2 rounded-full">help_outline</button>
+</div>
+</div>
+<!-- Web Footer Component - From JSON Guidance -->
+<footer class="fixed bottom-0 w-full flex justify-between items-center px-container-padding py-6 hidden md:flex z-50 bg-transparent pointer-events-none">
+<div class="flex items-center gap-8 pointer-events-auto">
+<span class="font-label-bold text-label-bold text-primary">Aether Weather</span>
+<div class="flex gap-4">
+<a class="text-on-surface-variant font-label-bold text-label-bold hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant font-label-bold text-label-bold hover:text-primary transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant font-label-bold text-label-bold hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant pointer-events-auto">
+            © 2024 Aether Weather. Precision in every breeze.
+        </div>
+</footer>
+<script>
+        // Simple Interaction logic for form
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Mock validation
+            if (!emailInput.value.includes('@')) {
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('border-error');
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('border-error');
+                // Simulate success
+                const btn = e.target.querySelector('button[type="submit"]');
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+                setTimeout(() => {
+                    btn.innerHTML = '<span class="material-symbols-outlined">check</span>';
+                    btn.classList.replace('bg-primary', 'bg-green-600');
+                }, 1500);
+            }
+        });
+
+        // Clear error on input
+        emailInput.addEventListener('input', () => {
+            emailError.classList.add('hidden');
+            emailInput.classList.remove('border-error');
+        });
+    </script>
+
+
+
+
+</body></html>

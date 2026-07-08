@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Julian Aether | Profile - Aura Weather</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Hanken+Grotesk:wght@300;400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=Libre+Caslon+Text:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#353434",
+                    "secondary-fixed": "#e2e2e2",
+                    "background": "#141313",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "on-tertiary": "#2f3131",
+                    "surface-bright": "#3a3939",
+                    "on-primary-container": "#636565",
+                    "surface-dim": "#141313",
+                    "surface": "#141313",
+                    "on-background": "#e5e2e1",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "primary-container": "#e2e2e2",
+                    "on-secondary": "#2f3131",
+                    "primary": "#ffffff",
+                    "surface-container-highest": "#353434",
+                    "on-tertiary-container": "#636565",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#c6c6c7",
+                    "surface-container-low": "#1c1b1b",
+                    "on-surface-variant": "#c4c7c8",
+                    "on-secondary-container": "#b4b5b5",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-fixed": "#1a1c1c",
+                    "tertiary": "#ffffff",
+                    "outline-variant": "#444748",
+                    "on-primary-fixed-variant": "#454747",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-fixed": "#e2e2e2",
+                    "on-error": "#690005",
+                    "tertiary-container": "#e2e2e2",
+                    "inverse-on-surface": "#313030",
+                    "surface-tint": "#c6c6c7",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "tertiary-fixed": "#e2e2e2",
+                    "secondary-container": "#454747",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "inverse-surface": "#e5e2e1",
+                    "inverse-primary": "#5d5f5f",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "outline": "#8e9192",
+                    "on-primary": "#2f3131",
+                    "surface-container-lowest": "#0e0e0e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "display-xl": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #0e0e0e;
+    color: #e5e2e1;
+    overflow-x: hidden
+    }
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB_nic1Rpa6Xcy0KtRT0q-ufrButwH-SfyPr_gZFdirlMlubuRlu0pgbJPB9sRQxOzTRQV2HhHJ-oA2chU-ndfuZzszubkObDpyDCQ-ebDuWJjrUTazrMBSnFReu9MqDXIHoBwN3GBmLhm3WzIvP3DF5Y0hR7e9paESMmE0Xb2KZ2H4NlSVta8lMfGYVYosrXMWpSJtGVxheAg8YgEsgZ-FNu_i6GPWpuFuPOSP1euU0xegq6xCwaQY);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 100
+    }
+.glass-card {
+    background: rgba(32, 31, 31, 0.4);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1)
+    }
+.glass-card:hover {
+    background: rgba(42, 42, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translatey(-4px)
+    }
+.atmospheric-gradient {
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 70%)
+    }
+.achievement-badge {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease
+    }
+.achievement-badge:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24
+    }
+.active-tab {
+    font-variation-settings: "FILL" 1
+    }</style>
+</head>
+<body class="font-body-md text-body-md antialiased atmospheric-gradient">
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl dark:bg-surface/80 border-b border-white/10 dark:border-white/5 docked full-width top-0 sticky z-50 transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary dark:text-primary tracking-tight font-bold">Aura Weather</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-300" href="#">Forecasts</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-300" href="#">Radar</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-300" href="#">Packing</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-50">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Search conditions..." type="text"/>
+</div>
+<button class="p-2 hover:bg-white/5 rounded-full transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row items-center justify-between gap-12 mb-32">
+<div class="flex-1 text-center md:text-left order-2 md:order-1">
+<p class="font-label-caps text-label-caps text-secondary mb-4 uppercase">Senior Meteorologist</p>
+<h1 class="font-display-xl text-headline-lg md:text-display-xl text-primary mb-6 leading-tight">Julian Aether</h1>
+<p class="font-body-md text-headline-lg-mobile text-on-surface-variant max-w-xl">Global Explorer &amp; Meteorologist tracking the ephemeral beauty of atmospheric shifts across seven continents.</p>
+<div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">Edit Profile</button>
+<button class="border border-white/20 text-primary px-8 py-3 rounded-full font-bold hover:bg-white/5 transition-colors">Share Journey</button>
+</div>
+</div>
+<div class="w-full md:w-1/2 flex justify-center order-1 md:order-2">
+<div class="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+<!-- STITCH_THREEJS_START:ANIMATION_46 class="absolute inset-0 w-full h-full scale-110" -->
+<div class="absolute inset-0 w-full h-full scale-110" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_46" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_46');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const container = document.getElementById('threejs-container-avatar');
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  container.appendChild(renderer.domElement);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambientLight);
+  const pointLight = new THREE.PointLight(0x007aff, 1, 50);
+  pointLight.position.set(5, 5, 5);
+  scene.add(pointLight);
+
+  // Profile "Orb" - A sophisticated, evolving geometric shape representing the user's data
+  const group = new THREE.Group();
+  
+  const geometry = new THREE.IcosahedronGeometry(1.5, 4);
+  const material = new THREE.MeshPhongMaterial({
+    color: 0xffffff,
+    emissive: 0x007aff,
+    emissiveIntensity: 0.2,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.3
+  });
+  
+  const orb = new THREE.Mesh(geometry, material);
+  group.add(orb);
+
+  // Inner core
+  const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
+  const coreMat = new THREE.MeshPhongMaterial({
+    color: 0x007aff,
+    emissive: 0x005bb7,
+    emissiveIntensity: 0.5,
+    shininess: 100
+  });
+  const core = new THREE.Mesh(coreGeo, coreMat);
+  group.add(core);
+
+  // Particles / "Data points" orbiting
+  const particlesCount = 50;
+  const particleGeo = new THREE.SphereGeometry(0.03, 8, 8);
+  const particleMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  
+  for(let i = 0; i < particlesCount; i++) {
+    const particle = new THREE.Mesh(particleGeo, particleMat);
+    const r = 2 + Math.random();
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI;
+    
+    particle.position.x = r * Math.sin(phi) * Math.cos(theta);
+    particle.position.y = r * Math.sin(phi) * Math.sin(theta);
+    particle.position.z = r * Math.cos(phi);
+    
+    particle.userData = {
+      angle: Math.random() * Math.PI * 2,
+      speed: 0.005 + Math.random() * 0.01,
+      r: r
+    };
+    group.add(particle);
+  }
+
+  scene.add(group);
+  camera.position.z = 6;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+
+    group.rotation.y += 0.005;
+    group.rotation.x += 0.003;
+
+    orb.scale.setScalar(1 + Math.sin(time) * 0.05);
+    core.rotation.y -= 0.01;
+
+    group.children.forEach(child => {
+      if (child.userData.speed) {
+        child.userData.angle += child.userData.speed;
+        child.position.x = child.userData.r * Math.cos(child.userData.angle);
+        child.position.z = child.userData.r * Math.sin(child.userData.angle);
+        child.position.y += Math.sin(time + child.userData.angle) * 0.01;
+      }
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  });
+
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_46 -->
+<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
+</div>
+</div>
+</section>
+<!-- Travel Statistics -->
+<section class="mb-32">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="glass-card p-10 rounded-xl text-center">
+<span class="font-display-xl text-primary block mb-2">42</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Cities Visited</span>
+</div>
+<div class="glass-card p-10 rounded-xl text-center">
+<span class="font-display-xl text-primary block mb-2">8</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Climates Experienced</span>
+</div>
+<div class="glass-card p-10 rounded-xl text-center">
+<span class="font-display-xl text-primary block mb-2">12.4k</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Miles Traveled</span>
+</div>
+</div>
+</section>
+<!-- Achievements Grid -->
+<section class="mb-32">
+<h2 class="font-headline-lg text-primary mb-12">Travel Achievements</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="cyclone">cyclone</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Storm Chaser</span>
+</div>
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="landscape">landscape</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Desert Nomad</span>
+</div>
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="ac_unit">ac_unit</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Arctic Voyager</span>
+</div>
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="water_drop">water_drop</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Monsoon Watcher</span>
+</div>
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="wb_sunny">wb_sunny</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Equator Crosser</span>
+</div>
+<div class="flex flex-col items-center gap-4 group">
+<div class="achievement-badge">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="nights_stay">nights_stay</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant group-hover:text-primary transition-colors text-center">Aurora Hunter</span>
+</div>
+</div>
+</section>
+<!-- Favorite Cities -->
+<section class="mb-32">
+<div class="flex justify-between items-end mb-12">
+<h2 class="font-headline-lg text-primary">Favorite Destinations</h2>
+<a class="font-label-caps text-label-caps text-secondary hover:text-primary border-b border-secondary hover:border-primary pb-1 transition-all" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Reykjavík -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="h-48 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A cinematic, wide-angle shot of Reykjavik harbor at dusk. The sky is a dramatic mix of deep violet and icy blue, reflecting the modern Aura Weather aesthetic. In the background, the Harpa Concert Hall glows with geometric patterns under a soft, high-contrast evening light. The atmosphere is cold, crisp, and sophisticated." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDx1jFnJrVtFrJONjayg5KW2IluHpTQ3IR3zJ7Jl6vVcG6TkkDY75xNzqMqu5OG8lnCFujyT_mXXIdGFSgJyiymek78U4Hdqc2-ayaNaqyyFc8g9H0LvLD84UCDdsko0HYM4vcQaB3NotfrjdBkpMovNLqZmYreIzV3FZn94Efbzh_BjSc4eiw-5lJVI15ejUCjj9wahgd88GjlIrqAEvjjYRLNQoURfrUMY3Lf6r-SrilJO6QoS33I')"></div>
+<div class="absolute top-4 right-4 bg-background/60 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="cloud">cloud</span>
+<span class="text-xs font-bold text-primary">-2°C</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-lg-mobile text-primary mb-1">Reykjavík</h3>
+<p class="text-on-surface-variant text-sm mb-4">Icelandic Highlands</p>
+<div class="flex items-center gap-4 opacity-60 text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="air">air</span> 18km/h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="humidity_percentage">humidity_percentage</span> 74%</span>
+</div>
+</div>
+</div>
+<!-- Kyoto -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="h-48 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A serene, high-fidelity landscape of a Kyoto temple surrounded by vibrant autumn cherry blossoms. The lighting is soft and golden, characteristic of a late afternoon glow. The color palette emphasizes rich crimsons and warm oranges against the dark, weathered wood of the architecture. The mood is tranquil, editorial, and deeply atmospheric." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCsYuAF23l3X1jn19pCQ0kcRCGntmAbCiqo2jPkmewaRySGHZlYUFRPQ4ZxddsR7V9mZpaZcgjKNltYTWK8LdahJnR6q8skrEQ5JhISrAz_XVpIlOZmg076fAufEMrg5tzGipiwLOD4l0j5bfm4cBKLSXynxqBe-CpCGYRwLKNqfNXMYIjBJIEacPNu7vpK6Yf9J3X0WQIdE4YTKPtfuxJogFnUQ9bpUglOLrDYDVBudnEaP0omlTNr')"></div>
+<div class="absolute top-4 right-4 bg-background/60 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="wb_sunny">wb_sunny</span>
+<span class="text-xs font-bold text-primary">16°C</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-lg-mobile text-primary mb-1">Kyoto</h3>
+<p class="text-on-surface-variant text-sm mb-4">Kansai Region, Japan</p>
+<div class="flex items-center gap-4 opacity-60 text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="air">air</span> 4km/h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="humidity_percentage">humidity_percentage</span> 45%</span>
+</div>
+</div>
+</div>
+<!-- Oslo -->
+<div class="glass-card rounded-xl overflow-hidden group">
+<div class="h-48 overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A modern architectural vista of Oslo's waterfront, featuring the Opera House against a clear, bright morning sky. The lighting is sharp and clinical, typical of Nordic sun, creating high-contrast shadows on the white marble. The scene is dominated by a cold-toned palette of whites and deep blues, reflecting the luxury tech aesthetic of the Aura brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBY_8Nixug5O5yzWuFnVuVCEzCfgwHE8ENo9pIcY2lY18iWcVn7am8Fg0XsHY131tIyG2E2w608YS9E8Gn65Za-O4dVrgISLS8uyZW2sIcrsHTOXmziFqJ8xKVvQaDf9TDRMHhhw5dT7VwmMjOa9R1QY2cHzMHZ85lD0wvcd-TJrFyiPpH6_aR4-KhSzjqeX-bHNezjpvq1PO_x0zVG4hMEU1ykyqjakuhzrxU7jDfHNmZa-E18808A')"></div>
+<div class="absolute top-4 right-4 bg-background/60 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="partly_cloudy_day">partly_cloudy_day</span>
+<span class="text-xs font-bold text-primary">4°C</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-lg-mobile text-primary mb-1">Oslo</h3>
+<p class="text-on-surface-variant text-sm mb-4">Østlandet, Norway</p>
+<div class="flex items-center gap-4 opacity-60 text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="air">air</span> 12km/h</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="humidity_percentage">humidity_percentage</span> 61%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Weather History & Recent Searches -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
+<div>
+<h2 class="font-headline-lg text-primary mb-8">Recent Observations</h2>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-6 rounded-lg bg-surface-container-low border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="thunderstorm">thunderstorm</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Darwin, Australia</h4>
+<p class="text-xs text-on-surface-variant">Severe Weather Warning • 2 hours ago</p>
+</div>
+</div>
+<span class="text-xl font-headline-lg text-primary">31°</span>
+</div>
+<div class="flex items-center justify-between p-6 rounded-lg bg-surface-container-low border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="foggy">foggy</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">San Francisco, USA</h4>
+<p class="text-xs text-on-surface-variant">Marine Layer • 5 hours ago</p>
+</div>
+</div>
+<span class="text-xl font-headline-lg text-primary">14°</span>
+</div>
+<div class="flex items-center justify-between p-6 rounded-lg bg-surface-container-low border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="filter_drama">filter_drama</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">London, UK</h4>
+<p class="text-xs text-on-surface-variant">Light Rain • 8 hours ago</p>
+</div>
+</div>
+<span class="text-xl font-headline-lg text-primary">9°</span>
+</div>
+</div>
+</div>
+<div>
+<h2 class="font-headline-lg text-primary mb-8">Search History</h2>
+<div class="glass-card rounded-xl p-8">
+<ul class="space-y-6">
+<li class="flex items-center justify-between border-b border-white/5 pb-4">
+<span class="text-on-surface hover:text-primary transition-colors cursor-pointer">Svalbard, Norway</span>
+<span class="text-xs opacity-40">Oct 24</span>
+</li>
+<li class="flex items-center justify-between border-b border-white/5 pb-4">
+<span class="text-on-surface hover:text-primary transition-colors cursor-pointer">Atacama Desert, Chile</span>
+<span class="text-xs opacity-40">Oct 22</span>
+</li>
+<li class="flex items-center justify-between border-b border-white/5 pb-4">
+<span class="text-on-surface hover:text-primary transition-colors cursor-pointer">Vancouver, Canada</span>
+<span class="text-xs opacity-40">Oct 21</span>
+</li>
+<li class="flex items-center justify-between border-b border-white/5 pb-4">
+<span class="text-on-surface hover:text-primary transition-colors cursor-pointer">Mumbai, India</span>
+<span class="text-xs opacity-40">Oct 19</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="text-on-surface hover:text-primary transition-colors cursor-pointer">Tromsø, Norway</span>
+<span class="text-xs opacity-40">Oct 18</span>
+</li>
+</ul>
+<button class="w-full mt-8 py-3 text-xs font-label-caps text-on-surface-variant hover:text-primary transition-colors uppercase tracking-widest">Clear History</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest py-24 border-t border-white/5">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-12">
+<div class="max-w-xs">
+<span class="font-headline-lg text-primary block mb-6">Aura</span>
+<p class="text-sm text-on-surface-variant leading-relaxed">Defining the next era of meteorological storytelling through high-fidelity data and atmospheric aesthetics.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-16">
+<div>
+<h5 class="font-label-caps text-label-caps text-primary mb-6">Platform</h5>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary" href="#">Forecasts</a></li>
+<li><a class="hover:text-primary" href="#">Global Radar</a></li>
+<li><a class="hover:text-primary" href="#">API Access</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps text-primary mb-6">About</h5>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary" href="#">Our Story</a></li>
+<li><a class="hover:text-primary" href="#">Science</a></li>
+<li><a class="hover:text-primary" href="#">Journal</a></li>
+</ul>
+</div>
+<div class="hidden md:block">
+<h5 class="font-label-caps text-label-caps text-primary mb-6">Legal</h5>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary" href="#">Privacy</a></li>
+<li><a class="hover:text-primary" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-on-surface-variant/40">© 2024 Aura Weather Systems. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg" data-icon="language">language</span></a>
+<a class="text-on-surface-variant/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg" data-icon="public">public</span></a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container/60 backdrop-blur-2xl dark:bg-surface-container/60 border-t border-white/10 dark:border-white/5 shadow-2xl flex justify-around items-center px-4 py-3 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2">
+<span class="material-symbols-outlined" data-icon="cloud_queue">cloud_queue</span>
+<span class="font-label-caps text-[10px] mt-1">ATMOSPHERE</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-[10px] mt-1">EXPLORE</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-caps text-[10px] mt-1">JOURNAL</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary bg-white/10 rounded-full p-2">
+<span class="material-symbols-outlined active-tab" data-icon="person">person</span>
+<span class="font-label-caps text-[10px] mt-1">PROFILE</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for scrolling
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('py-2');
+                header.classList.remove('py-4');
+            } else {
+                header.classList.add('py-4');
+                header.classList.remove('py-2');
+            }
+        });
+    </script>
+</body></html>

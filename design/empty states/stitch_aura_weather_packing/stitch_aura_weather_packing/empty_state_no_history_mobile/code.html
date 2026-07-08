@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura Weather - Empty State</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Hanken+Grotesk:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#2f3131",
+                    "outline": "#8e9192",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary-container": "#636565",
+                    "secondary-container": "#454747",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-container": "#201f1f",
+                    "inverse-surface": "#e5e2e1",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "on-primary-fixed": "#1a1c1c",
+                    "on-background": "#e5e2e1",
+                    "error": "#ffb4ab",
+                    "tertiary": "#ffffff",
+                    "secondary-fixed": "#e2e2e2",
+                    "surface": "#141313",
+                    "primary-fixed": "#e2e2e2",
+                    "primary": "#ffffff",
+                    "inverse-primary": "#5d5f5f",
+                    "on-surface": "#e5e2e1",
+                    "secondary": "#c6c6c7",
+                    "surface-dim": "#141313",
+                    "on-surface-variant": "#c4c7c8",
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary": "#2f3131",
+                    "surface-container-highest": "#353434",
+                    "on-error": "#690005",
+                    "on-primary": "#2f3131",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "background": "#141313",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-variant": "#353434",
+                    "on-secondary-container": "#b4b5b5",
+                    "primary-container": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#454747",
+                    "outline-variant": "#444748",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-bright": "#3a3939",
+                    "on-tertiary-container": "#636565",
+                    "tertiary-container": "#e2e2e2",
+                    "on-primary-fixed-variant": "#454747",
+                    "surface-tint": "#c6c6c7",
+                    "secondary-fixed-dim": "#c6c6c7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "headline-lg": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "display-xl": ["Libre Caslon Text"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #141313;
+            color: #e5e2e1;
+            overflow-x: hidden;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .breeze-animation {
+            animation: gentle-drift 8s ease-in-out infinite;
+        }
+
+        @keyframes gentle-drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .page-curl {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-curl::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .rim-light {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md">
+<!-- Header / TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl dark:bg-surface/80 border-b border-white/10 dark:border-white/5 fixed top-0 sticky z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary dark:text-primary tracking-tight">
+            Aura Weather
+        </div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-margin-mobile py-12 relative overflow-hidden">
+<!-- Background Atmospheric Element -->
+<div class="absolute inset-0 pointer-events-none opacity-20">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[150px]"></div>
+</div>
+<!-- Illustration Area -->
+<div class="relative w-full max-w-xs aspect-[3/4] mb-12 breeze-animation">
+<!-- Journal Page Illustration -->
+<div class="w-full h-full bg-surface-container-high/40 glass-panel rounded-xl rim-light page-curl relative p-8 flex flex-col border border-white/10 shadow-2xl">
+<!-- Journal Header Lines -->
+<div class="w-2/3 h-1 bg-on-surface/10 mb-6"></div>
+<!-- Journal Content Grid -->
+<div class="space-y-4">
+<div class="w-full h-px bg-on-surface/5"></div>
+<div class="w-full h-px bg-on-surface/5"></div>
+<div class="w-full h-px bg-on-surface/5"></div>
+<div class="w-3/4 h-px bg-on-surface/5"></div>
+</div>
+<!-- Center Empty State Graphic -->
+<div class="flex-grow flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-on-surface-variant/20" style="font-variation-settings: 'wght' 100;">air</span>
+</div>
+<!-- Footer Aesthetic -->
+<div class="mt-auto flex justify-between items-end">
+<div class="w-12 h-12 rounded-full border border-on-surface/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-on-surface-variant/40">edit</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant/30 italic">Vol. 1</div>
+</div>
+</div>
+<!-- Drifting Leaves / Dust particles (Micro-interactions) -->
+<div class="absolute -top-4 -right-4 w-12 h-12 rotate-12 opacity-40">
+<span class="material-symbols-outlined text-primary">filter_vintage</span>
+</div>
+<div class="absolute -bottom-8 -left-6 w-8 h-8 -rotate-12 opacity-20">
+<span class="material-symbols-outlined text-primary">filter_vintage</span>
+</div>
+</div>
+<!-- Copy Content -->
+<div class="text-center max-w-sm z-10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-4">A Fresh Breeze.</h1>
+<p class="text-on-surface-variant mb-10 leading-relaxed">
+                Your weather journey is just beginning. Your history will populate once you start exploring the atmosphere.
+            </p>
+<button class="inline-flex items-center gap-3 px-8 py-4 bg-primary text-on-primary rounded-full font-label-caps text-label-caps hover:bg-opacity-90 active:scale-95 transition-all duration-300">
+<span>Start Your Journey</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Shell Logic: High Intent) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container/60 backdrop-blur-2xl dark:bg-surface-container/60 border-t border-white/10 dark:border-white/5 shadow-2xl rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="cloud_queue">cloud_queue</span>
+<span class="font-label-caps text-label-caps mt-1">Atmosphere</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-white/10 rounded-full p-2" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-label-caps text-label-caps mt-1">Journal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-opacity duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<!-- Script for subtle interactive movement -->
+<script>
+        document.addEventListener('mousemove', (e) => {
+            const illustration = document.querySelector('.breeze-animation');
+            if (!illustration) return;
+            
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            illustration.style.transform = `translate(${x}px, ${y}px) rotate(${x/10}deg)`;
+        });
+    </script>
+</body></html>

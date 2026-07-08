@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Join Aether Weather</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#7c2e00",
+                    "secondary-fixed-dim": "#c2c1ff",
+                    "tertiary-fixed-dim": "#ffb595",
+                    "tertiary": "#9e3d00",
+                    "primary-container": "#0070eb",
+                    "inverse-on-surface": "#eef0fc",
+                    "surface-dim": "#d8d9e5",
+                    "on-background": "#181c23",
+                    "outline-variant": "#c1c6d7",
+                    "on-surface-variant": "#414755",
+                    "surface-container-high": "#e6e8f3",
+                    "surface-container-low": "#f1f3fe",
+                    "inverse-surface": "#2d3039",
+                    "surface": "#f9f9ff",
+                    "on-tertiary-fixed": "#351000",
+                    "on-primary-fixed": "#001a41",
+                    "on-primary-container": "#fefcff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-secondary-fixed": "#0c006a",
+                    "surface-variant": "#e0e2ed",
+                    "error-container": "#ffdad6",
+                    "background": "#f9f9ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "secondary": "#4c4aca",
+                    "primary-fixed": "#d8e2ff",
+                    "tertiary-container": "#c64f00",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#005bc1",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e2ed",
+                    "on-surface": "#181c23",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#fffbff",
+                    "outline": "#717786",
+                    "surface-bright": "#f9f9ff",
+                    "surface-container": "#ecedf9",
+                    "on-secondary-fixed-variant": "#3631b4",
+                    "on-primary-fixed-variant": "#004493",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#e2dfff",
+                    "inverse-primary": "#adc6ff",
+                    "primary": "#0058bc",
+                    "secondary-container": "#6664e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding": "24px",
+                    "element-gap": "16px",
+                    "asymmetric-offset": "12px",
+                    "section-margin": "40px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "label-bold": ["Inter"],
+                    "hero-temp": ["Playfair Display"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "caption": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "hero-temp": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "caption": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: 45%; }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .animate-progress {
+            animation: progressFill 2s ease-out forwards;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .texture-grain {
+            position: relative;
+        }
+        .texture-grain::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/felt.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .input-underline {
+            border-bottom: 1px solid #717786;
+            transition: all 0.3s ease;
+        }
+        .input-underline:focus-within {
+            border-bottom: 1px solid transparent;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 88, 188, 0.05);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed overflow-hidden h-screen flex flex-col">
+<!-- Top Navigation Shell (Suppressed for focused Transactional journey but maintaining Brand anchor) -->
+<header class="fixed top-0 left-0 w-full z-50 px-container-padding py-6 flex justify-between items-center">
+<div class="font-headline-md text-headline-md tracking-tighter text-on-surface flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[18px]">cloud</span>
+</span>
+<span class="font-bold">Aether</span>
+</div>
+<button class="text-on-surface-variant font-label-bold text-label-bold hover:text-primary transition-colors">
+            LOGIN
+        </button>
+</header>
+<!-- Animated Background Layer -->
+<div class="fixed inset-0 z-0">
+<!-- STITCH_THREEJS_START:ANIMATION_20 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_20" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_20');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  container.appendChild(renderer.domElement);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  scene.add(ambientLight);
+  const pointLight = new THREE.PointLight(0xffcc33, 2.5, 50);
+  pointLight.position.set(5, 5, 2);
+  scene.add(pointLight);
+
+  const sunGroup = new THREE.Group();
+  const sunGeo = new THREE.SphereGeometry(1, 64, 64);
+  const sunMat = new THREE.MeshPhongMaterial({ color: 0xffdd44, emissive: 0xffaa00, emissiveIntensity: 0.8, shininess: 100 });
+  const sun = new THREE.Mesh(sunGeo, sunMat);
+  sunGroup.add(sun);
+
+  const raysGroup = new THREE.Group();
+  for(let i=0; i<16; i++) {
+      const rayGeo = new THREE.CylinderGeometry(0.01, 0.06, 1.5, 8);
+      const rayMat = new THREE.MeshPhongMaterial({ color: 0xffcc33, transparent: true, opacity: 0.4 });
+      const ray = new THREE.Mesh(rayGeo, rayMat);
+      const angle = (i / 16) * Math.PI * 2;
+      ray.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, 0);
+      ray.rotation.z = angle + Math.PI/2;
+      raysGroup.add(ray);
+  }
+  sunGroup.add(raysGroup);
+  sunGroup.position.set(3, 4, -5);
+  scene.add(sunGroup);
+
+  const particlesCount = 400;
+  const positions = new Float32Array(particlesCount * 3);
+  const velocities = [];
+  for(let i = 0; i < particlesCount; i++) {
+      positions[i*3] = (Math.random() - 0.5) * 25;
+      positions[i*3+1] = (Math.random() - 0.5) * 20;
+      positions[i*3+2] = (Math.random() - 0.5) * 10;
+      velocities.push({ x: 0.01 + Math.random() * 0.03, y: (Math.random() - 0.5) * 0.01, phase: Math.random() * Math.PI * 2 });
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const mat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.5 });
+  const wind = new THREE.Points(geo, mat);
+  scene.add(wind);
+
+  const birds = [];
+  function createBird() {
+      const b = new THREE.Group();
+      const w = new THREE.PlaneGeometry(0.2, 0.06);
+      const m = new THREE.MeshBasicMaterial({ color: 0x111111, side: THREE.DoubleSide });
+      const lw = new THREE.Mesh(w, m); const rw = lw.clone();
+      lw.position.x = -0.1; rw.position.x = 0.1;
+      b.add(lw, rw);
+      b.position.set(-15 - Math.random() * 10, 1 + Math.random() * 5, -6);
+      scene.add(b);
+      return { mesh: b, lw, rw, speed: 0.02 + Math.random() * 0.04, phase: Math.random() * Math.PI };
+  }
+  for(let i=0; i<6; i++) birds.push(createBird());
+
+  camera.position.z = 10;
+
+  function animate() {
+      requestAnimationFrame(animate);
+      const time = Date.now() * 0.001;
+      sunGroup.rotation.z += 0.002;
+      raysGroup.rotation.z -= 0.004;
+      sun.scale.setScalar(1 + Math.sin(time * 1.5) * 0.03);
+      const p = wind.geometry.attributes.position.array;
+      for(let i=0; i<particlesCount; i++) {
+          p[i*3] += velocities[i].x;
+          p[i*3+1] += Math.sin(time + velocities[i].phase) * 0.005;
+          if(p[i*3] > 12) p[i*3] = -12;
+      }
+      wind.geometry.attributes.position.needsUpdate = true;
+      birds.forEach(b => {
+          b.mesh.position.x += b.speed;
+          const flap = Math.sin(time * 8 + b.phase) * 0.5;
+          b.lw.rotation.z = flap; b.rw.rotation.z = -flap;
+          if(b.mesh.position.x > 15) b.mesh.position.x = -15;
+      });
+      renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+      const w = container.clientWidth || window.innerWidth;
+      const h = container.clientHeight || window.innerHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+  });
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_20 -->
+</div>
+<!-- Main Content Area -->
+<main class="relative z-20 flex-1 flex flex-col justify-end">
+<!-- Progress Bar -->
+<div class="absolute top-20 left-container-padding right-container-padding h-1 bg-surface-container/30 rounded-full overflow-hidden">
+<div class="h-full bg-primary animate-progress rounded-full shadow-[0_0_12px_rgba(0,88,188,0.4)]"></div>
+</div>
+<!-- Glass Form Card -->
+<div class="glass-panel texture-grain rounded-t-[40px] px-container-padding pt-10 pb-12 w-full max-w-lg mx-auto animate-slide-up shadow-2xl">
+<div class="flex flex-col items-center mb-8">
+<!-- Profile Picture Upload -->
+<div class="relative group cursor-pointer mb-6">
+<div class="w-24 h-24 rounded-full bg-surface-container-highest border-2 border-dashed border-outline-variant flex items-center justify-center overflow-hidden transition-all group-hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[40px] text-outline">person</span>
+</div>
+<div class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg transform translate-x-1 translate-y-1">
+<span class="material-symbols-outlined text-white text-[18px]">add</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-center text-on-surface">Join Aether</h1>
+<p class="text-on-surface-variant text-center mt-2 max-w-[80%]">Curate your atmosphere. Personalized weather journals for the mindful traveler.</p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-6" onsubmit="event.preventDefault();">
+<!-- Name -->
+<div class="relative group">
+<label class="font-label-bold text-label-bold text-on-surface-variant mb-1 block transition-colors group-focus-within:text-primary">FULL NAME</label>
+<div class="input-underline flex items-center px-4 py-3">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md placeholder:opacity-30" placeholder="Elias Thorne" type="text"/>
+</div>
+</div>
+<!-- Email -->
+<div class="relative group">
+<label class="font-label-bold text-label-bold text-on-surface-variant mb-1 block transition-colors group-focus-within:text-primary">EMAIL ADDRESS</label>
+<div class="input-underline flex items-center px-4 py-3">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md placeholder:opacity-30" placeholder="elias@studio.com" type="email"/>
+</div>
+</div>
+<!-- Password -->
+<div class="relative group">
+<label class="font-label-bold text-label-bold text-on-surface-variant mb-1 block transition-colors group-focus-within:text-primary">PASSWORD</label>
+<div class="input-underline flex items-center px-4 py-3">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md placeholder:opacity-30" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] cursor-pointer">visibility</span>
+</div>
+</div>
+<!-- Location -->
+<div class="relative group">
+<label class="font-label-bold text-label-bold text-on-surface-variant mb-1 block transition-colors group-focus-within:text-primary">PRIMARY LOCATION</label>
+<div class="input-underline flex items-center px-4 py-3">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md placeholder:opacity-30" placeholder="Stockholm, Sweden" type="text"/>
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="location_on">location_on</span>
+</div>
+</div>
+<!-- Preference Selector (Asymmetric Micro-interaction) -->
+<div class="flex items-center justify-between pt-2">
+<div>
+<label class="font-label-bold text-label-bold text-on-surface-variant block">UNITS</label>
+<p class="text-[11px] text-outline leading-tight">Celsius or Fahrenheit</p>
+</div>
+<div class="bg-surface-container flex p-1 rounded-full w-32 relative">
+<button class="relative z-10 flex-1 text-label-bold text-center py-2 transition-all text-on-primary" id="btn-metric" onclick="setUnit('metric')" type="button">°C</button>
+<button class="relative z-10 flex-1 text-label-bold text-center py-2 transition-all text-on-surface-variant opacity-60" id="btn-imperial" onclick="setUnit('imperial')" type="button">°F</button>
+<div class="absolute top-1 left-1 bottom-1 w-[calc(50%-4px)] bg-primary rounded-full transition-transform duration-300 ease-out shadow-sm" id="unit-indicator"></div>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-4">
+<button class="w-full bg-primary text-on-primary font-bold py-5 rounded-full shadow-[0_12px_24px_-8px_rgba(0,88,188,0.5)] transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
+<span class="font-body-lg text-body-lg tracking-wide uppercase">Sign Up</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<p class="text-center text-on-surface-variant text-[13px] pt-2">
+                    By joining, you agree to our <a class="text-primary font-bold underline underline-offset-4" href="#">Terms of Service</a>.
+                </p>
+</form>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component Placeholder - Suppressed on transactional pages usually, but kept for visual context in this task) -->
+<!-- Note: Hidden on this specific screen to focus on the form as per UX Goal "Linear/Transactional" -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-surface-container-low/90 backdrop-blur-2xl translate-y-full" id="global-nav">
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
+<span class="material-symbols-outlined" data-icon="cloud">cloud</span>
+<span class="font-label-bold text-label-bold">Forecast</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
+<span class="material-symbols-outlined" data-icon="luggage">luggage</span>
+<span class="font-label-bold text-label-bold">Packing</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant opacity-70">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-bold text-label-bold">Explore</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-2 scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-bold text-label-bold">Profile</span>
+</div>
+</nav>
+<script>
+        function setUnit(unit) {
+            const indicator = document.getElementById('unit-indicator');
+            const btnMetric = document.getElementById('btn-metric');
+            const btnImperial = document.getElementById('btn-imperial');
+            
+            if (unit === 'metric') {
+                indicator.style.transform = 'translateX(0)';
+                btnMetric.classList.remove('text-on-surface-variant', 'opacity-60');
+                btnMetric.classList.add('text-on-primary');
+                btnImperial.classList.add('text-on-surface-variant', 'opacity-60');
+                btnImperial.classList.remove('text-on-primary');
+            } else {
+                indicator.style.transform = 'translateX(100%)';
+                btnImperial.classList.remove('text-on-surface-variant', 'opacity-60');
+                btnImperial.classList.add('text-on-primary');
+                btnMetric.classList.add('text-on-surface-variant', 'opacity-60');
+                btnMetric.classList.remove('text-on-primary');
+            }
+        }
+
+        // Soft entry parallax effect for background
+        window.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('webgl-shader').style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body></html>

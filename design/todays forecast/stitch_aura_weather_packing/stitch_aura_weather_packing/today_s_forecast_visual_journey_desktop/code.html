@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Weather | Visual Journey</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&amp;family=Hanken+Grotesk:wght@300;400;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "surface-container": "#201f1f",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "surface-container-highest": "#353434",
+                    "primary-container": "#e2e2e2",
+                    "on-surface-variant": "#c4c7c8",
+                    "on-secondary-fixed-variant": "#454747",
+                    "surface-variant": "#353434",
+                    "tertiary": "#ffffff",
+                    "outline-variant": "#444748",
+                    "on-tertiary-container": "#636565",
+                    "on-primary": "#2f3131",
+                    "on-primary-fixed": "#1a1c1c",
+                    "primary-fixed": "#e2e2e2",
+                    "surface-dim": "#141313",
+                    "on-primary-fixed-variant": "#454747",
+                    "tertiary-container": "#e2e2e2",
+                    "inverse-on-surface": "#313030",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "surface": "#141313",
+                    "on-primary-container": "#636565",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-error": "#690005",
+                    "secondary-container": "#454747",
+                    "secondary-fixed": "#e2e2e2",
+                    "surface-bright": "#3a3939",
+                    "surface-tint": "#c6c6c7",
+                    "on-secondary": "#2f3131",
+                    "primary": "#ffffff",
+                    "on-surface": "#e5e2e1",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b4b5b5",
+                    "background": "#141313",
+                    "secondary": "#c6c6c7",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary": "#2f3131",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "outline": "#8e9192",
+                    "inverse-primary": "#5d5f5f",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#e2e2e2",
+                    "surface-container-high": "#2a2a2a",
+                    "on-background": "#e5e2e1",
+                    "inverse-surface": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Libre Caslon Text"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-caps": ["Hanken Grotesk"],
+                    "display-xl": ["Libre Caslon Text"],
+                    "headline-lg-mobile": ["Libre Caslon Text"],
+                    "serif-display": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-surface {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            background: rgba(20, 19, 19, 0.15);
+        }
+        .morning-border { border-top: 1px solid rgba(255, 255, 255, 0.2); }
+        .evening-border { border: 1px solid rgba(139, 92, 246, 0.3); }
+        
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .fade-in-up {
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar from JSON -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-unit backdrop-blur-md bg-surface/10 border-b border-white/10">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-tertiary tracking-tight">Aether Weather</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-primary border-b-2 border-primary font-label-caps uppercase transition-colors duration-300" href="#">Journey</a>
+<a class="text-on-surface-variant hover:text-primary font-label-caps uppercase transition-colors duration-300" href="#">Archive</a>
+<a class="text-on-surface-variant hover:text-primary font-label-caps uppercase transition-colors duration-300" href="#">Radar</a>
+</nav>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-all duration-200">search</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:opacity-80 transition-all duration-200">location_on</span>
+</div>
+</div>
+</header>
+<main class="snap-container">
+<!-- Section 1: MORNING -->
+<section class="snap-section flex flex-col justify-center px-margin-mobile md:px-margin-desktop bg-gradient-to-br from-[#FFD194] to-[#70E1FF] dark:from-[#31231a] dark:to-[#141313]">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="absolute inset-0 w-full h-full opacity-40 mix-blend-soft-light" -->
+<div class="absolute inset-0 w-full h-full opacity-40 mix-blend-soft-light" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.1;
+    
+    // Cycle through day parts based on uv.x for a "journey" effect
+    // 0.0-0.25: Morning, 0.25-0.5: Afternoon, 0.5-0.75: Evening, 0.75-1.0: Night
+    
+    vec3 morningTop = vec3(1.0, 0.7, 0.5); // Peach
+    vec3 morningBot = vec3(1.0, 0.9, 0.8);
+    
+    vec3 noonTop = vec3(0.1, 0.5, 0.9); // Blue
+    vec3 noonBot = vec3(0.7, 0.9, 1.0);
+    
+    vec3 sunsetTop = vec3(0.4, 0.1, 0.6); // Violet
+    vec3 sunsetBot = vec3(1.0, 0.5, 0.3); // Orange
+    
+    vec3 nightTop = vec3(0.02, 0.05, 0.1); // Deep Navy
+    vec3 nightBot = vec3(0.05, 0.1, 0.2);
+    
+    vec3 top, bot;
+    
+    if (uv.x < 0.25) {
+        float t = uv.x / 0.25;
+        top = morningTop; bot = morningBot;
+    } else if (uv.x < 0.5) {
+        float t = (uv.x - 0.25) / 0.25;
+        top = mix(morningTop, noonTop, t);
+        bot = mix(morningBot, noonBot, t);
+    } else if (uv.x < 0.75) {
+        float t = (uv.x - 0.5) / 0.25;
+        top = mix(noonTop, sunsetTop, t);
+        bot = mix(noonBot, sunsetBot, t);
+    } else {
+        float t = (uv.x - 0.75) / 0.25;
+        top = mix(sunsetTop, nightTop, t);
+        bot = mix(sunsetBot, nightBot, t);
+    }
+    
+    float noise = snoise(uv * 1.5 + vec2(time, 0.0));
+    vec3 color = mix(bot, top, uv.y + noise * 0.1);
+    
+    // Clouds
+    float cloudNoise = snoise(uv * 2.0 + vec2(time * 0.5, 0.0));
+    float clouds = smoothstep(0.4, 0.8, cloudNoise);
+    color = mix(color, vec3(1.0), clouds * 0.2);
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
+<!-- STITCH_THREEJS_START:ANIMATION_35 class="absolute inset-0 w-full h-full opacity-30" -->
+<div class="absolute inset-0 w-full h-full opacity-30" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_35" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_35');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const sunLight = new THREE.PointLight(0xffcc33, 2, 50);
+sunLight.position.set(5, 5, 2);
+scene.add(sunLight);
+
+// Create 4 atmospheric states (Morning, Afternoon, Evening, Night)
+// Distributed across the horizontal plane for a "scrollable journey"
+const states = [
+    { name: 'Morning', color: 0xffccaa, x: -15 },
+    { name: 'Afternoon', color: 0xffdd44, x: -5 },
+    { name: 'Evening', color: 0xff5522, x: 5 },
+    { name: 'Night', color: 0x88aaff, x: 15 }
+];
+
+const suns = [];
+states.forEach((s, i) => {
+    const sunGroup = new THREE.Group();
+    const sunGeo = new THREE.SphereGeometry(1.2, 64, 64);
+    const sunMat = new THREE.MeshPhongMaterial({ 
+        color: s.color, 
+        emissive: s.color,
+        emissiveIntensity: 0.5,
+        shininess: 100 
+    });
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sun);
+    
+    // Rays
+    for(let j=0; j<12; j++) {
+        const rayGeo = new THREE.CylinderGeometry(0.01, 0.1, 2, 8);
+        const rayMat = new THREE.MeshPhongMaterial({ color: s.color, transparent: true, opacity: 0.3 });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        const angle = (j / 12) * Math.PI * 2;
+        ray.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+        ray.rotation.z = angle + Math.PI/2;
+        sunGroup.add(ray);
+    }
+    
+    sunGroup.position.set(s.x, 3, -8);
+    if (s.name === 'Night') {
+        sun.material.color.setHex(0xcccccc);
+        sun.material.emissive.setHex(0xaaaaaa);
+    }
+    scene.add(sunGroup);
+    suns.push(sunGroup);
+});
+
+// Particles
+const particlesCount = 500;
+const positions = new Float32Array(particlesCount * 3);
+for(let i = 0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 60;
+    positions[i*3+1] = (Math.random() - 0.5) * 20;
+    positions[i*3+2] = (Math.random() - 0.5) * 10;
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+const particles = new THREE.Points(partGeo, partMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    suns.forEach((sun, i) => {
+        sun.rotation.z += 0.002;
+        sun.scale.setScalar(1 + Math.sin(time + i) * 0.03);
+    });
+    
+    const p = particles.geometry.attributes.position.array;
+    for(let i=0; i<particlesCount; i++) {
+        p[i*3] += 0.02;
+        if(p[i*3] > 30) p[i*3] = -30;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_35 -->
+<div class="relative z-10 max-w-container-max mx-auto w-full">
+<div class="fade-in-up flex flex-col md:flex-row md:items-end justify-between gap-12">
+<div>
+<span class="font-label-caps text-primary tracking-widest block mb-4 uppercase opacity-80">06:00 — 11:00</span>
+<h1 class="font-serif-display text-[80px] md:text-[140px] leading-[0.9] text-primary italic font-bold">Morning</h1>
+<p class="font-headline-lg-mobile md:text-headline-lg mt-4 text-on-surface">Clear &amp; Golden</p>
+</div>
+<div class="glass-surface morning-border rounded-xl p-8 md:p-12 min-w-[300px]">
+<div class="flex items-center justify-between mb-8">
+<span class="text-display-xl font-headline-lg text-primary">14°</span>
+<div class="text-right">
+<p class="font-label-caps text-on-surface-variant">FEELS LIKE</p>
+<p class="text-headline-lg-mobile font-bold text-primary">12°C</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter border-t border-white/10 pt-8">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">WIND</p>
+<p class="text-body-md font-bold text-primary">8km/h</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">HUMIDITY</p>
+<p class="text-body-md font-bold text-primary">65%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: AFTERNOON -->
+<section class="snap-section flex flex-col justify-center px-margin-mobile md:px-margin-desktop bg-gradient-to-br from-[#4facfe] to-[#00f2fe] dark:from-[#1a2b3c] dark:to-[#141313]">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="absolute inset-0 w-full h-full opacity-50 mix-blend-overlay" -->
+<div class="absolute inset-0 w-full h-full opacity-50 mix-blend-overlay" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.1;
+    
+    // Cycle through day parts based on uv.x for a "journey" effect
+    // 0.0-0.25: Morning, 0.25-0.5: Afternoon, 0.5-0.75: Evening, 0.75-1.0: Night
+    
+    vec3 morningTop = vec3(1.0, 0.7, 0.5); // Peach
+    vec3 morningBot = vec3(1.0, 0.9, 0.8);
+    
+    vec3 noonTop = vec3(0.1, 0.5, 0.9); // Blue
+    vec3 noonBot = vec3(0.7, 0.9, 1.0);
+    
+    vec3 sunsetTop = vec3(0.4, 0.1, 0.6); // Violet
+    vec3 sunsetBot = vec3(1.0, 0.5, 0.3); // Orange
+    
+    vec3 nightTop = vec3(0.02, 0.05, 0.1); // Deep Navy
+    vec3 nightBot = vec3(0.05, 0.1, 0.2);
+    
+    vec3 top, bot;
+    
+    if (uv.x < 0.25) {
+        float t = uv.x / 0.25;
+        top = morningTop; bot = morningBot;
+    } else if (uv.x < 0.5) {
+        float t = (uv.x - 0.25) / 0.25;
+        top = mix(morningTop, noonTop, t);
+        bot = mix(morningBot, noonBot, t);
+    } else if (uv.x < 0.75) {
+        float t = (uv.x - 0.5) / 0.25;
+        top = mix(noonTop, sunsetTop, t);
+        bot = mix(noonBot, sunsetBot, t);
+    } else {
+        float t = (uv.x - 0.75) / 0.25;
+        top = mix(sunsetTop, nightTop, t);
+        bot = mix(sunsetBot, nightBot, t);
+    }
+    
+    float noise = snoise(uv * 1.5 + vec2(time, 0.0));
+    vec3 color = mix(bot, top, uv.y + noise * 0.1);
+    
+    // Clouds
+    float cloudNoise = snoise(uv * 2.0 + vec2(time * 0.5, 0.0));
+    float clouds = smoothstep(0.4, 0.8, cloudNoise);
+    color = mix(color, vec3(1.0), clouds * 0.2);
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
+<!-- STITCH_THREEJS_START:ANIMATION_35 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_35" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_35');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const sunLight = new THREE.PointLight(0xffcc33, 2, 50);
+sunLight.position.set(5, 5, 2);
+scene.add(sunLight);
+
+// Create 4 atmospheric states (Morning, Afternoon, Evening, Night)
+// Distributed across the horizontal plane for a "scrollable journey"
+const states = [
+    { name: 'Morning', color: 0xffccaa, x: -15 },
+    { name: 'Afternoon', color: 0xffdd44, x: -5 },
+    { name: 'Evening', color: 0xff5522, x: 5 },
+    { name: 'Night', color: 0x88aaff, x: 15 }
+];
+
+const suns = [];
+states.forEach((s, i) => {
+    const sunGroup = new THREE.Group();
+    const sunGeo = new THREE.SphereGeometry(1.2, 64, 64);
+    const sunMat = new THREE.MeshPhongMaterial({ 
+        color: s.color, 
+        emissive: s.color,
+        emissiveIntensity: 0.5,
+        shininess: 100 
+    });
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sun);
+    
+    // Rays
+    for(let j=0; j<12; j++) {
+        const rayGeo = new THREE.CylinderGeometry(0.01, 0.1, 2, 8);
+        const rayMat = new THREE.MeshPhongMaterial({ color: s.color, transparent: true, opacity: 0.3 });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        const angle = (j / 12) * Math.PI * 2;
+        ray.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+        ray.rotation.z = angle + Math.PI/2;
+        sunGroup.add(ray);
+    }
+    
+    sunGroup.position.set(s.x, 3, -8);
+    if (s.name === 'Night') {
+        sun.material.color.setHex(0xcccccc);
+        sun.material.emissive.setHex(0xaaaaaa);
+    }
+    scene.add(sunGroup);
+    suns.push(sunGroup);
+});
+
+// Particles
+const particlesCount = 500;
+const positions = new Float32Array(particlesCount * 3);
+for(let i = 0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 60;
+    positions[i*3+1] = (Math.random() - 0.5) * 20;
+    positions[i*3+2] = (Math.random() - 0.5) * 10;
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+const particles = new THREE.Points(partGeo, partMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    suns.forEach((sun, i) => {
+        sun.rotation.z += 0.002;
+        sun.scale.setScalar(1 + Math.sin(time + i) * 0.03);
+    });
+    
+    const p = particles.geometry.attributes.position.array;
+    for(let i=0; i<particlesCount; i++) {
+        p[i*3] += 0.02;
+        if(p[i*3] > 30) p[i*3] = -30;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_35 -->
+<div class="relative z-10 max-w-container-max mx-auto w-full">
+<div class="fade-in-up flex flex-col md:flex-row-reverse md:items-end justify-between gap-12">
+<div class="text-right">
+<span class="font-label-caps text-primary tracking-widest block mb-4 uppercase opacity-80">12:00 — 17:00</span>
+<h1 class="font-headline-lg text-[80px] md:text-[140px] leading-[0.9] text-primary uppercase font-extrabold tracking-tighter">Afternoon</h1>
+<p class="font-headline-lg-mobile md:text-headline-lg mt-4 text-primary">High Sun</p>
+</div>
+<div class="glass-surface border-white/20 rounded-xl p-8 md:p-12 min-w-[300px]">
+<div class="flex items-center justify-between mb-8 gap-12">
+<span class="text-display-xl font-headline-lg text-primary">22°</span>
+<div class="text-left">
+<p class="font-label-caps text-on-surface-variant">FEELS LIKE</p>
+<p class="text-headline-lg-mobile font-bold text-primary">24°C</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter border-t border-white/10 pt-8">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">WIND</p>
+<p class="text-body-md font-bold text-primary">12km/h</p>
+</div>
+<div>
+<p class="font-label-caps text-on-surface-variant mb-1">HUMIDITY</p>
+<p class="text-body-md font-bold text-primary">45%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: EVENING -->
+<section class="snap-section flex flex-col justify-center px-margin-mobile md:px-margin-desktop bg-gradient-to-br from-[#6a11cb] to-[#2575fc] dark:from-[#2e1a47] dark:to-[#141313]">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="absolute inset-0 w-full h-full opacity-60 mix-blend-lighten" -->
+<div class="absolute inset-0 w-full h-full opacity-60 mix-blend-lighten" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.1;
+    
+    // Cycle through day parts based on uv.x for a "journey" effect
+    // 0.0-0.25: Morning, 0.25-0.5: Afternoon, 0.5-0.75: Evening, 0.75-1.0: Night
+    
+    vec3 morningTop = vec3(1.0, 0.7, 0.5); // Peach
+    vec3 morningBot = vec3(1.0, 0.9, 0.8);
+    
+    vec3 noonTop = vec3(0.1, 0.5, 0.9); // Blue
+    vec3 noonBot = vec3(0.7, 0.9, 1.0);
+    
+    vec3 sunsetTop = vec3(0.4, 0.1, 0.6); // Violet
+    vec3 sunsetBot = vec3(1.0, 0.5, 0.3); // Orange
+    
+    vec3 nightTop = vec3(0.02, 0.05, 0.1); // Deep Navy
+    vec3 nightBot = vec3(0.05, 0.1, 0.2);
+    
+    vec3 top, bot;
+    
+    if (uv.x < 0.25) {
+        float t = uv.x / 0.25;
+        top = morningTop; bot = morningBot;
+    } else if (uv.x < 0.5) {
+        float t = (uv.x - 0.25) / 0.25;
+        top = mix(morningTop, noonTop, t);
+        bot = mix(morningBot, noonBot, t);
+    } else if (uv.x < 0.75) {
+        float t = (uv.x - 0.5) / 0.25;
+        top = mix(noonTop, sunsetTop, t);
+        bot = mix(noonBot, sunsetBot, t);
+    } else {
+        float t = (uv.x - 0.75) / 0.25;
+        top = mix(sunsetTop, nightTop, t);
+        bot = mix(sunsetBot, nightBot, t);
+    }
+    
+    float noise = snoise(uv * 1.5 + vec2(time, 0.0));
+    vec3 color = mix(bot, top, uv.y + noise * 0.1);
+    
+    // Clouds
+    float cloudNoise = snoise(uv * 2.0 + vec2(time * 0.5, 0.0));
+    float clouds = smoothstep(0.4, 0.8, cloudNoise);
+    color = mix(color, vec3(1.0), clouds * 0.2);
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
+<!-- STITCH_THREEJS_START:ANIMATION_35 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_35" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_35');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const sunLight = new THREE.PointLight(0xffcc33, 2, 50);
+sunLight.position.set(5, 5, 2);
+scene.add(sunLight);
+
+// Create 4 atmospheric states (Morning, Afternoon, Evening, Night)
+// Distributed across the horizontal plane for a "scrollable journey"
+const states = [
+    { name: 'Morning', color: 0xffccaa, x: -15 },
+    { name: 'Afternoon', color: 0xffdd44, x: -5 },
+    { name: 'Evening', color: 0xff5522, x: 5 },
+    { name: 'Night', color: 0x88aaff, x: 15 }
+];
+
+const suns = [];
+states.forEach((s, i) => {
+    const sunGroup = new THREE.Group();
+    const sunGeo = new THREE.SphereGeometry(1.2, 64, 64);
+    const sunMat = new THREE.MeshPhongMaterial({ 
+        color: s.color, 
+        emissive: s.color,
+        emissiveIntensity: 0.5,
+        shininess: 100 
+    });
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sun);
+    
+    // Rays
+    for(let j=0; j<12; j++) {
+        const rayGeo = new THREE.CylinderGeometry(0.01, 0.1, 2, 8);
+        const rayMat = new THREE.MeshPhongMaterial({ color: s.color, transparent: true, opacity: 0.3 });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        const angle = (j / 12) * Math.PI * 2;
+        ray.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+        ray.rotation.z = angle + Math.PI/2;
+        sunGroup.add(ray);
+    }
+    
+    sunGroup.position.set(s.x, 3, -8);
+    if (s.name === 'Night') {
+        sun.material.color.setHex(0xcccccc);
+        sun.material.emissive.setHex(0xaaaaaa);
+    }
+    scene.add(sunGroup);
+    suns.push(sunGroup);
+});
+
+// Particles
+const particlesCount = 500;
+const positions = new Float32Array(particlesCount * 3);
+for(let i = 0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 60;
+    positions[i*3+1] = (Math.random() - 0.5) * 20;
+    positions[i*3+2] = (Math.random() - 0.5) * 10;
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+const particles = new THREE.Points(partGeo, partMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    suns.forEach((sun, i) => {
+        sun.rotation.z += 0.002;
+        sun.scale.setScalar(1 + Math.sin(time + i) * 0.03);
+    });
+    
+    const p = particles.geometry.attributes.position.array;
+    for(let i=0; i<particlesCount; i++) {
+        p[i*3] += 0.02;
+        if(p[i*3] > 30) p[i*3] = -30;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_35 -->
+<div class="relative z-10 max-w-container-max mx-auto w-full">
+<div class="fade-in-up flex flex-col gap-12 items-center text-center">
+<div>
+<span class="font-label-caps text-[#FFB3FF] tracking-[0.2em] block mb-4 uppercase">18:00 — 21:00</span>
+<h1 class="font-serif-display text-[80px] md:text-[140px] leading-[0.8] text-primary italic">Evening</h1>
+<p class="font-headline-lg-mobile md:text-headline-lg mt-6 text-[#FFCC99] font-light tracking-wide">Violet Skies</p>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter max-w-4xl w-full">
+<div class="glass-surface evening-border rounded-full px-12 py-8 flex items-center gap-12">
+<span class="text-display-xl font-headline-lg text-primary">18°</span>
+<div class="h-16 w-px bg-white/10"></div>
+<div class="text-left">
+<p class="font-label-caps text-[#FFB3FF]">HUMIDITY</p>
+<p class="text-headline-lg-mobile font-bold text-primary">55%</p>
+</div>
+</div>
+<div class="glass-surface evening-border rounded-full px-12 py-8 flex flex-col justify-center text-left">
+<p class="font-label-caps text-[#FFB3FF]">FEELS LIKE</p>
+<p class="text-headline-lg-mobile font-bold text-primary">17°C</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: NIGHT -->
+<section class="snap-section flex flex-col justify-center px-margin-mobile md:px-margin-desktop bg-gradient-to-br from-[#090909] to-[#2b2b2b] dark:from-[#050505] dark:to-[#141313]">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="absolute inset-0 w-full h-full opacity-30" -->
+<div class="absolute inset-0 w-full h-full opacity-30" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec4 ox = floor(x + 0.5);
+  vec4 a0 = x.xyxy + ox.xxyy;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.1;
+    
+    // Cycle through day parts based on uv.x for a "journey" effect
+    // 0.0-0.25: Morning, 0.25-0.5: Afternoon, 0.5-0.75: Evening, 0.75-1.0: Night
+    
+    vec3 morningTop = vec3(1.0, 0.7, 0.5); // Peach
+    vec3 morningBot = vec3(1.0, 0.9, 0.8);
+    
+    vec3 noonTop = vec3(0.1, 0.5, 0.9); // Blue
+    vec3 noonBot = vec3(0.7, 0.9, 1.0);
+    
+    vec3 sunsetTop = vec3(0.4, 0.1, 0.6); // Violet
+    vec3 sunsetBot = vec3(1.0, 0.5, 0.3); // Orange
+    
+    vec3 nightTop = vec3(0.02, 0.05, 0.1); // Deep Navy
+    vec3 nightBot = vec3(0.05, 0.1, 0.2);
+    
+    vec3 top, bot;
+    
+    if (uv.x < 0.25) {
+        float t = uv.x / 0.25;
+        top = morningTop; bot = morningBot;
+    } else if (uv.x < 0.5) {
+        float t = (uv.x - 0.25) / 0.25;
+        top = mix(morningTop, noonTop, t);
+        bot = mix(morningBot, noonBot, t);
+    } else if (uv.x < 0.75) {
+        float t = (uv.x - 0.5) / 0.25;
+        top = mix(noonTop, sunsetTop, t);
+        bot = mix(noonBot, sunsetBot, t);
+    } else {
+        float t = (uv.x - 0.75) / 0.25;
+        top = mix(sunsetTop, nightTop, t);
+        bot = mix(sunsetBot, nightBot, t);
+    }
+    
+    float noise = snoise(uv * 1.5 + vec2(time, 0.0));
+    vec3 color = mix(bot, top, uv.y + noise * 0.1);
+    
+    // Clouds
+    float cloudNoise = snoise(uv * 2.0 + vec2(time * 0.5, 0.0));
+    float clouds = smoothstep(0.4, 0.8, cloudNoise);
+    color = mix(color, vec3(1.0), clouds * 0.2);
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
+<!-- STITCH_THREEJS_START:ANIMATION_35 class="absolute inset-0 w-full h-full opacity-80" -->
+<div class="absolute inset-0 w-full h-full opacity-80" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_35" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_35');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(ambientLight);
+const sunLight = new THREE.PointLight(0xffcc33, 2, 50);
+sunLight.position.set(5, 5, 2);
+scene.add(sunLight);
+
+// Create 4 atmospheric states (Morning, Afternoon, Evening, Night)
+// Distributed across the horizontal plane for a "scrollable journey"
+const states = [
+    { name: 'Morning', color: 0xffccaa, x: -15 },
+    { name: 'Afternoon', color: 0xffdd44, x: -5 },
+    { name: 'Evening', color: 0xff5522, x: 5 },
+    { name: 'Night', color: 0x88aaff, x: 15 }
+];
+
+const suns = [];
+states.forEach((s, i) => {
+    const sunGroup = new THREE.Group();
+    const sunGeo = new THREE.SphereGeometry(1.2, 64, 64);
+    const sunMat = new THREE.MeshPhongMaterial({ 
+        color: s.color, 
+        emissive: s.color,
+        emissiveIntensity: 0.5,
+        shininess: 100 
+    });
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sun);
+    
+    // Rays
+    for(let j=0; j<12; j++) {
+        const rayGeo = new THREE.CylinderGeometry(0.01, 0.1, 2, 8);
+        const rayMat = new THREE.MeshPhongMaterial({ color: s.color, transparent: true, opacity: 0.3 });
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        const angle = (j / 12) * Math.PI * 2;
+        ray.position.set(Math.cos(angle) * 2.2, Math.sin(angle) * 2.2, 0);
+        ray.rotation.z = angle + Math.PI/2;
+        sunGroup.add(ray);
+    }
+    
+    sunGroup.position.set(s.x, 3, -8);
+    if (s.name === 'Night') {
+        sun.material.color.setHex(0xcccccc);
+        sun.material.emissive.setHex(0xaaaaaa);
+    }
+    scene.add(sunGroup);
+    suns.push(sunGroup);
+});
+
+// Particles
+const particlesCount = 500;
+const positions = new Float32Array(particlesCount * 3);
+for(let i = 0; i < particlesCount; i++) {
+    positions[i*3] = (Math.random() - 0.5) * 60;
+    positions[i*3+1] = (Math.random() - 0.5) * 20;
+    positions[i*3+2] = (Math.random() - 0.5) * 10;
+}
+const partGeo = new THREE.BufferGeometry();
+partGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+const partMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+const particles = new THREE.Points(partGeo, partMat);
+scene.add(particles);
+
+camera.position.z = 12;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    suns.forEach((sun, i) => {
+        sun.rotation.z += 0.002;
+        sun.scale.setScalar(1 + Math.sin(time + i) * 0.03);
+    });
+    
+    const p = particles.geometry.attributes.position.array;
+    for(let i=0; i<particlesCount; i++) {
+        p[i*3] += 0.02;
+        if(p[i*3] > 30) p[i*3] = -30;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_35 -->
+<div class="relative z-10 max-w-container-max mx-auto w-full">
+<div class="fade-in-up flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-1/2">
+<span class="font-label-caps text-secondary-fixed-dim tracking-[0.3em] block mb-6 uppercase">22:00 — 05:00</span>
+<h1 class="font-headline-lg text-[100px] md:text-[180px] leading-[0.75] text-white opacity-90 tracking-tighter">Night</h1>
+<p class="font-headline-lg-mobile md:text-headline-lg mt-8 text-secondary uppercase tracking-[0.15em] font-light">Starlit</p>
+</div>
+<div class="md:w-1/2 flex flex-col gap-6">
+<div class="flex gap-6 items-end">
+<span class="text-[120px] font-headline-lg leading-none text-white">11°</span>
+<div class="pb-4">
+<p class="font-label-caps text-secondary mb-1">FEELS LIKE</p>
+<p class="text-headline-lg-mobile text-white">9°C</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="glass-surface border border-white/5 p-6 rounded-lg">
+<p class="font-label-caps text-secondary mb-2">WIND VELOCITY</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">air</span>
+<span class="text-headline-lg-mobile text-white">6km/h</span>
+</div>
+</div>
+<div class="glass-surface border border-white/5 p-6 rounded-lg">
+<p class="font-label-caps text-secondary mb-2">HUMIDITY INDEX</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">water_drop</span>
+<span class="text-headline-lg-mobile text-white">40%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer from JSON -->
+<footer class="w-full py-20 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface dark:bg-surface-dim border-t border-outline-variant relative z-50">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Aether Weather</div>
+<div class="flex flex-wrap justify-center gap-8 text-on-surface-variant font-body-md">
+<a class="hover:text-primary underline transition-all" href="#">Editorial</a>
+<a class="hover:text-primary underline transition-all" href="#">Data Sources</a>
+<a class="hover:text-primary underline transition-all" href="#">Privacy</a>
+<a class="hover:text-primary underline transition-all" href="#">Methodology</a>
+</div>
+<p class="text-on-surface-variant text-body-md opacity-60">© 2024 Aether Weather. Atmospheric Intelligence.</p>
+</footer>
+</main>
+<!-- Micro-interaction for scroll triggers -->
+<script>
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const elements = entry.target.querySelectorAll('.fade-in-up');
+                    elements.forEach((el, index) => {
+                        el.style.animationDelay = `${index * 0.15}s`;
+                        el.classList.add('visible');
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.snap-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Interactive hover effect for data cards
+        document.querySelectorAll('.glass-surface').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.08), rgba(20,19,19,0.15))`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = `rgba(20, 19, 19, 0.15)`;
+            });
+        });
+    </script>
+</body></html>
