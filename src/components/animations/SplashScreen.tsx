@@ -85,9 +85,6 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                 />
               </path>
             </g>
-            <circle cx="116" cy="85" fill="currentColor" fillOpacity="0.3" className="text-aether-gold">
-              <animate attributeName="r" dur="4s" repeatCount="indefinite" values="50;55;50" />
-            </circle>
           </svg>
         </div>
         <h1 className="font-headline-lg-mobile md:font-headline-lg text-aether-gold animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
