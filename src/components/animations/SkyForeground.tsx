@@ -157,22 +157,21 @@ function SnowLayer() {
 }
 
 function BirdLayer() {
-  // V-formation centered in upper sky
-  const formation = [
-    { x: 50, y: 11, size: 28 },   // lead
-    { x: 42, y: 14, size: 26 },   // left wing
-    { x: 58, y: 14, size: 26 },   // right wing
-    { x: 36, y: 18, size: 24 },   // left
-    { x: 64, y: 18, size: 24 },   // right
-    { x: 46, y: 21, size: 22 },   // inner left
-    { x: 54, y: 21, size: 22 },   // inner right
-    { x: 40, y: 25, size: 20 },   // far left
-    { x: 60, y: 25, size: 20 },   // far right
+  const birds = [
+    { x: 48, y: 10, size: 30, flap: 0.30, bob: 2.0, delay: 0 },
+    { x: 37, y: 14, size: 27, flap: 0.36, bob: 2.6, delay: 0.4 },
+    { x: 61, y: 13, size: 26, flap: 0.32, bob: 2.3, delay: 0.7 },
+    { x: 52, y: 18, size: 24, flap: 0.40, bob: 2.8, delay: 1.1 },
+    { x: 29, y: 19, size: 23, flap: 0.34, bob: 2.1, delay: 0.2 },
+    { x: 42, y: 23, size: 22, flap: 0.38, bob: 2.5, delay: 1.5 },
+    { x: 66, y: 21, size: 22, flap: 0.33, bob: 2.7, delay: 0.9 },
+    { x: 55, y: 27, size: 20, flap: 0.37, bob: 2.2, delay: 0.5 },
+    { x: 35, y: 28, size: 20, flap: 0.35, bob: 2.9, delay: 1.3 },
   ];
 
   return (
     <div className="absolute inset-0 pointer-events-none z-6">
-      {formation.map((b, i) => (
+      {birds.map((b, i) => (
         <div
           key={i}
           className="absolute"
@@ -183,15 +182,15 @@ function BirdLayer() {
           }}
         >
           <div
-            style={{ animation: `bird-bob ${2.5 + (i % 4) * 0.5}s ease-in-out ${i * 0.15}s infinite` }}
+            style={{ animation: `bird-bob ${b.bob}s ease-in-out ${b.delay}s infinite` }}
           >
             <svg
               width={b.size}
               height={b.size * 0.45}
               viewBox="0 0 50 18"
-              fill="rgba(255,255,255,0.75)"
-              className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]"
-              style={{ animation: `bird-flap ${0.35 + (i % 3) * 0.06}s ease-in-out ${i * 0.12}s infinite` }}
+              fill="rgba(255,255,255,0.8)"
+              className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              style={{ animation: `bird-flap ${b.flap}s ease-in-out ${b.delay}s infinite` }}
             >
               <path d="M2 14 Q14 1 25 8 Q36 1 48 14 Q36 9 25 11 Q14 9 2 14Z" />
             </svg>
@@ -203,31 +202,45 @@ function BirdLayer() {
 }
 
 function WindLayer() {
+  const streaks = [
+    { top: 14, width: 280, dur: 14, delay: 0, tilt: -3, thick: 3 },
+    { top: 24, width: 200, dur: 18, delay: 3, tilt: 2, thick: 2 },
+    { top: 34, width: 320, dur: 16, delay: 7, tilt: -1, thick: 2 },
+    { top: 44, width: 180, dur: 20, delay: 2, tilt: 4, thick: 2 },
+    { top: 54, width: 260, dur: 15, delay: 11, tilt: -2, thick: 2 },
+    { top: 64, width: 220, dur: 17, delay: 5, tilt: 1, thick: 3 },
+    { top: 74, width: 300, dur: 19, delay: 9, tilt: -3, thick: 2 },
+    { top: 84, width: 240, dur: 13, delay: 1, tilt: 3, thick: 2 },
+    { top: 92, width: 200, dur: 22, delay: 8, tilt: -1, thick: 2 },
+  ];
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-3">
       <style>{`
         @media (prefers-reduced-motion: no-preference) {
           @keyframes wind-drift {
-            0% { transform: translateX(-20vw) scaleX(1); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateX(120vw) scaleX(0.8); opacity: 0; }
+            0% { transform: translateX(-30vw) scaleX(1); opacity: 0; }
+            15% { opacity: 0.5; }
+            85% { opacity: 0.5; }
+            100% { transform: translateX(130vw) scaleX(0.7); opacity: 0; }
           }
         }
       `}</style>
-      {Array.from({ length: 8 }, (_, i) => (
+      {streaks.map((s, i) => (
         <div
           key={i}
-          className="absolute h-px"
+          className="absolute"
           style={{
-            top: `${8 + i * 11}%`,
+            top: `${s.top}%`,
             left: 0,
-            width: `${80 + (i % 3) * 60}px`,
-            background: `linear-gradient(90deg, transparent, rgba(255,255,255,${0.15 + (i % 3) * 0.08}), transparent)`,
-            borderRadius: "2px",
-            animation: `wind-drift ${10 + i * 4}s linear ${i * 2.5}s infinite`,
-            transform: `rotate(${-2 + (i % 3) * 2}deg)`,
-            filter: "blur(1px)",
+            width: `${s.width}px`,
+            height: `${s.thick}px`,
+            background: `linear-gradient(90deg, transparent, rgba(255,255,255,0.45), rgba(255,255,255,0.55), rgba(255,255,255,0.45), transparent)`,
+            borderRadius: "50%",
+            animation: `wind-drift ${s.dur}s linear ${s.delay}s infinite`,
+            transform: `rotate(${s.tilt}deg)`,
+            filter: "blur(2px)",
+            boxShadow: "0 0 6px rgba(255,255,255,0.15)",
           }}
         />
       ))}
