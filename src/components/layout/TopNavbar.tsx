@@ -11,10 +11,9 @@ const navLinks = [
 
 export default function TopNavbar() {
   const pathname = usePathname();
-  const isWeatherPage = pathname && ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"].some(p => pathname === p || pathname?.startsWith(p + "/"));
 
   return (
-    <nav className={`sticky top-0 z-50 border-b ${isWeatherPage ? "bg-transparent backdrop-blur-xl border-transparent" : "bg-aether-bg/80 backdrop-blur-md border-white/10"}`}>
+    <nav className="bg-transparent backdrop-blur-xl sticky top-0 z-50 border-b border-white/20">
       <div className="w-full px-container-padding flex items-center justify-between h-16">
         <Link
           href="/dashboard"

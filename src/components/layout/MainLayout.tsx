@@ -11,28 +11,15 @@ interface MainLayoutProps {
 }
 
 const hideTopBarPaths: string[] = ["/splash"];
-const darkPaths = [
-  "/dashboard/profile",
-  "/dashboard/today",
-  "/dashboard/empty-states",
-  "/dashboard/packing",
-  "/dashboard/settings",
-  "/dashboard/notifications",
-  "/dashboard/weekly",
-  "/dashboard/search",
-  "/splash"
-];
 
 export default function MainLayout({ children }: MainLayoutProps) {
   const pathname = usePathname();
   const hideTopBar = hideTopBarPaths.includes(pathname || "");
-  const isDark = darkPaths.some(path => pathname === path || pathname?.startsWith(path));
   const weatherPages = ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
   const isDashboard = weatherPages.some(p => pathname === p || pathname?.startsWith(p + "/"));
-  const bgClass = isDashboard ? "" : isDark ? "dark bg-background text-on-surface" : "bg-background text-on-surface";
 
   return (
-    <div className={`min-h-screen ${bgClass} font-sans selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden`}>
+    <div className={`min-h-screen font-sans selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden ${isDashboard ? "" : "bg-aether-bg text-aether-text-primary"}`}>
       <div className="grain-overlay" />
       {!hideTopBar && <TopNavbar />}
       <main className={`w-full px-container-padding ${isDashboard ? "min-h-[100dvh]" : "pb-32"}`}>
