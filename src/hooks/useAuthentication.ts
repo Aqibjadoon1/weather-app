@@ -27,6 +27,11 @@ export const useAuthentication = () => {
 
   useEffect(() => {
     const unsubscribe = onAuthChange((user) => {
+      if (user) {
+        document.cookie = `auth-session=${user.uid}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+      } else {
+        document.cookie = "auth-session=; path=/; max-age=0";
+      }
       dispatch(authSetUser(user));
     });
     handleGoogleRedirectResult().then((user) => {
@@ -69,6 +74,7 @@ export const useAuthentication = () => {
   };
 
   const logout = async () => {
+    document.cookie = "auth-session=; path=/; max-age=0";
     await firebaseLogout();
     dispatch(authLogout());
   };
