@@ -54,7 +54,7 @@ export default function RegisterPage() {
               Precision meets<br /><span className="italic">Poetry.</span>
             </h1>
             <p className="font-body-lg text-body-lg text-aether-text-muted max-w-sm">
-              Aether Weather redefines the forecast, turning data into a tactile journey for the modern traveler.
+              Accurate Weather redefines the forecast, turning data into a tactile journey for the modern traveler.
             </p>
           </div>
         </div>

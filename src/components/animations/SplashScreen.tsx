@@ -126,7 +126,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           </svg>
         </div>
         <h1 className="font-headline-lg-mobile md:font-headline-lg text-aether-gold animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
-          Aether Weather
+          Accurate Weather
         </h1>
         <p className="font-caption text-caption text-aether-text-muted mt-2 uppercase tracking-widest animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
           Atmospheric Intelligence

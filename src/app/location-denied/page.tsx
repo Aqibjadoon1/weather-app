@@ -14,7 +14,7 @@ export default function LocationDeniedPage() {
         <span className="material-symbols-outlined text-6xl text-aether-text-muted/40">location_off</span>
         <h1 className="text-2xl font-bold text-aether-text-primary mt-6">Location Access Required</h1>
         <p className="text-base text-aether-text-muted mt-3 leading-relaxed">
-          Aether Weather needs your location to provide accurate forecasts. 
+          Accurate Weather needs your location to provide accurate forecasts. 
           Please enable location services in your browser or device settings.
         </p>
         <div className="flex flex-col gap-3 mt-8">

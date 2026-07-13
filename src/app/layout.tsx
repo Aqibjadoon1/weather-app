@@ -6,7 +6,7 @@ import AuthProvider from "@/providers/AuthProvider";
 import ToastProvider from "@/providers/ToastProvider";
 
 export const metadata: Metadata = {
-  title: "Aether Weather",
+  title: "Accurate Weather",
   description: "Precision in every breeze",
 };
 

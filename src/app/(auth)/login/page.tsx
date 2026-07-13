@@ -47,7 +47,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 z-10">
           <div className="max-w-xl">
             <h1 className="font-headline-lg text-headline-lg md:text-[64px] text-aether-gold leading-tight tracking-tight mb-4">
-              Aether<br /><span className="italic">Weather</span>
+              Accurate<br /><span className="italic">Weather</span>
             </h1>
             <p className="font-body-lg text-body-lg text-aether-text-muted max-w-sm">
               Precision in every breeze. Experience the next generation of atmospheric intelligence.
@@ -63,7 +63,7 @@ export default function LoginPage() {
       </section>
 
       {/* Right Side */}
-      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10 bg-aether-bg overflow-y-auto">
+      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-16 md:py-20 bg-aether-bg overflow-y-auto">
         <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
           <header className="mb-8">
             <h2 className="font-headline-md text-headline-md text-aether-text-primary mb-2">Welcome Back</h2>
@@ -99,7 +99,7 @@ export default function LoginPage() {
                 )}
               </div>
 
-              <div className="relative floating-label-input">
+              <div className="relative floating-label-input mt-8">
                 <input
                   id="password"
                   type="password"
@@ -166,7 +166,7 @@ export default function LoginPage() {
 
           <footer className="mt-8 text-center">
             <p className="font-body-md text-aether-text-muted">
-              New to the Aether?
+              New to Accurate Weather?
               <Link href="/register" className="text-aether-gold font-bold hover:underline decoration-2 underline-offset-4 ml-1">
                 Create Account
               </Link>
