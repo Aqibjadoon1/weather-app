@@ -15,7 +15,6 @@ import {
   loginWithEmail,
   registerWithEmail,
   loginWithGoogle,
-  handleGoogleRedirectResult,
   logout as firebaseLogout,
 } from "@/firebase/auth";
 
@@ -34,9 +33,6 @@ export const useAuthentication = () => {
       }
       dispatch(authSetUser(user));
     });
-    handleGoogleRedirectResult().then((user) => {
-      if (user) dispatch(authSuccess(user));
-    }).catch(() => {});
     return unsubscribe;
   }, [dispatch]);
 
@@ -67,7 +63,8 @@ export const useAuthentication = () => {
   const signInWithGoogle = async () => {
     dispatch(authStart());
     try {
-      await loginWithGoogle();
+      const user = await loginWithGoogle();
+      if (user) dispatch(authSuccess(user));
     } catch (err) {
       dispatch(authLogout());
     }

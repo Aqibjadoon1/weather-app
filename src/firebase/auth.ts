@@ -1,8 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
   GoogleAuthProvider,
   signOut,
   sendPasswordResetEmail,
@@ -56,19 +55,10 @@ export const loginWithGoogle = async () => {
   const auth = getFirebaseAuth();
   if (!auth) throw new Error("Firebase not available on server");
   const provider = new GoogleAuthProvider();
-  await signInWithRedirect(auth, provider);
-};
-
-export const handleGoogleRedirectResult = async (): Promise<UserData | null> => {
-  const auth = getFirebaseAuth();
-  if (!auth) return null;
-  try {
-    const result = await getRedirectResult(auth);
-    if (result?.user) return mapFirebaseUser(result.user);
-  } catch {
-    // redirect result not available or error
-  }
-  return null;
+  provider.addScope("email");
+  provider.addScope("profile");
+  const cred = await signInWithPopup(auth, provider);
+  return cred.user ? mapFirebaseUser(cred.user) : null;
 };
 
 export const logout = () => {
