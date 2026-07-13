@@ -156,17 +156,26 @@ function SnowLayer() {
   );
 }
 
+const birdVariants = [
+  // Gull — wide gentle wings
+  "M5 12 C14 5 22 4 30 9 C38 4 46 5 55 12 C46 9 38 9 30 11 C22 9 14 9 5 12Z",
+  // Swallow — sharp pointed V
+  "M6 14 C15 1 23 1 30 8 C37 1 45 1 54 14 C45 9 37 9 30 11 C23 9 15 9 6 14Z",
+  // Hawk — broad rounded wings
+  "M7 12 C15 6 22 4 30 9 C38 4 45 6 53 12 C45 9 38 10 30 11 C22 10 15 9 7 12Z",
+];
+
 function BirdLayer() {
   const birds = [
-    { x: 48, y: 10, size: 30, flap: 0.30, bob: 2.0, delay: 0 },
-    { x: 37, y: 14, size: 27, flap: 0.36, bob: 2.6, delay: 0.4 },
-    { x: 61, y: 13, size: 26, flap: 0.32, bob: 2.3, delay: 0.7 },
-    { x: 52, y: 18, size: 24, flap: 0.40, bob: 2.8, delay: 1.1 },
-    { x: 29, y: 19, size: 23, flap: 0.34, bob: 2.1, delay: 0.2 },
-    { x: 42, y: 23, size: 22, flap: 0.38, bob: 2.5, delay: 1.5 },
-    { x: 66, y: 21, size: 22, flap: 0.33, bob: 2.7, delay: 0.9 },
-    { x: 55, y: 27, size: 20, flap: 0.37, bob: 2.2, delay: 0.5 },
-    { x: 35, y: 28, size: 20, flap: 0.35, bob: 2.9, delay: 1.3 },
+    { x: 48, y: 10, size: 32, flap: 0.30, bob: 2.0, delay: 0, variant: 0 },
+    { x: 35, y: 14, size: 28, flap: 0.36, bob: 2.6, delay: 0.4, variant: 1 },
+    { x: 63, y: 12, size: 27, flap: 0.32, bob: 2.3, delay: 0.7, variant: 2 },
+    { x: 52, y: 18, size: 25, flap: 0.40, bob: 2.8, delay: 1.1, variant: 1 },
+    { x: 27, y: 19, size: 24, flap: 0.34, bob: 2.1, delay: 0.2, variant: 2 },
+    { x: 44, y: 23, size: 23, flap: 0.38, bob: 2.5, delay: 1.5, variant: 0 },
+    { x: 68, y: 21, size: 23, flap: 0.33, bob: 2.7, delay: 0.9, variant: 1 },
+    { x: 57, y: 28, size: 21, flap: 0.37, bob: 2.2, delay: 0.5, variant: 2 },
+    { x: 33, y: 29, size: 21, flap: 0.35, bob: 2.9, delay: 1.3, variant: 0 },
   ];
 
   return (
@@ -186,13 +195,13 @@ function BirdLayer() {
           >
             <svg
               width={b.size}
-              height={b.size * 0.45}
-              viewBox="0 0 50 18"
+              height={b.size * 0.38}
+              viewBox="0 0 60 20"
               fill="rgba(255,255,255,0.8)"
               className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
               style={{ animation: `bird-flap ${b.flap}s ease-in-out ${b.delay}s infinite` }}
             >
-              <path d="M2 14 Q14 1 25 8 Q36 1 48 14 Q36 9 25 11 Q14 9 2 14Z" />
+              <path d={birdVariants[b.variant]} />
             </svg>
           </div>
         </div>
