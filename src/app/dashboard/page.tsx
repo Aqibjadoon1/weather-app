@@ -53,7 +53,7 @@ export default function DashboardPage() {
 
   return (
     <div
-      className="relative min-h-screen -mx-container-padding px-container-padding -mt-16 pt-16 sky-gradient"
+      className="relative min-h-[calc(100dvh+16px)] -mx-container-padding px-container-padding -mt-16 pt-16 sky-gradient"
       style={{ background: skyGradients[currentState] }}
     >
       <WeatherShader
