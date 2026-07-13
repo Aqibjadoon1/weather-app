@@ -157,46 +157,79 @@ function SnowLayer() {
 }
 
 function BirdLayer() {
-  const birds = Array.from({ length: 9 }, (_, i) => {
-    const col = i % 3;
-    const row = Math.floor(i / 3);
-    return {
-      id: i,
-      x: `${12 + col * 34 + (row % 2) * 8}%`,
-      y: `${6 + row * 12}%`,
-      delay: `${i * 0.9}s`,
-      size: 26 - row * 4 + (col % 2) * 6,
-      flapSpeed: `${0.3 + (i % 3) * 0.08}s`,
-    };
-  });
+  // V-formation centered in upper sky
+  const formation = [
+    { x: 50, y: 11, size: 28 },   // lead
+    { x: 42, y: 14, size: 26 },   // left wing
+    { x: 58, y: 14, size: 26 },   // right wing
+    { x: 36, y: 18, size: 24 },   // left
+    { x: 64, y: 18, size: 24 },   // right
+    { x: 46, y: 21, size: 22 },   // inner left
+    { x: 54, y: 21, size: 22 },   // inner right
+    { x: 40, y: 25, size: 20 },   // far left
+    { x: 60, y: 25, size: 20 },   // far right
+  ];
 
   return (
     <div className="absolute inset-0 pointer-events-none z-6">
-      {birds.map((b) => (
+      {formation.map((b, i) => (
         <div
-          key={b.id}
+          key={i}
           className="absolute"
           style={{
-            top: b.y,
-            left: b.x,
+            top: `${b.y}%`,
+            left: `${b.x}%`,
             transform: "translate(-50%, -50%)",
           }}
         >
           <div
-            style={{ animation: `bird-bob ${2.2 + (b.id % 5) * 0.6}s ease-in-out ${b.delay} infinite` }}
+            style={{ animation: `bird-bob ${2.5 + (i % 4) * 0.5}s ease-in-out ${i * 0.15}s infinite` }}
           >
             <svg
               width={b.size}
               height={b.size * 0.45}
               viewBox="0 0 50 18"
-              fill="rgba(255,255,255,0.7)"
-              className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.15)]"
-              style={{ animation: `bird-flap ${b.flapSpeed} ease-in-out ${b.delay} infinite` }}
+              fill="rgba(255,255,255,0.75)"
+              className="drop-shadow-[0_1px_4px_rgba(0,0,0,0.2)]"
+              style={{ animation: `bird-flap ${0.35 + (i % 3) * 0.06}s ease-in-out ${i * 0.12}s infinite` }}
             >
               <path d="M2 14 Q14 1 25 8 Q36 1 48 14 Q36 9 25 11 Q14 9 2 14Z" />
             </svg>
           </div>
         </div>
+      ))}
+    </div>
+  );
+}
+
+function WindLayer() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-3">
+      <style>{`
+        @media (prefers-reduced-motion: no-preference) {
+          @keyframes wind-drift {
+            0% { transform: translateX(-20vw) scaleX(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(120vw) scaleX(0.8); opacity: 0; }
+          }
+        }
+      `}</style>
+      {Array.from({ length: 8 }, (_, i) => (
+        <div
+          key={i}
+          className="absolute h-px"
+          style={{
+            top: `${8 + i * 11}%`,
+            left: 0,
+            width: `${80 + (i % 3) * 60}px`,
+            background: `linear-gradient(90deg, transparent, rgba(255,255,255,${0.15 + (i % 3) * 0.08}), transparent)`,
+            borderRadius: "2px",
+            animation: `wind-drift ${10 + i * 4}s linear ${i * 2.5}s infinite`,
+            transform: `rotate(${-2 + (i % 3) * 2}deg)`,
+            filter: "blur(1px)",
+          }}
+        />
       ))}
     </div>
   );
@@ -327,7 +360,12 @@ export default function SkyForeground({ state }: SkyForegroundProps) {
         </div>
       )}
 
-      {showCelestial && !isNight && <BirdLayer />}
+      {showCelestial && !isNight && (
+        <>
+          <WindLayer />
+          <BirdLayer />
+        </>
+      )}
 
       {showCelestial && isNight && !isStormy && (
         <div
