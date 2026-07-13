@@ -7,6 +7,7 @@ import type { AppDispatch } from "@/redux/store";
 import {
   authStart,
   authSuccess,
+  authFailure,
   authLogout,
   authSetUser,
 } from "@/redux/actions/authActions";
@@ -41,8 +42,9 @@ export const useAuthentication = () => {
     try {
       const user = await loginWithEmail(email, password);
       if (user) dispatch(authSuccess(user));
-    } catch (err) {
-      dispatch(authLogout());
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Login failed. Please try again.";
+      dispatch(authFailure(message));
     }
   };
 
@@ -55,8 +57,9 @@ export const useAuthentication = () => {
     try {
       const user = await registerWithEmail(email, password, displayName);
       if (user) dispatch(authSuccess(user));
-    } catch (err) {
-      dispatch(authLogout());
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Registration failed. Please try again.";
+      dispatch(authFailure(message));
     }
   };
 
@@ -65,8 +68,9 @@ export const useAuthentication = () => {
     try {
       const user = await loginWithGoogle();
       if (user) dispatch(authSuccess(user));
-    } catch (err) {
-      dispatch(authLogout());
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Google sign-in failed.";
+      dispatch(authFailure(message));
     }
   };
 
