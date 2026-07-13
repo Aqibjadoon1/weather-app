@@ -22,8 +22,8 @@ export default function WeeklyPage() {
   const displayForecast = forecast || [];
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
-      <header className="py-8 flex justify-between items-center">
+    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding flex flex-col">
+      <header className="py-8 flex justify-between items-center flex-shrink-0">
         <div>
           <h1 className="font-headline-md text-headline-md text-aether-text-primary">Weekly Forecast</h1>
           <p className="font-body-md text-aether-text-muted mt-1">7-day atmospheric timeline</p>
@@ -32,7 +32,7 @@ export default function WeeklyPage() {
       </header>
 
       {isLoading && displayForecast.length === 0 ? (
-        <div className="flex gap-4 h-[600px]">
+        <div className="flex gap-4 flex-1 min-h-0">
           {Array.from({ length: 7 }).map((_, i) => (
             <div key={i} className="flex-1 bg-aether-bg-soft rounded-3xl p-6">
               <Skeleton variant="text" width={40} height={16} />
@@ -46,8 +46,8 @@ export default function WeeklyPage() {
           ))}
         </div>
       ) : (
-        <>
-          <div className="hidden md:flex gap-4 h-[600px]">
+        <div className="flex flex-col flex-1 min-h-0">
+          <div className="hidden md:flex gap-4 flex-[2_2_0%] min-h-0">
             {(displayForecast.length ? displayForecast : Array.from({ length: 7 }).map((_, i) => ({
               day: ["SUN","MON","TUE","WED","THU","FRI","SAT"][i],
               date: "",
@@ -79,7 +79,7 @@ export default function WeeklyPage() {
             ))}
           </div>
 
-          <div className="md:hidden flex overflow-x-auto no-scrollbar gap-4 pb-4">
+          <div className="md:hidden flex overflow-x-auto no-scrollbar gap-4 pb-4 flex-shrink-0">
             {(displayForecast.length ? displayForecast : []).map((day, i) => (
               <div key={day.day + i} className={`min-w-[140px] rounded-3xl p-5 editorial-shadow flex-shrink-0 grain-texture ${i === 0 ? "bg-aether-gold/20 text-aether-ink" : "bg-aether-bg-soft border border-aether-gold/10"}`}>
                 <span className="font-label-bold text-aether-text-muted block text-center">{day.day}</span>
@@ -96,29 +96,31 @@ export default function WeeklyPage() {
             ))}
           </div>
 
-          <section className="mt-12">
-            <h2 className="font-headline-md text-headline-md text-aether-text-primary mb-6">Daily Breakdown</h2>
-            <div className="bg-aether-bg-soft rounded-3xl overflow-hidden editorial-shadow">
-              {(displayForecast.length ? displayForecast : []).map((day, i) => (
-                <div key={day.day + i} className={`flex items-center gap-4 px-6 py-4 ${i < displayForecast.length - 1 ? "border-b border-aether-gold/10" : ""} hover:bg-aether-gold/5 transition-colors`}>
-                  <span className="w-20 font-label-bold text-aether-text-muted">{day.day}</span>
-                  <span className="material-symbols-outlined text-aether-gold fill">{day.icon}</span>
-                  <span className="flex-1 font-body-md text-aether-text-muted">{day.condition}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="font-headline-md text-headline-md text-aether-text-primary">{day.high}°</span>
-                    <span className="font-body-md text-aether-text-muted">{day.low}°</span>
-                  </div>
-                  <div className="hidden md:flex items-center gap-2 w-32">
-                    <div className="flex-1 h-2 bg-aether-gold/20 rounded-full overflow-hidden">
-                      <div className="h-full bg-aether-gold rounded-full" style={{ width: `${day.precipitation}%` }} />
+          <section className="flex-[3_3_0%] flex flex-col min-h-0">
+            <h2 className="font-headline-md text-headline-md text-aether-text-primary mb-6 flex-shrink-0">Daily Breakdown</h2>
+            <div className="bg-aether-bg-soft rounded-3xl overflow-hidden editorial-shadow flex-1 flex flex-col">
+              <div className="flex-1 overflow-auto">
+                {(displayForecast.length ? displayForecast : []).map((day, i) => (
+                  <div key={day.day + i} className={`flex items-center gap-4 px-6 py-4 ${i < displayForecast.length - 1 ? "border-b border-aether-gold/10" : ""} hover:bg-aether-gold/5 transition-colors`}>
+                    <span className="w-20 font-label-bold text-aether-text-muted">{day.day}</span>
+                    <span className="material-symbols-outlined text-aether-gold fill">{day.icon}</span>
+                    <span className="flex-1 font-body-md text-aether-text-muted">{day.condition}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="font-headline-md text-headline-md text-aether-text-primary">{day.high}°</span>
+                      <span className="font-body-md text-aether-text-muted">{day.low}°</span>
                     </div>
-                    <span className="font-label-bold text-aether-text-muted w-8 text-right">{day.precipitation}%</span>
+                    <div className="hidden md:flex items-center gap-2 w-32">
+                      <div className="flex-1 h-2 bg-aether-gold/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-aether-gold rounded-full" style={{ width: `${day.precipitation}%` }} />
+                      </div>
+                      <span className="font-label-bold text-aether-text-muted w-8 text-right">{day.precipitation}%</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </section>
-        </>
+        </div>
       )}
     </div>
   );
