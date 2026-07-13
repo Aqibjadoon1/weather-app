@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthentication } from "@/hooks/useAuthentication";
@@ -9,10 +9,14 @@ import ThreeScene from "@/components/animations/ThreeScene";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, signInWithGoogle, isLoading, error } = useAuthentication();
+  const { login, signInWithGoogle, isLoading, error, user } = useAuthentication();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<{ email?: string; password?: string }>({});
+
+  useEffect(() => {
+    if (user) router.push("/dashboard");
+  }, [user, router]);
 
   const validate = () => {
     const errors: { email?: string; password?: string } = {};
@@ -28,12 +32,10 @@ export default function LoginPage() {
     e.preventDefault();
     if (!validate()) return;
     await login(email, password);
-    if (!error) router.push("/dashboard");
   };
 
   const handleGoogle = async () => {
     await signInWithGoogle();
-    if (!error) router.push("/dashboard");
   };
 
   return (

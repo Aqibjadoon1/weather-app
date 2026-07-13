@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuthentication } from "@/hooks/useAuthentication";
@@ -9,11 +9,15 @@ import ThreeScene from "@/components/animations/ThreeScene";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { register, signInWithGoogle, isLoading, error } = useAuthentication();
+  const { register, signInWithGoogle, isLoading, error, user } = useAuthentication();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<{ displayName?: string; email?: string; password?: string }>({});
+
+  useEffect(() => {
+    if (user) router.push("/dashboard");
+  }, [user, router]);
 
   const validate = () => {
     const errors: { displayName?: string; email?: string; password?: string } = {};
@@ -30,12 +34,10 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!validate()) return;
     await register(email, password, displayName);
-    if (!error) router.push("/dashboard");
   };
 
   const handleGoogle = async () => {
     await signInWithGoogle();
-    if (!error) router.push("/dashboard");
   };
 
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
