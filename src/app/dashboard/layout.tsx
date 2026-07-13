@@ -5,5 +5,9 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <MainLayout>{children}</MainLayout>;
+  return (
+    <div className="min-h-screen bg-aether-bg text-aether-text-primary">
+      <MainLayout>{children}</MainLayout>
+    </div>
+  );
 }

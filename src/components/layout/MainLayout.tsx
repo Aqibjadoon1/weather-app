@@ -27,7 +27,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const pathname = usePathname();
   const hideTopBar = hideTopBarPaths.includes(pathname || "");
   const isDark = darkPaths.some(path => pathname === path || pathname?.startsWith(path));
-  const isDashboard = pathname === "/dashboard" || pathname === "/dashboard/";
+  const weatherPages = ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
+  const isDashboard = weatherPages.some(p => pathname === p || pathname?.startsWith(p + "/"));
   const bgClass = isDashboard ? "" : isDark ? "dark bg-background text-on-surface" : "bg-background text-on-surface";
 
   return (
