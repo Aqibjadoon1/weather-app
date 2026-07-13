@@ -39,37 +39,37 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-background">
       {/* Left Side */}
-      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden bg-primary-fixed">
-        <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0, 0.48, 1]} skyBottom={[0.97, 0.98, 1]} />
+      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden bg-aether-bg">
+        <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0.04, 0.05, 0.08]} skyBottom={[0.07, 0.09, 0.12]} />
         <ThreeScene className="absolute inset-0 w-full h-full opacity-80 mix-blend-screen pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
         <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 z-10">
           <div className="max-w-xl">
-            <h1 className="font-headline-lg text-headline-lg md:text-[64px] text-on-primary-fixed leading-tight tracking-tight mb-4">
+            <h1 className="font-headline-lg text-headline-lg md:text-[64px] text-aether-gold leading-tight tracking-tight mb-4">
               Aether<br /><span className="italic">Weather</span>
             </h1>
-            <p className="font-body-lg text-body-lg text-on-primary-fixed-variant max-w-sm opacity-80">
+            <p className="font-body-lg text-body-lg text-aether-text-muted max-w-sm">
               Precision in every breeze. Experience the next generation of atmospheric intelligence.
             </p>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 w-full pb-8 pl-8 hidden md:block">
-          <div className="flex items-center gap-4 text-on-primary-fixed-variant/50">
-            <span className="w-12 h-px bg-current" />
+          <div className="flex items-center gap-4 text-aether-gold/30">
+            <span className="w-12 h-px bg-aether-gold/30" />
             <span className="font-label-bold text-label-bold uppercase tracking-widest">Editorial Series Vol. 04</span>
           </div>
         </div>
       </section>
 
       {/* Right Side */}
-      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10 bg-surface overflow-y-auto">
+      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10 bg-aether-bg overflow-y-auto">
         <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
           <header className="mb-8">
-            <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Welcome Back</h2>
-            <p className="text-on-surface-variant font-body-md">Enter your credentials to access your dashboard.</p>
+            <h2 className="font-headline-md text-headline-md text-aether-text-primary mb-2">Welcome Back</h2>
+            <p className="text-aether-text-muted font-body-md">Enter your credentials to access your dashboard.</p>
           </header>
 
-          <div className="bg-surface-container-lowest editorial-shadow rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-secondary/10" />
+          <div className="bg-aether-bg-soft border border-aether-gold/10 rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-aether-gold/20" />
             <div className="grain-texture absolute inset-0" />
             <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
               {error && (
@@ -78,7 +78,7 @@ export default function LoginPage() {
                 </div>
               )}
 
-              <div className="relative floating-label-input">
+                <div className="relative floating-label-input">
                 <input
                   id="email"
                   type="email"
@@ -86,9 +86,9 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary peer transition-all"
+                  className="block w-full px-0 py-3 bg-transparent border-0 border-b border-aether-gold/20 text-aether-text-primary focus:ring-0 focus:border-aether-gold peer transition-all"
                 />
-                <label htmlFor="email" className="absolute left-0 top-3 text-on-surface-variant font-body-md transition-all pointer-events-none origin-left">
+                <label htmlFor="email" className="absolute left-0 top-3 text-aether-text-muted font-body-md transition-all pointer-events-none origin-left">
                   Email Address
                 </label>
                 <div className="input-underline" />
@@ -105,9 +105,9 @@ export default function LoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full px-0 py-3 bg-transparent border-0 border-b border-outline-variant text-on-surface focus:ring-0 focus:border-primary peer transition-all"
+                  className="block w-full px-0 py-3 bg-transparent border-0 border-b border-aether-gold/20 text-aether-text-primary focus:ring-0 focus:border-aether-gold peer transition-all"
                 />
-                <label htmlFor="password" className="absolute left-0 top-3 text-on-surface-variant font-body-md transition-all pointer-events-none origin-left">
+                <label htmlFor="password" className="absolute left-0 top-3 text-aether-text-muted font-body-md transition-all pointer-events-none origin-left">
                   Password
                 </label>
                 <div className="input-underline" />
@@ -116,15 +116,15 @@ export default function LoginPage() {
                 )}
               </div>
 
-              <div className="flex items-center justify-between flex-wrap gap-3">
+                <div className="flex items-center justify-between flex-wrap gap-3">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div className="relative w-5 h-5 flex items-center justify-center">
-                    <input type="checkbox" className="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-sm checked:bg-primary checked:border-primary transition-all" />
-                    <span className="material-symbols-outlined text-white text-[16px] absolute opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+                    <input type="checkbox" className="peer appearance-none w-5 h-5 border-2 border-aether-gold/30 rounded-sm checked:bg-aether-gold checked:border-aether-gold transition-all" />
+                    <span className="material-symbols-outlined text-aether-bg text-[16px] absolute opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
                   </div>
-                  <span className="text-on-surface-variant font-label-bold text-label-bold group-hover:text-on-surface transition-colors">Remember me</span>
+                  <span className="text-aether-text-muted font-label-bold text-label-bold group-hover:text-aether-text-primary transition-colors">Remember me</span>
                 </label>
-                <Link href="/forgot-password" className="text-primary font-label-bold text-label-bold hover:text-on-primary-fixed-variant transition-colors">
+                <Link href="/forgot-password" className="text-aether-gold font-label-bold text-label-bold hover:text-aether-gold-soft transition-colors">
                   Forgot Password?
                 </Link>
               </div>
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="spring-button w-full h-12 md:h-14 bg-primary text-on-primary rounded-full font-label-bold text-[14px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="spring-button w-full h-12 md:h-14 bg-aether-gold text-aether-bg rounded-full font-label-bold text-[14px] uppercase tracking-widest shadow-lg shadow-aether-gold/20 hover:shadow-xl hover:shadow-aether-gold/30 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {isLoading ? (
                     <span className="material-symbols-outlined animate-spin">progress_activity</span>
@@ -148,7 +148,7 @@ export default function LoginPage() {
                   type="button"
                   onClick={handleGoogle}
                   disabled={isLoading}
-                  className="spring-button w-full h-12 md:h-14 bg-transparent border border-outline-variant text-on-surface rounded-full font-label-bold text-[14px] uppercase tracking-widest hover:bg-surface-container-low transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  className="spring-button w-full h-12 md:h-14 bg-transparent border border-aether-gold text-aether-gold rounded-full font-label-bold text-[14px] uppercase tracking-widest hover:bg-aether-gold hover:text-aether-bg transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -163,9 +163,9 @@ export default function LoginPage() {
           </div>
 
           <footer className="mt-8 text-center">
-            <p className="font-body-md text-on-surface-variant">
+            <p className="font-body-md text-aether-text-muted">
               New to the Aether?
-              <Link href="/register" className="text-primary font-bold hover:underline decoration-2 underline-offset-4 ml-1">
+              <Link href="/register" className="text-aether-gold font-bold hover:underline decoration-2 underline-offset-4 ml-1">
                 Create Account
               </Link>
             </p>

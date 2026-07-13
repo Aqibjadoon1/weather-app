@@ -39,7 +39,7 @@ export default function NotificationsPage() {
 
   const typeColors: Record<string, string> = {
     alert: "bg-red-500/20 text-red-400 border-red-500/30",
-    forecast: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    forecast: "bg-aether-slate/20 text-aether-slate border-aether-slate/30",
     tip: "bg-amber-500/20 text-amber-400 border-amber-500/30",
     system: "bg-purple-500/20 text-purple-400 border-purple-500/30",
   };

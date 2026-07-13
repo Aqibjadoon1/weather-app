@@ -35,25 +35,25 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
+    <div className="min-h-screen bg-aether-bg flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        <div className="bg-surface rounded-2xl p-10 editorial-shadow">
-          <h1 className="font-serif text-3xl md:text-4xl font-bold tracking-tight text-on-surface">
+        <div className="bg-aether-bg-soft rounded-2xl p-10 border border-aether-gold/10">
+          <h1 className="font-headline-md text-headline-md text-aether-text-primary">
             Reset Password
           </h1>
-          <p className="font-sans text-lg text-on-surface-variant mt-2">
+          <p className="font-body-md text-aether-text-muted mt-2">
             We&apos;ll send you a link to reset your password
           </p>
 
           {sent ? (
             <div className="mt-8 space-y-6">
-              <div className="p-4 bg-primary/10 border border-primary/20 rounded-xl">
-                <p className="text-sm font-label-bold text-primary">
+              <div className="p-4 bg-aether-gold/10 border border-aether-gold/20 rounded-xl">
+                <p className="text-sm font-label-bold text-aether-gold">
                   Reset link sent! Check your email inbox.
                 </p>
               </div>
-              <p className="text-center text-sm text-on-surface-variant">
-                <Link href="/login" className="text-primary font-label-bold hover:underline">
+              <p className="text-center text-sm text-aether-text-muted">
+                <Link href="/login" className="text-aether-gold font-label-bold hover:underline">
                   Back to Sign In
                 </Link>
               </p>
@@ -82,8 +82,8 @@ export default function ForgotPasswordPage() {
                 </Button>
               </form>
 
-              <p className="mt-6 text-center text-sm text-on-surface-variant">
-                <Link href="/login" className="text-primary font-label-bold hover:underline">
+              <p className="mt-6 text-center text-sm text-aether-text-muted">
+                <Link href="/login" className="text-aether-gold font-label-bold hover:underline">
                   Back to Sign In
                 </Link>
               </p>

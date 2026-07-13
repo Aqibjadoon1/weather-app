@@ -65,38 +65,38 @@ export default function SettingsPage() {
   const toggle = (label: string) => setToggles((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
+    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
         <header className="py-8 flex justify-between items-center">
           <div>
-            <h1 className="font-headline-md text-headline-md text-on-surface">Settings</h1>
-            <p className="font-body-md text-on-surface-variant mt-1">Customize your experience</p>
+            <h1 className="font-headline-md text-headline-md text-aether-text-primary">Settings</h1>
+            <p className="font-body-md text-aether-text-muted mt-1">Customize your experience</p>
           </div>
-          <Link href="/dashboard/profile" className="text-primary font-label-bold text-label-bold hover:underline">Profile</Link>
+          <Link href="/dashboard/profile" className="text-aether-gold font-label-bold text-label-bold hover:underline">Profile</Link>
         </header>
 
         {settingsSections.map((section) => (
           <div key={section.title} className="mb-10">
-            <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-4">{section.title}</h2>
-            <div className="bg-surface rounded-3xl overflow-hidden editorial-shadow">
+            <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-4">{section.title}</h2>
+            <div className="bg-aether-bg-soft rounded-2xl overflow-hidden border border-aether-gold/10">
               {section.items.map((item, i) => (
-                <div key={item.label} className={`flex items-center justify-between p-5 ${i < section.items.length - 1 ? "border-b border-outline-variant/20" : ""}`}>
+                <div key={item.label} className={`flex items-center justify-between p-5 ${i < section.items.length - 1 ? "border-b border-aether-gold/10" : ""}`}>
                   <div className="flex-1">
-                    <p className="font-body-md text-on-surface">{item.label}</p>
-                    <p className="font-body-sm text-on-surface-variant mt-0.5">{item.description}</p>
+                    <p className="font-body-md text-aether-text-primary">{item.label}</p>
+                    <p className="font-body-sm text-aether-text-muted mt-0.5">{item.description}</p>
                   </div>
                   {item.type === "toggle" && (
                     <button
                       onClick={() => toggle(item.label)}
-                      className={`w-12 h-7 rounded-full transition-all duration-300 relative ${toggles[item.label] ? "bg-primary" : "bg-outline-variant"}`}
+                      className={`w-12 h-7 rounded-full transition-all duration-300 relative ${toggles[item.label] ? "bg-aether-gold" : "bg-aether-gold/20"}`}
                     >
-                      <div className={`w-5 h-5 bg-white rounded-full absolute top-1 transition-all duration-300 shadow-sm ${toggles[item.label] ? "left-6" : "left-1"}`} />
+                      <div className={`w-5 h-5 bg-aether-text-primary rounded-full absolute top-1 transition-all duration-300 shadow-sm ${toggles[item.label] ? "left-6" : "left-1"}`} />
                     </button>
                   )}
                   {item.type === "select" && (
                     <select
                       value={item.value}
                       onChange={() => {}}
-                      className="bg-surface-container-high rounded-xl px-4 py-2 font-body-md text-on-surface outline-none border border-outline-variant/30 focus:border-primary cursor-pointer"
+                      className="bg-aether-bg rounded-xl px-4 py-2 font-body-md text-aether-text-primary outline-none border border-aether-gold/20 focus:border-aether-gold cursor-pointer"
                     >
                       {item.options?.map((opt) => (
                         <option key={opt} value={opt}>{opt}</option>
@@ -104,7 +104,7 @@ export default function SettingsPage() {
                     </select>
                   )}
                   {item.type === "link" && (
-                    <span className="font-body-md text-primary flex items-center gap-1">
+                    <span className="font-body-md text-aether-gold flex items-center gap-1">
                       {item.value}
                       <span className="material-symbols-outlined text-lg fill">chevron_right</span>
                     </span>
@@ -115,12 +115,12 @@ export default function SettingsPage() {
           </div>
         ))}
 
-        <div className="text-center pt-6 border-t border-outline-variant/20">
-          <p className="font-body-sm text-on-surface-variant">Version 1.0.0</p>
+        <div className="text-center pt-6 border-t border-aether-gold/10">
+          <p className="font-body-sm text-aether-text-muted">Version 1.0.0</p>
           <div className="flex justify-center gap-6 mt-4">
-            <button className="font-body-sm text-primary hover:underline">Privacy Policy</button>
-            <button className="font-body-sm text-primary hover:underline">Terms of Service</button>
-            <button className="font-body-sm text-primary hover:underline">Licenses</button>
+            <button className="font-body-sm text-aether-gold hover:underline">Privacy Policy</button>
+            <button className="font-body-sm text-aether-gold hover:underline">Terms of Service</button>
+            <button className="font-body-sm text-aether-gold hover:underline">Licenses</button>
           </div>
         </div>
     </div>

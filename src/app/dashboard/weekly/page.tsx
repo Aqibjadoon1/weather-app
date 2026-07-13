@@ -71,9 +71,9 @@ export default function WeeklyPage() {
                 <div className="card-details opacity-0 translate-y-5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 mt-4 text-center">
                   <p className="font-body-md text-on-surface-variant">{day.condition}</p>
                   <div className="mt-3 h-1.5 bg-outline-variant rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-400 rounded-full" style={{ width: `${day.precipitation}%` }} />
+                    <div className="h-full bg-aether-gold rounded-full" style={{ width: `${day.precipitation}%` }} />
                   </div>
-                  <p className="font-label-bold text-blue-500 mt-1">{day.precipitation}% precip</p>
+                  <p className="font-label-bold text-aether-slate mt-1">{day.precipitation}% precip</p>
                 </div>
               </div>
             ))}
@@ -89,9 +89,9 @@ export default function WeeklyPage() {
                   <span className="font-caption text-caption text-outline">{day.low}°</span>
                 </div>
                 <div className="mt-3 h-1 bg-outline-variant rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-400 rounded-full" style={{ width: `${day.precipitation}%` }} />
+                  <div className="h-full bg-aether-gold rounded-full" style={{ width: `${day.precipitation}%` }} />
                 </div>
-                <p className="font-label-bold text-blue-500 text-center mt-1">{day.precipitation}%</p>
+                <p className="font-label-bold text-aether-slate text-center mt-1">{day.precipitation}%</p>
               </div>
             ))}
           </div>
@@ -110,9 +110,9 @@ export default function WeeklyPage() {
                   </div>
                   <div className="hidden md:flex items-center gap-2 w-32">
                     <div className="flex-1 h-2 bg-outline-variant rounded-full overflow-hidden">
-                      <div className="h-full bg-blue-400 rounded-full" style={{ width: `${day.precipitation}%` }} />
+                      <div className="h-full bg-aether-gold rounded-full" style={{ width: `${day.precipitation}%` }} />
                     </div>
-                    <span className="font-label-bold text-blue-500 w-8 text-right">{day.precipitation}%</span>
+                    <span className="font-label-bold text-aether-slate w-8 text-right">{day.precipitation}%</span>
                   </div>
                 </div>
               ))}

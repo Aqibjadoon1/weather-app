@@ -14,7 +14,7 @@ export default function BottomNav() {
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 w-full z-50">
-      <div className="flex justify-around items-center px-2 pb-2 pt-2 bg-surface-container-low/95 backdrop-blur-2xl border-t border-outline-variant/20">
+      <div className="flex justify-around items-center px-2 pb-2 pt-2 bg-aether-bg/95 backdrop-blur-2xl border-t border-aether-gold/10">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -24,8 +24,8 @@ export default function BottomNav() {
               className={[
                 "flex flex-col items-center justify-center gap-0 transition-all duration-200 min-w-0",
                 isActive
-                  ? "bg-primary-container text-on-primary-container rounded-xl px-3 py-1.5 scale-105"
-                  : "text-on-surface-variant opacity-60 hover:opacity-100 px-2 py-1.5",
+                  ? "bg-aether-gold/10 text-aether-gold rounded-xl px-3 py-1.5 scale-105"
+                  : "text-aether-text-muted opacity-60 hover:opacity-100 px-2 py-1.5",
               ].join(" ")}
             >
               <span className="material-symbols-outlined text-lg leading-none">

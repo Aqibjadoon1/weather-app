@@ -13,3 +13,7 @@ export const libreCaslon = {
 export const hankenGrotesk = {
   variable: "--font-dark-sans",
 };
+
+export const jetbrainsMono = {
+  variable: "--font-data",
+};

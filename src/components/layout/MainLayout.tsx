@@ -15,6 +15,11 @@ const darkPaths = [
   "/dashboard/profile",
   "/dashboard/today",
   "/dashboard/empty-states",
+  "/dashboard/packing",
+  "/dashboard/settings",
+  "/dashboard/notifications",
+  "/dashboard/weekly",
+  "/dashboard/search",
   "/splash"
 ];
 

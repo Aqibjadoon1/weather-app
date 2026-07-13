@@ -62,7 +62,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-primary-fixed">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-aether-bg">
       <WeatherShader className="absolute inset-0 z-0" />
       <ThreeScene className="absolute inset-0 z-10 opacity-90 pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
       <div className="relative z-30 flex flex-col items-center px-6">
@@ -85,21 +85,21 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
                 />
               </path>
             </g>
-            <circle cx="116" cy="85" fill="currentColor" fillOpacity="0.3" className="text-white">
+            <circle cx="116" cy="85" fill="currentColor" fillOpacity="0.3" className="text-aether-gold">
               <animate attributeName="r" dur="4s" repeatCount="indefinite" values="50;55;50" />
             </circle>
           </svg>
         </div>
-        <h1 className="font-headline-lg-mobile md:font-headline-lg text-primary animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
+        <h1 className="font-headline-lg-mobile md:font-headline-lg text-aether-gold animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
           Aether Weather
         </h1>
-        <p className="font-caption text-caption text-on-surface-variant mt-2 uppercase tracking-widest animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+        <p className="font-caption text-caption text-aether-text-muted mt-2 uppercase tracking-widest animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
           Atmospheric Intelligence
         </p>
-        <div className="mt-12 w-3/4 max-w-xs h-1 bg-surface-variant rounded-full overflow-hidden animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
-          <div className="h-full bg-primary/40 rounded-full animate-wind-current" />
+        <div className="mt-12 w-3/4 max-w-xs h-1 bg-aether-gold/20 rounded-full overflow-hidden animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
+          <div className="h-full bg-aether-gold/40 rounded-full animate-wind-current" />
         </div>
-        <p className="font-caption text-caption text-on-surface-variant mt-4 min-h-[24px] transition-opacity duration-500">
+        <p className="font-caption text-caption text-aether-text-muted mt-4 min-h-[24px] transition-opacity duration-500">
           {message}
         </p>
       </div>

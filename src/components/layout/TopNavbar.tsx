@@ -13,11 +13,11 @@ export default function TopNavbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-surface/80 backdrop-blur-xl sticky top-0 z-50 shadow-sm">
+    <nav className="bg-transparent backdrop-blur-xl sticky top-0 z-50">
       <div className="w-full px-container-padding flex items-center justify-between h-16">
         <Link
           href="/dashboard"
-          className="font-headline-md text-primary tracking-tighter whitespace-nowrap"
+          className="font-headline-md text-aether-gold tracking-tighter whitespace-nowrap"
         >
           Aether Weather
         </Link>
@@ -32,8 +32,8 @@ export default function TopNavbar() {
                 className={[
                   "font-label-bold text-label-bold px-3 py-1.5 transition-colors rounded-lg",
                   isActive
-                    ? "text-on-primary bg-primary"
-                    : "text-on-surface-variant hover:text-primary hover:bg-primary-fixed",
+                    ? "text-aether-bg bg-aether-gold"
+                    : "text-aether-text-muted hover:text-aether-gold hover:bg-aether-gold/10",
                 ].join(" ")}
               >
                 {link.label}
@@ -43,14 +43,14 @@ export default function TopNavbar() {
         </div>
 
         <div className="flex items-center gap-1">
-          <Link href="/dashboard/notifications" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-primary-fixed">
-            <span className="material-symbols-outlined text-primary">notifications</span>
+          <Link href="/dashboard/notifications" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10">
+            <span className="material-symbols-outlined text-aether-gold">notifications</span>
           </Link>
-          <Link href="/dashboard/profile" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-primary-fixed">
-            <span className="material-symbols-outlined text-primary">account_circle</span>
+          <Link href="/dashboard/profile" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10">
+            <span className="material-symbols-outlined text-aether-gold">account_circle</span>
           </Link>
-          <Link href="/dashboard/settings" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-primary-fixed">
-            <span className="material-symbols-outlined text-primary">settings</span>
+          <Link href="/dashboard/settings" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10">
+            <span className="material-symbols-outlined text-aether-gold">settings</span>
           </Link>
         </div>
       </div>

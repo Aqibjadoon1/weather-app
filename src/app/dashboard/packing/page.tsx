@@ -114,7 +114,7 @@ export default function PackingPage() {
   const packedEssentialCount = packingList.filter((item) => item.essential && item.packed).length;
 
   return (
-    <div className="min-h-screen bg-[#f9f9ff] text-on-surface -mx-container-padding px-container-padding">
+    <div className="min-h-screen bg-aether-surface text-on-surface -mx-container-padding px-container-padding">
       <header className="py-8 flex justify-between items-center">
         <div>
           <h1 className="font-headline-md text-headline-md text-on-surface">AI Packing Companion</h1>
@@ -191,17 +191,16 @@ export default function PackingPage() {
         <button
           onClick={handleGenerate}
           disabled={isGenerating || weatherLoading}
-          className="w-full py-4 bg-primary text-on-primary rounded-2xl font-label-bold text-label-bold hover:opacity-90 active:scale-[0.98] transition-all duration-200 disabled:opacity-60"
+          className="w-full py-4 rounded-xl bg-aether-gold text-aether-bg font-body font-medium hover:bg-aether-gold-soft transition-colors disabled:opacity-60"
         >
           {isGenerating || weatherLoading ? (
             <span className="flex items-center justify-center gap-2">
-              <span className="w-5 h-5 border-2 border-on-primary/30 border-t-on-primary rounded-full animate-spin" />
+              <span className="w-5 h-5 border-2 border-aether-bg/30 border-t-aether-bg rounded-full animate-spin" />
               Generating...
             </span>
           ) : (
             <span className="flex items-center justify-center gap-2">
-              <span className="material-symbols-outlined fill">auto_awesome</span>
-              Generate with AI
+              Build my packing list
             </span>
           )}
         </button>

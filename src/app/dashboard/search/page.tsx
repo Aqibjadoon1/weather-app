@@ -132,13 +132,13 @@ export default function SearchPage() {
                 <button
                   key={dest.city}
                   onClick={() => { setQuery(dest.city); handleSearch(dest.city); }}
-                  className="bg-surface rounded-2xl p-5 editorial-shadow hover:shadow-lg transition-all text-left group"
+                  className="bg-aether-surface rounded-2xl p-5 border border-black/5 hover:shadow-lg transition-all text-left group"
                 >
-                  <span className="material-symbols-outlined text-3xl text-primary fill mb-3">{dest.icon}</span>
-                  <p className="font-headline-sm text-headline-sm text-on-surface">{dest.city}</p>
-                  <p className="font-caption text-caption text-on-surface-variant">{dest.country}</p>
-                  <p className="font-label-bold text-label-bold text-primary mt-2">{dest.temp}°</p>
-                  <p className="font-caption text-caption text-outline mt-1">{dest.landmark}</p>
+                  <span className="material-symbols-outlined text-3xl text-aether-gold fill mb-3">{dest.icon}</span>
+                  <p className="font-headline-sm text-headline-sm text-aether-ink">{dest.city}</p>
+                  <p className="font-caption text-caption text-aether-ink-muted">{dest.country}</p>
+                  <p className="font-data text-xl text-aether-slate tabular-nums mt-2">{dest.temp}°</p>
+                  <p className="font-caption text-caption text-aether-ink-muted mt-1">{dest.landmark}</p>
                 </button>
               ))}
             </div>
@@ -150,9 +150,9 @@ export default function SearchPage() {
               <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-4">Recent Searches</h2>
               <div className="flex flex-wrap gap-3">
                 {recentSearches.map((city) => (
-                  <button key={city} onClick={() => { setQuery(city); handleSearch(city); }} className="flex items-center gap-2 px-5 py-3 bg-surface-container-low rounded-full hover:bg-surface-container-high transition-colors">
-                    <span className="material-symbols-outlined text-outline text-lg fill">schedule</span>
-                    <span className="font-body-md text-on-surface">{city}</span>
+                  <button key={city} onClick={() => { setQuery(city); handleSearch(city); }} className="flex items-center gap-2 px-5 py-3 bg-aether-surface rounded-full border border-black/5 text-aether-ink-muted hover:text-aether-gold hover:border-aether-gold transition-colors">
+                    <span className="material-symbols-outlined text-aether-ink-muted text-lg fill">schedule</span>
+                    <span className="font-body-md">{city}</span>
                   </button>
                 ))}
               </div>
@@ -164,14 +164,14 @@ export default function SearchPage() {
             <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-5">Explore by Category</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: "wb_sunny", label: "Sunny", color: "text-amber-500", bg: "bg-amber-500/10" },
-                { icon: "rainy", label: "Rainy", color: "text-blue-500", bg: "bg-blue-500/10" },
-                { icon: "ac_unit", label: "Cold", color: "text-cyan-500", bg: "bg-cyan-500/10" },
-                { icon: "beach_access", label: "Beach", color: "text-teal-500", bg: "bg-teal-500/10" },
+                { icon: "wb_sunny", label: "Sunny" },
+                { icon: "rainy", label: "Rainy" },
+                { icon: "ac_unit", label: "Cold" },
+                { icon: "beach_access", label: "Beach" },
               ].map((cat) => (
-                <button key={cat.label} className={`${cat.bg} rounded-2xl p-6 flex flex-col items-center gap-3 hover:shadow-lg transition-all`}>
-                  <span className={`material-symbols-outlined text-3xl ${cat.color} fill`}>{cat.icon}</span>
-                  <span className="font-label-bold text-label-bold text-on-surface">{cat.label}</span>
+                <button key={cat.label} className="bg-aether-surface rounded-2xl p-6 flex flex-col items-center gap-3 border border-black/5 hover:shadow-lg transition-all">
+                  <span className="material-symbols-outlined text-3xl text-aether-gold fill">{cat.icon}</span>
+                  <span className="font-label-bold text-label-bold text-aether-ink">{cat.label}</span>
                 </button>
               ))}
             </div>
@@ -190,15 +190,15 @@ export default function SearchPage() {
                 {[...saved].slice(0, 6).map((key) => {
                   const [city, country] = key.split(", ");
                   return (
-                    <div key={key} className="flex items-center gap-4 p-4 bg-surface rounded-2xl editorial-shadow">
-                      <div className="w-10 h-10 bg-primary-fixed rounded-xl flex items-center justify-center">
-                        <span className="material-symbols-outlined text-primary fill">location_on</span>
+                    <div key={key} className="flex items-center gap-4 p-4 bg-aether-surface rounded-2xl border border-black/5">
+                      <div className="w-10 h-10 bg-aether-gold/10 rounded-xl flex items-center justify-center">
+                        <span className="material-symbols-outlined text-aether-gold fill">location_on</span>
                       </div>
                       <div className="flex-1">
-                        <p className="font-body-md text-on-surface">{city}</p>
-                        <p className="font-caption text-caption text-on-surface-variant">{country}</p>
+                        <p className="font-body-md text-aether-ink">{city}</p>
+                        <p className="font-caption text-caption text-aether-ink-muted">{country}</p>
                       </div>
-                      <button onClick={() => toggleSave(key)} className="text-primary">
+                      <button onClick={() => toggleSave(key)} className="text-aether-gold">
                         <span className="material-symbols-outlined fill">bookmark</span>
                       </button>
                     </div>
@@ -232,8 +232,8 @@ export default function SearchPage() {
                       <p className="font-body-sm text-on-surface-variant">{result.country}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-headline-md text-headline-md text-on-surface">{result.temperature}°</p>
-                      <p className="font-caption text-caption text-on-surface-variant">{result.condition}</p>
+                      <p className="font-data text-2xl text-aether-ink tabular-nums">{result.temperature}°</p>
+                      <p className="font-caption text-caption text-aether-ink-muted">{result.condition}</p>
                     </div>
                     <button onClick={() => toggleSave(key)} className="p-2 hover:bg-surface-container-high rounded-xl transition-colors">
                       <span className={`material-symbols-outlined fill text-2xl ${saved.has(key) ? "text-primary" : "text-outline"}`}>

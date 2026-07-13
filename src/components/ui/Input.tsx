@@ -32,12 +32,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               rest.onBlur?.(e);
             }}
             className={[
-              "peer w-full h-14 px-4 pt-5 pb-1 bg-transparent border-b-2 outline-none text-on-surface text-base transition-colors",
+              "peer w-full h-14 px-4 pt-5 pb-1 bg-transparent border-b-2 outline-none text-aether-text-primary text-base transition-colors",
               error
                 ? "border-error"
                 : focused
-                  ? "border-primary"
-                  : "border-outline-variant",
+                  ? "border-aether-gold"
+                  : "border-aether-gold/20",
               icon ? "pr-12" : "",
               className,
             ]
@@ -56,15 +56,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               error
                 ? "text-error"
                 : focused
-                  ? "text-primary"
-                  : "text-outline",
+                  ? "text-aether-gold"
+                  : "text-aether-text-muted",
             ].join(" ")}
           >
             {label}
           </label>
           <div
             className={[
-              "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary transition-all duration-300",
+              "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-aether-gold transition-all duration-300",
               focused ? "w-full" : "w-0",
             ].join(" ")}
           />
@@ -72,7 +72,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             <button
               type="button"
               onClick={onIconClick}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-aether-text-muted hover:text-aether-text-primary transition-colors cursor-pointer"
               tabIndex={-1}
             >
               <span className="material-symbols-outlined text-2xl leading-none">{icon}</span>

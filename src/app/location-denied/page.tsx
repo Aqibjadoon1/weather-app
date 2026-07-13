@@ -9,11 +9,11 @@ export default function LocationDeniedPage() {
   const { requestLocation } = useCurrentLocation();
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-6">
+    <div className="min-h-screen bg-aether-bg flex items-center justify-center px-6">
       <Card variant="default" padding="lg" className="max-w-md w-full text-center">
-        <span className="material-symbols-outlined text-6xl text-on-surface-variant/40">location_off</span>
-        <h1 className="text-2xl font-bold text-on-surface mt-6">Location Access Required</h1>
-        <p className="text-base text-on-surface-variant mt-3 leading-relaxed">
+        <span className="material-symbols-outlined text-6xl text-aether-text-muted/40">location_off</span>
+        <h1 className="text-2xl font-bold text-aether-text-primary mt-6">Location Access Required</h1>
+        <p className="text-base text-aether-text-muted mt-3 leading-relaxed">
           Aether Weather needs your location to provide accurate forecasts. 
           Please enable location services in your browser or device settings.
         </p>
@@ -23,7 +23,7 @@ export default function LocationDeniedPage() {
           </Button>
           <Link
             href="/search"
-            className="text-sm text-primary hover:underline font-label-bold"
+            className="text-sm text-aether-gold hover:underline font-label-bold"
           >
             Search Manually
           </Link>

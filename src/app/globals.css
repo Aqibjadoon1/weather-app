@@ -54,6 +54,18 @@
   --color-info: #006493;
   --color-on-info: #ffffff;
 
+  --color-aether-bg: #0B0E14;
+  --color-aether-bg-soft: #12161F;
+  --color-aether-surface: #F7F5EF;
+  --color-aether-gold: #C99A3E;
+  --color-aether-gold-soft: #E8C878;
+  --color-aether-slate: #4A6FA5;
+  --color-aether-slate-soft: #7B93BE;
+  --color-aether-text-primary: #EAE7DD;
+  --color-aether-text-muted: #9B9788;
+  --color-aether-ink: #1B1D22;
+  --color-aether-ink-muted: #5B5D63;
+
   --font-headline-md: "Playfair Display", serif;
   --font-headline-lg: "Playfair Display", serif;
   --font-hero-temp: "Playfair Display", serif;
@@ -62,6 +74,7 @@
   --font-body-lg: "Inter", sans-serif;
   --font-body-md: "Inter", sans-serif;
   --font-label-bold: "Inter", sans-serif;
+  --font-data: "JetBrains Mono", monospace;
 
   --font-dark-serif: "Libre Caslon Text", serif;
   --font-dark-sans: "Hanken Grotesk", sans-serif;
@@ -144,6 +157,7 @@
   --font-body-lg: "Hanken Grotesk", sans-serif;
   --font-body-md: "Hanken Grotesk", sans-serif;
   --font-label-bold: "Hanken Grotesk", sans-serif;
+  --font-data: "JetBrains Mono", monospace;
 }
 
 
@@ -252,7 +266,7 @@
   .floating-label-input input:focus + label,
   .floating-label-input input:not(:placeholder-shown) + label {
     transform: translateY(-24px) scale(0.85);
-    color: #0058bc;
+    color: #C99A3E;
   }
   .input-underline {
     position: absolute;
@@ -260,7 +274,7 @@
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: #0058bc;
+    background-color: #C99A3E;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .floating-label-input:focus-within .input-underline {
@@ -383,15 +397,45 @@
   background: rgba(0, 88, 188, 0.1);
 }
 
+
+
+.sky-gradient {
+  transition: background 2000ms ease-in-out;
+}
+.sky-gradient-clear-day    { background: linear-gradient(180deg, #2E7BC4 0%, #5CA8DE 45%, #A9D4EE 80%, #D7ECF7 100%); }
+.sky-gradient-clear-night  { background: linear-gradient(180deg, #060810 0%, #0B0E14 40%, #171B26 75%, #1F2433 100%); }
+.sky-gradient-cloudy-day   { background: linear-gradient(180deg, #5C6B7A 0%, #8493A0 45%, #ABB7C0 80%, #CDD5DB 100%); }
+.sky-gradient-cloudy-night { background: linear-gradient(180deg, #0D0F16 0%, #14171F 40%, #1D212B 75%, #262B36 100%); }
+.sky-gradient-rainy-day    { background: linear-gradient(180deg, #3E4C58 0%, #5E6E7A 45%, #7F8D97 80%, #A0ABB2 100%); }
+.sky-gradient-rainy-night  { background: linear-gradient(180deg, #070911 0%, #0D1017 40%, #161A22 75%, #1E232B 100%); }
+.sky-gradient-stormy       { background: linear-gradient(180deg, #12131C 0%, #221C2E 40%, #34273F 75%, #3F2E4C 100%); }
+.sky-gradient-snowy        { background: linear-gradient(180deg, #57687A 0%, #8797A6 45%, #C0CBD4 80%, #EDF2F5 100%); }
+.sky-gradient-foggy        { background: linear-gradient(180deg, #6E7378 0%, #8F9398 45%, #B4B8BB 80%, #D6D9DB 100%); }
+.sky-gradient-dawn         { background: linear-gradient(180deg, #131625 0%, #4A3B57 35%, #A85D6B 65%, #E39B5C 88%, #F2C27A 100%); }
+.sky-gradient-dusk         { background: linear-gradient(180deg, #0D0E17 0%, #362A45 35%, #A14E5E 65%, #D97E4E 88%, #EBA65E 100%); }
+
+.glass-card-light {
+  background: rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glass-card-light:hover {
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
 .glass-card-dark {
-  background: rgba(32, 31, 31, 0.4);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .glass-card-dark:hover {
-  background: rgba(42, 42, 42, 0.6);
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 

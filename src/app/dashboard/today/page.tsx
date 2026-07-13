@@ -67,29 +67,29 @@ export default function TodayPage() {
   return (
     <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8 bg-primary-fixed">
+      <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8 bg-aether-bg">
         <WeatherShader className="absolute inset-0 w-full h-full" condition={weather?.condition} isNight={isNight} />
         <div className="relative z-10">
           <header className="flex justify-between items-center">
             <div>
-              <h1 className="text-6xl md:text-7xl font-headline-md text-headline-md text-on-surface leading-none">
+              <h1 className="text-6xl md:text-7xl font-headline-md text-headline-md text-aether-text-primary leading-none">
                 {weather ? `${Math.round(weather.temperature)}°` : "18°"}
               </h1>
-              <p className="font-headline-sm text-headline-sm text-on-surface-variant mt-1">
+              <p className="font-headline-sm text-headline-sm text-aether-text-muted mt-1">
                 {weather ? weather.condition : "Partly Cloudy"}
               </p>
             </div>
             <div className="text-right">
-              <p className="font-label-bold text-label-bold text-on-surface uppercase tracking-wider">{cityName}</p>
-              <p className="font-caption text-caption text-on-surface-variant mt-1">
+              <p className="font-label-bold text-label-bold text-aether-gold uppercase tracking-wider">{cityName}</p>
+              <p className="font-caption text-caption text-aether-text-muted mt-1">
                 {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
               </p>
             </div>
           </header>
 
           <div className="mt-6 flex items-center gap-2">
-            <span className="material-symbols-outlined text-on-surface-variant fill">wb_sunny</span>
-            <span className="font-body-md text-on-surface-variant">
+            <span className="material-symbols-outlined text-aether-text-muted fill">wb_sunny</span>
+            <span className="font-body-md text-aether-text-muted">
               Feels like {weather ? `${Math.round(weather.feelsLike)}°C` : "16°C"}
             </span>
           </div>
@@ -140,7 +140,7 @@ export default function TodayPage() {
             </p>
           </div>
           <div className="mt-5 h-1.5 bg-outline-variant rounded-full overflow-hidden">
-            <div className="h-full bg-blue-400 rounded-full" style={{ width: `${displayHourly[0]?.precipitation ?? 10}%` }} />
+            <div className="h-full bg-aether-gold rounded-full" style={{ width: `${displayHourly[0]?.precipitation ?? 10}%` }} />
           </div>
         </div>
 
