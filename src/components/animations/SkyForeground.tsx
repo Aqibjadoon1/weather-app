@@ -156,20 +156,17 @@ function SnowLayer() {
   );
 }
 
-function BirdLayer({ sunPos: sp }: { sunPos: { top: string; left: string } }) {
-  const sunTop = parseInt(sp.top);
-  const sunLeft = parseInt(sp.left);
-
-  const birds = Array.from({ length: 5 }, (_, i) => {
-    const angle = ((i / 5) * 140 - 70) * (Math.PI / 180); // -70° to +70° arc
-    const dist = 6 + (i % 3) * 3;
+function BirdLayer() {
+  const birds = Array.from({ length: 9 }, (_, i) => {
+    const col = i % 3;
+    const row = Math.floor(i / 3);
     return {
       id: i,
-      x: `${sunLeft + dist * Math.sin(angle)}%`,
-      y: `${sunTop - dist * Math.cos(angle) + i * 1.5}%`,
-      delay: `${i * 1.2}s`,
-      size: 12 + i * 3,
-      bobDur: `${2.5 + (i % 3) * 0.8}s`,
+      x: `${12 + col * 34 + (row % 2) * 8}%`,
+      y: `${6 + row * 12}%`,
+      delay: `${i * 0.9}s`,
+      size: 26 - row * 4 + (col % 2) * 6,
+      flapSpeed: `${0.3 + (i % 3) * 0.08}s`,
     };
   });
 
@@ -186,17 +183,17 @@ function BirdLayer({ sunPos: sp }: { sunPos: { top: string; left: string } }) {
           }}
         >
           <div
-            style={{ animation: `bird-bob ${b.bobDur} ease-in-out ${b.delay} infinite` }}
+            style={{ animation: `bird-bob ${2.2 + (b.id % 5) * 0.6}s ease-in-out ${b.delay} infinite` }}
           >
             <svg
               width={b.size}
-              height={b.size * 0.5}
-              viewBox="0 0 40 16"
-              fill="rgba(0,0,0,0.5)"
-              className="drop-shadow-sm"
-              style={{ animation: `bird-flap 0.35s ease-in-out ${b.delay} infinite` }}
+              height={b.size * 0.45}
+              viewBox="0 0 50 18"
+              fill="rgba(255,255,255,0.7)"
+              className="drop-shadow-[0_1px_3px_rgba(0,0,0,0.15)]"
+              style={{ animation: `bird-flap ${b.flapSpeed} ease-in-out ${b.delay} infinite` }}
             >
-              <path d="M1 13 Q12 1 20 7 Q28 1 39 13 Q28 8 20 10 Q12 8 1 13Z" />
+              <path d="M2 14 Q14 1 25 8 Q36 1 48 14 Q36 9 25 11 Q14 9 2 14Z" />
             </svg>
           </div>
         </div>
@@ -330,7 +327,7 @@ export default function SkyForeground({ state }: SkyForegroundProps) {
         </div>
       )}
 
-      {showCelestial && !isNight && <BirdLayer sunPos={sunPos} />}
+      {showCelestial && !isNight && <BirdLayer />}
 
       {showCelestial && isNight && !isStormy && (
         <div
