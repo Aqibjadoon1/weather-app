@@ -38,8 +38,8 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-background">
-      {/* Left Side: Atmospheric Canvas */}
-      <section className="relative w-full md:w-1/2 h-[40vh] md:h-screen overflow-hidden bg-primary-fixed">
+      {/* Left Side */}
+      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden bg-primary-fixed">
         <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0, 0.48, 1]} skyBottom={[0.97, 0.98, 1]} />
         <ThreeScene className="absolute inset-0 w-full h-full opacity-80 mix-blend-screen pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
         <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 z-10">
@@ -60,18 +60,18 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* Right Side: Login Form */}
-      <section className="w-full md:w-1/2 flex items-center justify-center px-6 py-10 md:p-12 lg:p-20 bg-surface">
-        <div className="w-full max-w-[480px]">
-          <header className="mb-10">
+      {/* Right Side */}
+      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-8 md:py-10 bg-surface overflow-y-auto">
+        <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
+          <header className="mb-8">
             <h2 className="font-headline-md text-headline-md text-on-surface mb-2">Welcome Back</h2>
             <p className="text-on-surface-variant font-body-md">Enter your credentials to access your dashboard.</p>
           </header>
 
-          <div className="bg-surface-container-lowest editorial-shadow rounded-2xl p-8 md:p-12 relative overflow-hidden">
+          <div className="bg-surface-container-lowest editorial-shadow rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-secondary/10" />
             <div className="grain-texture absolute inset-0" />
-            <form className="space-y-8 relative z-10" onSubmit={handleSubmit}>
+            <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
               {error && (
                 <div className="p-4 bg-error/10 border border-error/20 rounded-xl">
                   <p className="text-sm font-label-bold text-error">{error}</p>
@@ -116,7 +116,7 @@ export default function LoginPage() {
                 )}
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-wrap gap-3">
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div className="relative w-5 h-5 flex items-center justify-center">
                     <input type="checkbox" className="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-sm checked:bg-primary checked:border-primary transition-all" />
@@ -129,11 +129,11 @@ export default function LoginPage() {
                 </Link>
               </div>
 
-              <div className="space-y-4 pt-4">
+              <div className="space-y-4 pt-2">
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="spring-button w-full h-14 bg-primary text-on-primary rounded-full font-label-bold text-[14px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="spring-button w-full h-12 md:h-14 bg-primary text-on-primary rounded-full font-label-bold text-[14px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {isLoading ? (
                     <span className="material-symbols-outlined animate-spin">progress_activity</span>
@@ -148,7 +148,7 @@ export default function LoginPage() {
                   type="button"
                   onClick={handleGoogle}
                   disabled={isLoading}
-                  className="spring-button w-full h-14 bg-transparent border border-outline-variant text-on-surface rounded-full font-label-bold text-[14px] uppercase tracking-widest hover:bg-surface-container-low transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  className="spring-button w-full h-12 md:h-14 bg-transparent border border-outline-variant text-on-surface rounded-full font-label-bold text-[14px] uppercase tracking-widest hover:bg-surface-container-low transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -162,7 +162,7 @@ export default function LoginPage() {
             </form>
           </div>
 
-          <footer className="mt-10 text-center">
+          <footer className="mt-8 text-center">
             <p className="font-body-md text-on-surface-variant">
               New to the Aether?
               <Link href="/register" className="text-primary font-bold hover:underline decoration-2 underline-offset-4 ml-1">
@@ -172,7 +172,6 @@ export default function LoginPage() {
           </footer>
         </div>
       </section>
-
     </main>
   );
 }

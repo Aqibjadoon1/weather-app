@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 interface ThreeSceneProps {
   className?: string;
-  variant?: "sun" | "particles" | "birds";
+  variant?: "sun" | "particles" | "birds" | "profile_orb";
   sunPosition?: [number, number, number];
 }
 
@@ -22,6 +22,7 @@ export default function ThreeScene({
     let animId: number;
     let scene: any, camera: any, renderer: any;
     let sunGroup: any, raysGroup: any, birds: any[] = [], windParticles: any;
+    let orbGroup: any, orbMesh: any, coreMesh: any, orbParticles: any[] = [];
     let particlesCount = 0, velocities: any[] = [];
 
     const init = async () => {
@@ -42,6 +43,55 @@ export default function ThreeScene({
       const pointLight = new THREE.PointLight(0xffcc33, 2, 50);
       pointLight.position.set(5, 5, 2);
       scene.add(pointLight);
+
+      if (variant === "profile_orb") {
+        orbGroup = new THREE.Group();
+
+        const geometry = new THREE.IcosahedronGeometry(1.5, 4);
+        const material = new THREE.MeshPhongMaterial({
+          color: 0xffffff,
+          emissive: 0x007aff,
+          emissiveIntensity: 0.2,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.3,
+        });
+        orbMesh = new THREE.Mesh(geometry, material);
+        orbGroup.add(orbMesh);
+
+        const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
+        const coreMat = new THREE.MeshPhongMaterial({
+          color: 0x007aff,
+          emissive: 0x005bb7,
+          emissiveIntensity: 0.5,
+          shininess: 100,
+        });
+        coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        orbGroup.add(coreMesh);
+
+        const oCount = 50;
+        const particleGeo = new THREE.SphereGeometry(0.03, 8, 8);
+        const particleMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        for (let i = 0; i < oCount; i++) {
+          const pMesh = new THREE.Mesh(particleGeo, particleMat);
+          const r = 2 + Math.random();
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.random() * Math.PI;
+
+          pMesh.position.x = r * Math.sin(phi) * Math.cos(theta);
+          pMesh.position.y = r * Math.sin(phi) * Math.sin(theta);
+          pMesh.position.z = r * Math.cos(phi);
+
+          pMesh.userData = {
+            angle: Math.random() * Math.PI * 2,
+            speed: 0.005 + Math.random() * 0.01,
+            r: r,
+          };
+          orbGroup.add(pMesh);
+          orbParticles.push(pMesh);
+        }
+        scene.add(orbGroup);
+      }
 
       if (variant === "sun" || variant === "birds") {
         sunGroup = new THREE.Group();
@@ -88,31 +138,33 @@ export default function ThreeScene({
         }
       }
 
-      particlesCount = variant === "particles" ? 300 : 200;
-      const posArray = new Float32Array(particlesCount * 3);
-      velocities = [];
-      for (let i = 0; i < particlesCount; i++) {
-        posArray[i * 3] = (Math.random() - 0.5) * 30;
-        posArray[i * 3 + 1] = (Math.random() - 0.5) * 20;
-        posArray[i * 3 + 2] = (Math.random() - 0.5) * 10;
-        velocities.push({
-          x: 0.01 + Math.random() * 0.04,
-          y: (Math.random() - 0.5) * 0.02,
-          phase: Math.random() * Math.PI * 2,
+      if (variant !== "profile_orb") {
+        particlesCount = variant === "particles" ? 300 : 200;
+        const posArray = new Float32Array(particlesCount * 3);
+        velocities = [];
+        for (let i = 0; i < particlesCount; i++) {
+          posArray[i * 3] = (Math.random() - 0.5) * 30;
+          posArray[i * 3 + 1] = (Math.random() - 0.5) * 20;
+          posArray[i * 3 + 2] = (Math.random() - 0.5) * 10;
+          velocities.push({
+            x: 0.01 + Math.random() * 0.04,
+            y: (Math.random() - 0.5) * 0.02,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
+        const mat = new THREE.PointsMaterial({
+          size: 0.06,
+          color: 0xffffff,
+          transparent: true,
+          opacity: 0.4,
         });
+        windParticles = new THREE.Points(geo, mat);
+        scene.add(windParticles);
       }
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
-      const mat = new THREE.PointsMaterial({
-        size: 0.06,
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.4,
-      });
-      windParticles = new THREE.Points(geo, mat);
-      scene.add(windParticles);
 
-      camera.position.z = 10;
+      camera.position.z = variant === "profile_orb" ? 6 : 10;
       animate();
     };
 
@@ -120,6 +172,19 @@ export default function ThreeScene({
       animId = requestAnimationFrame(animate);
       if (!renderer || !scene || !camera) return;
       const time = Date.now() * 0.001;
+
+      if (orbGroup && orbMesh && coreMesh) {
+        orbGroup.rotation.y += 0.005;
+        orbGroup.rotation.x += 0.003;
+        orbMesh.scale.setScalar(1 + Math.sin(time) * 0.05);
+        coreMesh.rotation.y -= 0.01;
+        orbParticles.forEach((p: any) => {
+          p.userData.angle += p.userData.speed;
+          p.position.x = p.userData.r * Math.cos(p.userData.angle);
+          p.position.z = p.userData.r * Math.sin(p.userData.angle);
+          p.position.y += Math.sin(time + p.userData.angle) * 0.01;
+        });
+      }
 
       if (sunGroup) {
         sunGroup.rotation.z += 0.002;
@@ -148,6 +213,7 @@ export default function ThreeScene({
 
       renderer.render(scene, camera);
     }
+
 
     init();
 

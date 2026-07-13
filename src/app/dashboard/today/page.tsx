@@ -37,6 +37,16 @@ export default function TodayPage() {
     }
   }, [location, getWeather]);
 
+  const isNight = weather
+    ? (() => {
+        const now = new Date();
+        const cur = now.getHours() * 60 + now.getMinutes();
+        const [sh, sm] = weather.sunrise.split(":").map(Number);
+        const [ss, ms] = weather.sunset.split(":").map(Number);
+        return cur < sh * 60 + sm || cur > ss * 60 + ms;
+      })()
+    : false;
+
   const displayHourly = hourlyData || [
     { time: "06:00", icon: "wb_sunny", temperature: 12, condition: "Clear", precipitation: 0 },
     { time: "09:00", icon: "partly_cloudy_day", temperature: 15, condition: "Partly Cloudy", precipitation: 10 },
@@ -58,7 +68,7 @@ export default function TodayPage() {
     <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
       {/* Hero */}
       <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8 bg-primary-fixed">
-        <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0, 0.48, 1]} skyBottom={[0.97, 0.98, 1]} />
+        <WeatherShader className="absolute inset-0 w-full h-full" condition={weather?.condition} isNight={isNight} />
         <div className="relative z-10">
           <header className="flex justify-between items-center">
             <div>

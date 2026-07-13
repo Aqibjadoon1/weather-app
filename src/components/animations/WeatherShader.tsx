@@ -23,6 +23,10 @@ out vec4 fragColor;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
+uniform vec3 u_skyTop;
+uniform vec3 u_skyBottom;
+uniform float u_isNight;
+uniform float u_rainIntensity;
 
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -52,8 +56,9 @@ float snoise(vec2 v) {
   return 130.0 * dot(m, g);
 }
 
-uniform vec3 u_skyTop;
-uniform vec3 u_skyBottom;
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
 void main() {
   vec2 uv = v_texCoord;
@@ -75,15 +80,78 @@ void main() {
   float cloudNoise2 = snoise(pos * 4.0 - u_time * 0.008 + 100.0);
   float cloud = smoothstep(0.15, 0.6, cloudNoise * 0.6 + cloudNoise2 * 0.4);
   float cloudAlpha = cloud * 0.35;
-  vec3 cloudColor = vec3(1.0, 1.0, 1.0);
+  vec3 cloudColor = mix(vec3(1.0), vec3(0.6, 0.65, 0.7), u_rainIntensity);
   sky = mix(sky, cloudColor, cloudAlpha);
 
   vec2 sunPos = vec2(0.85, 0.75);
   float sunDist = distance(uv, sunPos);
-  float sunGlow = exp(-sunDist * 4.0) * 0.6;
-  sunGlow += exp(-sunDist * 12.0) * 0.3;
-  vec3 sunColor = vec3(1.0, 0.85, 0.5);
+  float glowIntensity = 1.0 - u_isNight * 0.9;
+  float sunGlow = exp(-sunDist * 4.0) * 0.6 * glowIntensity;
+  sunGlow += exp(-sunDist * 12.0) * 0.3 * glowIntensity;
+  vec3 sunColor = mix(vec3(1.0, 0.85, 0.5), vec3(0.3, 0.4, 0.7), u_isNight);
   sky += sunColor * sunGlow;
+
+  float moonGlow = 0.0;
+  if (u_isNight > 0.5) {
+    vec2 moonPos = vec2(0.7, 0.8);
+    float moonDist = distance(uv, moonPos);
+    moonGlow = exp(-moonDist * 3.0) * 0.3;
+    moonGlow += exp(-moonDist * 10.0) * 0.15;
+    vec3 moonColor = vec3(0.85, 0.85, 0.9);
+    sky += moonColor * moonGlow;
+
+    float moonBody = smoothstep(0.04, 0.035, moonDist);
+    float moonCrater = smoothstep(0.01, 0.005, distance(uv + vec2(0.008, 0.005), moonPos));
+    sky += moonBody * vec3(0.95, 0.93, 0.9) * 0.15;
+    sky -= moonCrater * vec3(0.1, 0.08, 0.05) * 0.3;
+  }
+
+  if (u_isNight > 0.5) {
+    vec2 starUv = uv * 120.0;
+    vec2 cell = floor(starUv);
+    vec2 frac = fract(starUv) - 0.5;
+
+    float r = hash(cell);
+    float r2 = hash(cell + vec2(10.0, 20.0));
+    float r3 = hash(cell + vec2(30.0, 40.0));
+
+    float starSize = 0.05 + r2 * 0.1;
+    float starBright = smoothstep(starSize, 0.0, length(frac));
+    float twinkle = sin(u_time * (1.5 + r3 * 2.0) + r * 6.283) * 0.5 + 0.5;
+    starBright *= 0.3 + 0.7 * twinkle;
+    starBright *= step(0.7, r);
+
+    float horizonMask = 1.0 - smoothstep(0.1, 0.5, uv.y);
+    starBright *= horizonMask;
+
+    sky += vec3(1.0, 0.98, 0.95) * starBright * min(1.0, starSize * 8.0);
+  }
+
+  if (u_rainIntensity > 0.01) {
+    for (int i = 0; i < 3; i++) {
+      float speed = 2.0 + float(i) * 1.2;
+      float scale = 40.0 + float(i) * 30.0;
+
+      vec2 rainPos = uv * scale;
+      rainPos.y -= u_time * speed;
+      rainPos.x += sin(u_time * speed * 0.3 + float(i) * 2.0) * 0.1;
+
+      vec2 cell = floor(rainPos);
+      vec2 frac = fract(rainPos);
+
+      float r = hash(cell);
+      float r2 = hash(cell + vec2(5.0, 10.0) * float(i + 1));
+
+      float streak = smoothstep(0.96, 0.998, frac.y);
+      float offset = (r - 0.5) * 0.3;
+      float width = 0.002 + r2 * 0.003;
+      float drop = step(abs(frac.x - offset), width) * streak;
+
+      float opacity = u_rainIntensity * (0.12 + r * 0.18);
+      vec3 rainColor = vec3(0.6, 0.65, 0.8);
+      sky += rainColor * drop * opacity;
+    }
+  }
 
   fragColor = vec4(sky, 1.0);
 }
@@ -93,14 +161,53 @@ interface WeatherShaderProps {
   className?: string;
   skyTop?: [number, number, number];
   skyBottom?: [number, number, number];
+  condition?: string;
+  isNight?: boolean;
+}
+
+function getSkyColors(condition: string | undefined, isNight: boolean): { skyTop: [number, number, number]; skyBottom: [number, number, number] } {
+  if (isNight) {
+    return { skyTop: [0.02, 0.01, 0.08], skyBottom: [0.08, 0.04, 0.15] };
+  }
+
+  const cond = (condition || "").toLowerCase();
+
+  if (cond.includes("thunderstorm") || cond.includes("squall") || cond.includes("tornado")) {
+    return { skyTop: [0.15, 0.15, 0.18], skyBottom: [0.3, 0.32, 0.35] };
+  }
+  if (cond.includes("rain") || cond.includes("drizzle") || cond.includes("shower")) {
+    return { skyTop: [0.2, 0.25, 0.4], skyBottom: [0.5, 0.55, 0.6] };
+  }
+  if (cond.includes("snow") || cond.includes("sleet")) {
+    return { skyTop: [0.55, 0.55, 0.6], skyBottom: [0.85, 0.87, 0.9] };
+  }
+  if (cond.includes("clouds") || cond.includes("overcast")) {
+    return { skyTop: [0.45, 0.5, 0.6], skyBottom: [0.75, 0.77, 0.8] };
+  }
+  if (cond.includes("mist") || cond.includes("fog") || cond.includes("haze")) {
+    return { skyTop: [0.55, 0.57, 0.6], skyBottom: [0.8, 0.8, 0.82] };
+  }
+  // Clear / default
+  return { skyTop: [0, 0.48, 1], skyBottom: [0.97, 0.98, 1] };
+}
+
+function getRainIntensity(condition: string | undefined): number {
+  const cond = (condition || "").toLowerCase();
+  if (cond.includes("thunderstorm")) return 1.0;
+  if (cond.includes("rain") || cond.includes("drizzle") || cond.includes("shower")) return 1.0;
+  if (cond.includes("snow") || cond.includes("sleet") || cond.includes("mist") || cond.includes("fog") || cond.includes("haze")) return 0.3;
+  return 0.0;
 }
 
 export default function WeatherShader({
   className = "",
-  skyTop = [0, 0.48, 1.0],
-  skyBottom = [0.97, 0.98, 1.0],
+  condition,
+  isNight = false,
 }: WeatherShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const { skyTop, skyBottom } = getSkyColors(condition, isNight);
+  const rainIntensity = getRainIntensity(condition);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -148,9 +255,16 @@ export default function WeatherShader({
     const uMouse = gl.getUniformLocation(program, "u_mouse");
     const uSkyTop = gl.getUniformLocation(program, "u_skyTop");
     const uSkyBottom = gl.getUniformLocation(program, "u_skyBottom");
+    const uIsNight = gl.getUniformLocation(program, "u_isNight");
+    const uRainIntensity = gl.getUniformLocation(program, "u_rainIntensity");
 
-    gl.uniform3f(uSkyTop, skyTop[0], skyTop[1], skyTop[2]);
-    gl.uniform3f(uSkyBottom, skyBottom[0], skyBottom[1], skyBottom[2]);
+    const setUniforms = () => {
+      gl.uniform3f(uSkyTop, skyTop[0], skyTop[1], skyTop[2]);
+      gl.uniform3f(uSkyBottom, skyBottom[0], skyBottom[1], skyBottom[2]);
+      gl.uniform1f(uIsNight, isNight ? 1.0 : 0.0);
+      gl.uniform1f(uRainIntensity, rainIntensity);
+    };
+    setUniforms();
 
     let mouseX = 0.5;
     let mouseY = 0.5;
@@ -194,7 +308,7 @@ export default function WeatherShader({
       gl.deleteShader(vertexShader);
       gl.deleteShader(fragmentShader);
     };
-  }, [skyTop, skyBottom]);
+  }, [skyTop, skyBottom, isNight, rainIntensity]);
 
   return (
     <canvas

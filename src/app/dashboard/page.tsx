@@ -40,12 +40,22 @@ export default function DashboardPage() {
     }
   }, [location, getWeather, getForecast]);
 
+  const isNight = weather
+    ? (() => {
+        const now = new Date();
+        const cur = now.getHours() * 60 + now.getMinutes();
+        const [sh, sm] = weather.sunrise.split(":").map(Number);
+        const [ss, ms] = weather.sunset.split(":").map(Number);
+        return cur < sh * 60 + sm || cur > ss * 60 + ms;
+      })()
+    : false;
+
   const isLoading = locLoading || weatherLoading || forecastLoading;
 
   return (
     <>
       <section className="relative min-h-[70vh] flex flex-col justify-end py-section-margin overflow-hidden rounded-[2rem] -mt-4 -mx-container-padding mb-section-margin px-container-padding bg-primary-fixed">
-        <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0, 0.48, 1]} skyBottom={[0.97, 0.98, 1]} />
+        <WeatherShader className="absolute inset-0 w-full h-full" condition={weather?.condition} isNight={isNight} />
         <ThreeScene className="absolute right-0 top-0 w-1/2 h-full z-10 opacity-80 pointer-events-none" variant="sun" sunPosition={[4, 3, -5]} />
 
         <div className="relative z-20 flex flex-col items-start p-10 md:p-16">
