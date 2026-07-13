@@ -9,14 +9,16 @@ const navLinks = [
   { href: "/dashboard/search", label: "Explore" },
 ];
 
-const blurPages = ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
+const blurPages = ["/dashboard", "/dashboard/search"];
+const fullTransparentPages = ["/dashboard/weekly", "/dashboard/packing"];
 
 export default function TopNavbar() {
   const pathname = usePathname();
   const showBlur = blurPages.includes(pathname || "");
+  const isFullyTransparent = fullTransparentPages.includes(pathname || "");
 
   return (
-    <nav className={`bg-transparent sticky top-0 z-50 border-b border-white/20 ${showBlur ? "backdrop-blur-xl" : ""}`}>
+    <nav className={`bg-transparent sticky top-0 z-50 ${isFullyTransparent ? "" : "border-b border-white/20"} ${showBlur ? "backdrop-blur-xl" : ""}`}>
       <div className="w-full px-container-padding flex items-center justify-between h-16">
         <Link
           href="/dashboard"
