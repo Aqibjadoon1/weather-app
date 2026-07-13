@@ -9,7 +9,7 @@ const navLinks = [
   { href: "/dashboard/search", label: "Explore" },
 ];
 
-const blurPages = ["/dashboard"];
+const blurPages = ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
 
 export default function TopNavbar() {
   const pathname = usePathname();

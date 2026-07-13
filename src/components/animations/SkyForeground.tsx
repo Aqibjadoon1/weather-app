@@ -156,6 +156,55 @@ function SnowLayer() {
   );
 }
 
+function BirdLayer({ sunPos: sp }: { sunPos: { top: string; left: string } }) {
+  const sunTop = parseInt(sp.top);
+  const sunLeft = parseInt(sp.left);
+
+  const birds = Array.from({ length: 5 }, (_, i) => {
+    const angle = ((i / 5) * 140 - 70) * (Math.PI / 180); // -70° to +70° arc
+    const dist = 6 + (i % 3) * 3;
+    return {
+      id: i,
+      x: `${sunLeft + dist * Math.sin(angle)}%`,
+      y: `${sunTop - dist * Math.cos(angle) + i * 1.5}%`,
+      delay: `${i * 1.2}s`,
+      size: 12 + i * 3,
+      bobDur: `${2.5 + (i % 3) * 0.8}s`,
+    };
+  });
+
+  return (
+    <div className="absolute inset-0 pointer-events-none z-6">
+      {birds.map((b) => (
+        <div
+          key={b.id}
+          className="absolute"
+          style={{
+            top: b.y,
+            left: b.x,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <div
+            style={{ animation: `bird-bob ${b.bobDur} ease-in-out ${b.delay} infinite` }}
+          >
+            <svg
+              width={b.size}
+              height={b.size * 0.5}
+              viewBox="0 0 40 16"
+              fill="rgba(0,0,0,0.5)"
+              className="drop-shadow-sm"
+              style={{ animation: `bird-flap 0.35s ease-in-out ${b.delay} infinite` }}
+            >
+              <path d="M1 13 Q12 1 20 7 Q28 1 39 13 Q28 8 20 10 Q12 8 1 13Z" />
+            </svg>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function FogLayer() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -222,6 +271,14 @@ export default function SkyForeground({ state }: SkyForegroundProps) {
             95% { opacity: 0.15; }
             97% { opacity: 0; }
           }
+          @keyframes bird-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+          }
+          @keyframes bird-flap {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.35); }
+          }
           @keyframes twinkle {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
@@ -272,6 +329,8 @@ export default function SkyForeground({ state }: SkyForegroundProps) {
           </svg>
         </div>
       )}
+
+      {showCelestial && !isNight && <BirdLayer sunPos={sunPos} />}
 
       {showCelestial && isNight && !isStormy && (
         <div
