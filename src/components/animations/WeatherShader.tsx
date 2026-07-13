@@ -201,12 +201,16 @@ function getRainIntensity(condition: string | undefined): number {
 
 export default function WeatherShader({
   className = "",
+  skyTop: skyTopProp,
+  skyBottom: skyBottomProp,
   condition,
   isNight = false,
 }: WeatherShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { skyTop, skyBottom } = getSkyColors(condition, isNight);
+  const defaults = getSkyColors(condition, isNight);
+  const skyTop = skyTopProp ?? defaults.skyTop;
+  const skyBottom = skyBottomProp ?? defaults.skyBottom;
   const rainIntensity = getRainIntensity(condition);
 
   useEffect(() => {
@@ -219,15 +223,30 @@ export default function WeatherShader({
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)!;
     gl.shaderSource(vertexShader, vertexSrc);
     gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+      gl.deleteShader(vertexShader);
+      return;
+    }
 
     const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)!;
     gl.shaderSource(fragmentShader, fragmentSrc);
     gl.compileShader(fragmentShader);
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      return;
+    }
 
     const program = gl.createProgram()!;
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      return;
+    }
     gl.useProgram(program);
 
     const vertices = new Float32Array([
@@ -278,6 +297,7 @@ export default function WeatherShader({
     const handleResize = () => {
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -298,6 +318,15 @@ export default function WeatherShader({
     canvas.addEventListener("mousemove", handleMouseMove);
 
     handleResize();
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      window.removeEventListener("resize", handleResize);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      return;
+    }
     let animFrameId = requestAnimationFrame(render);
 
     return () => {
