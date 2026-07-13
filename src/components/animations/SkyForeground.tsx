@@ -167,15 +167,12 @@ const birdVariants = [
 
 function BirdLayer() {
   const birds = [
-    { x: 48, y: 10, size: 32, flap: 0.30, bob: 2.0, delay: 0, variant: 0 },
-    { x: 35, y: 14, size: 28, flap: 0.36, bob: 2.6, delay: 0.4, variant: 1 },
-    { x: 63, y: 12, size: 27, flap: 0.32, bob: 2.3, delay: 0.7, variant: 2 },
-    { x: 52, y: 18, size: 25, flap: 0.40, bob: 2.8, delay: 1.1, variant: 1 },
-    { x: 27, y: 19, size: 24, flap: 0.34, bob: 2.1, delay: 0.2, variant: 2 },
-    { x: 44, y: 23, size: 23, flap: 0.38, bob: 2.5, delay: 1.5, variant: 0 },
-    { x: 68, y: 21, size: 23, flap: 0.33, bob: 2.7, delay: 0.9, variant: 1 },
-    { x: 57, y: 28, size: 21, flap: 0.37, bob: 2.2, delay: 0.5, variant: 2 },
-    { x: 33, y: 29, size: 21, flap: 0.35, bob: 2.9, delay: 1.3, variant: 0 },
+    { x: 47, y: 11, size: 34, flap: 0.30, bob: 2.0, delay: 0, variant: 0 },
+    { x: 36, y: 16, size: 29, flap: 0.36, bob: 2.6, delay: 0.4, variant: 1 },
+    { x: 61, y: 14, size: 28, flap: 0.32, bob: 2.3, delay: 0.7, variant: 2 },
+    { x: 50, y: 21, size: 26, flap: 0.40, bob: 2.8, delay: 1.1, variant: 1 },
+    { x: 30, y: 23, size: 25, flap: 0.34, bob: 2.1, delay: 0.2, variant: 2 },
+    { x: 64, y: 23, size: 25, flap: 0.33, bob: 2.7, delay: 0.9, variant: 0 },
   ];
 
   return (
