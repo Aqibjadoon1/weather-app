@@ -5,10 +5,7 @@ import Link from "next/link";
 import { useWeather } from "@/hooks/useWeather";
 import { useForecast } from "@/hooks/useForecast";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
-import { useSkyState } from "@/hooks/useSkyState";
-import { skyGradients, isLightBackground } from "@/lib/getSkyState";
-import WeatherShader from "@/components/animations/WeatherShader";
-import SkyForeground from "@/components/animations/SkyForeground";
+import { isLightBackground } from "@/lib/getSkyState";
 import Skeleton from "@/components/ui/Skeleton";
 
 function uvRiskLevel(index: number): string {
@@ -42,29 +39,19 @@ export default function DashboardPage() {
     }
   }, [location, getWeather, getForecast]);
 
-  const skyState = useSkyState(weather?.condition, weather?.sunrise, weather?.sunset);
-  const currentState = skyState ?? (weather ? "cloudy-day" : "clear-day");
-  const lightBg = isLightBackground(currentState);
+  const isLoading = locLoading || weatherLoading || forecastLoading;
+  const isNight = weather?.sunset ? Date.now() > parseInt(weather.sunset) * 1000 : false;
+  const lightBg = !isNight;
   const textPrimary = lightBg ? "text-aether-ink" : "text-aether-text-primary";
   const textMuted = lightBg ? "text-aether-ink/80" : "text-aether-text-primary/85";
   const glassClass = lightBg ? "glass-card-light" : "glass-card-dark";
-  const isNight = currentState.includes("night") || currentState === "dusk" || currentState === "stormy";
-  const isLoading = locLoading || weatherLoading || forecastLoading;
+
+  const fmtTime = (ts: string | undefined, fallback: string) =>
+    ts ? new Date(parseInt(ts) * 1000).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false }) : fallback;
 
   return (
-    <div
-      className="relative min-h-[calc(100dvh+16px)] -mx-container-padding px-container-padding -mt-16 pt-16 sky-gradient"
-      style={{ background: skyGradients[currentState] }}
-    >
-      <WeatherShader
-        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
-        condition={weather?.condition}
-        isNight={isNight}
-      />
-      <SkyForeground state={currentState} />
-
-      <div className="relative z-10">
-        <section className="relative min-h-[92vh] flex flex-col justify-end pb-section-margin">
+    <>
+      <section className="relative min-h-[92vh] flex flex-col justify-end pb-section-margin">
           <div className="flex flex-col items-start p-10 md:p-16 max-w-5xl">
             <span className="font-label-bold uppercase tracking-widest text-aether-gold mb-2">{cityName.toUpperCase()}</span>
             <h1 className={`font-hero-temp text-headline-lg-mobile md:text-hero-temp ${textPrimary} mb-4 leading-none tracking-tight`}>
@@ -265,13 +252,13 @@ export default function DashboardPage() {
                   <span className="font-body text-xs tracking-wide text-aether-gold block">Sunrise</span>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="material-symbols-outlined text-aether-gold text-lg">clear_day</span>
-                    <span className={`font-data font-headline-sm text-headline-sm ${textPrimary} tabular-nums`}>{weather ? weather.sunrise : "06:34"}</span>
+                    <span className={`font-data font-headline-sm text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunrise, "06:34")}</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className="font-body text-xs tracking-wide text-aether-gold block">Sunset</span>
                   <div className="flex items-center gap-2 mt-1 justify-end">
-                    <span className={`font-data font-headline-sm text-headline-sm ${textPrimary} tabular-nums`}>{weather ? weather.sunset : "19:45"}</span>
+                    <span className={`font-data font-headline-sm text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunset, "19:45")}</span>
                     <span className="material-symbols-outlined text-aether-gold text-lg">nightlight</span>
                   </div>
                 </div>
@@ -343,7 +330,6 @@ export default function DashboardPage() {
             </div>
           </aside>
         </div>
-      </div>
-    </div>
+    </>
   );
 }

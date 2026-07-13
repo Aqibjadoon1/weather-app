@@ -14,15 +14,9 @@ export function useSkyState(
     if (!weatherCode || !sunriseStr || !sunsetStr) return;
 
     const compute = () => {
-      const now = new Date();
-      const [sh, sm] = sunriseStr.split(":").map(Number);
-      const [ss, ms] = sunsetStr.split(":").map(Number);
-      const sunrise = new Date(now);
-      sunrise.setHours(sh, sm, 0, 0);
-      const sunset = new Date(now);
-      sunset.setHours(ss, ms, 0, 0);
-
-      setSkyState(getSkyState({ weatherCode, currentTime: now, sunrise, sunset }));
+      const sunrise = new Date(parseInt(sunriseStr) * 1000);
+      const sunset = new Date(parseInt(sunsetStr) * 1000);
+      setSkyState(getSkyState({ weatherCode, currentTime: new Date(), sunrise, sunset }));
     };
 
     compute();

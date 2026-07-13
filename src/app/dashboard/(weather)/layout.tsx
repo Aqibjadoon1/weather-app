@@ -9,7 +9,7 @@ import SkyForeground from "@/components/animations/SkyForeground";
 export default function WeatherLayout({ children }: { children: React.ReactNode }) {
   const { weather } = useWeather();
   const skyState = useSkyState(weather?.condition, weather?.sunrise, weather?.sunset);
-  const currentState = skyState ?? (weather ? "cloudy-day" : "clear-day");
+  const currentState = skyState ?? "clear-day";
   const isNight = currentState.includes("night") || currentState === "dusk" || currentState === "stormy";
 
   return (

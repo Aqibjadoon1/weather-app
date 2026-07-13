@@ -73,16 +73,8 @@ export async function GET(request: Request) {
       windSpeed: Math.round(data.wind.speed),
       windDirection: degToCompass(data.wind.deg || 0),
       visibility: Math.round(data.visibility / 1000),
-      sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      }),
-      sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      }),
+      sunrise: String(data.sys.sunrise),
+      sunset: String(data.sys.sunset),
       icon: owmIcon(data.weather[0].icon),
       uvIndex: "N/A",
       airQuality: "N/A",

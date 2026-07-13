@@ -37,15 +37,7 @@ export default function TodayPage() {
     }
   }, [location, getWeather]);
 
-  const isNight = weather
-    ? (() => {
-        const now = new Date();
-        const cur = now.getHours() * 60 + now.getMinutes();
-        const [sh, sm] = weather.sunrise.split(":").map(Number);
-        const [ss, ms] = weather.sunset.split(":").map(Number);
-        return cur < sh * 60 + sm || cur > ss * 60 + ms;
-      })()
-    : false;
+  const isNight = weather?.sunset ? Date.now() > parseInt(weather.sunset) * 1000 : false;
 
   const displayHourly = hourlyData || [
     { time: "06:00", icon: "wb_sunny", temperature: 12, condition: "Clear", precipitation: 0 },
@@ -117,11 +109,11 @@ export default function TodayPage() {
           <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Sunrise & Sunset</span>
           <div className="mt-4 flex justify-between">
             <div>
-              <p className="font-headline-md text-headline-md text-on-surface">{weather ? weather.sunrise : "06:34"}</p>
+              <p className="font-headline-md text-headline-md text-on-surface">{weather ? new Date(parseInt(weather.sunrise) * 1000).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false }) : "06:34"}</p>
               <p className="font-caption text-caption text-on-surface-variant">Sunrise</p>
             </div>
             <div className="text-right">
-              <p className="font-headline-md text-headline-md text-on-surface">{weather ? weather.sunset : "19:45"}</p>
+              <p className="font-headline-md text-headline-md text-on-surface">{weather ? new Date(parseInt(weather.sunset) * 1000).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false }) : "19:45"}</p>
               <p className="font-caption text-caption text-on-surface-variant">Sunset</p>
             </div>
           </div>
