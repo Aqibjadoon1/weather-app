@@ -415,27 +415,31 @@
 .sky-gradient-dusk         { background: linear-gradient(180deg, #0D0E17 0%, #362A45 35%, #A14E5E 65%, #D97E4E 88%, #EBA65E 100%); }
 
 .glass-card-light {
-  background: rgba(0, 0, 0, 0.10);
+  position: relative;
+  background: transparent;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .glass-card-light:hover {
-  background: rgba(0, 0, 0, 0.15);
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: rgba(255,255,255,0.40);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
   transform: translateY(-2px);
 }
 .glass-card-dark {
-  background: rgba(255, 255, 255, 0.10);
+  position: relative;
+  background: transparent;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .glass-card-dark:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.14);
   transform: translateY(-2px);
 }
 

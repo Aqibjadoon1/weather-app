@@ -45,21 +45,21 @@ export default function NotificationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
+    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
         {/* Header */}
         <header className="py-8 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="font-headline-md text-headline-md text-on-surface">Notifications</h1>
+              <h1 className="font-headline-md text-headline-md text-aether-text-primary">Notifications</h1>
               {unreadCount > 0 && (
-                <span className="px-2.5 py-1 bg-secondary text-on-secondary rounded-full font-label-bold text-label-bold text-xs">{unreadCount}</span>
+                <span className="px-2.5 py-1 bg-aether-gold text-aether-bg rounded-full font-label-bold text-label-bold text-xs">{unreadCount}</span>
               )}
             </div>
-            <p className="font-body-md text-on-surface-variant mt-1">Stay informed about weather changes</p>
+            <p className="font-body-md text-aether-text-muted mt-1">Stay informed about weather changes</p>
           </div>
           <div className="flex gap-2">
             {unreadCount > 0 && (
-              <button onClick={markAllRead} className="px-4 py-2 text-primary font-label-bold text-label-bold hover:bg-primary-fixed rounded-xl transition-colors">
+              <button onClick={markAllRead} className="px-4 py-2 text-aether-gold font-label-bold text-label-bold hover:bg-aether-gold/10 rounded-xl transition-colors">
                 Mark all read
               </button>
             )}
@@ -79,7 +79,7 @@ export default function NotificationsPage() {
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl font-label-bold text-label-bold whitespace-nowrap transition-all ${filter === f.key ? "bg-primary text-on-primary" : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl font-label-bold text-label-bold whitespace-nowrap transition-all ${filter === f.key ? "bg-aether-gold text-aether-bg" : "bg-aether-bg-soft text-aether-text-muted hover:bg-aether-gold/5"}`}
             >
               <span className="material-symbols-outlined text-lg fill">{f.icon}</span>
               {f.label}
@@ -90,9 +90,9 @@ export default function NotificationsPage() {
         {/* Notification List */}
         {filtered.length === 0 ? (
           <div className="text-center py-20">
-            <span className="material-symbols-outlined text-5xl text-outline fill">notifications_off</span>
-            <p className="font-headline-sm text-headline-sm text-on-surface mt-4">No notifications</p>
-            <p className="font-body-md text-on-surface-variant mt-2">You're all caught up!</p>
+            <span className="material-symbols-outlined text-5xl text-aether-text-muted fill">notifications_off</span>
+            <p className="font-headline-sm text-headline-sm text-aether-text-primary mt-4">No notifications</p>
+            <p className="font-body-md text-aether-text-muted mt-2">You're all caught up!</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -100,21 +100,21 @@ export default function NotificationsPage() {
               <div
                 key={notification.id}
                 onClick={() => markAsRead(notification.id)}
-                className={`flex items-start gap-5 p-5 rounded-3xl cursor-pointer transition-all duration-200 ${notification.read ? "bg-surface-container-low border border-outline-variant/10" : "bg-surface border-l-4 border-l-secondary editorial-shadow"}`}
+                className={`flex items-start gap-5 p-5 rounded-3xl cursor-pointer transition-all duration-200 ${notification.read ? "bg-aether-bg-soft border border-aether-gold/10" : "bg-aether-bg-soft border-l-4 border-l-aether-gold editorial-shadow"}`}
               >
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${typeColors[notification.type]}`}>
                   <span className="material-symbols-outlined text-xl fill">{notification.icon}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className={`font-body-md ${notification.read ? "text-on-surface" : "text-on-surface font-bold"}`}>{notification.title}</p>
-                    {!notification.read && <span className="w-2 h-2 bg-secondary rounded-full" />}
+                    <p className={`font-body-md ${!notification.read ? "text-aether-text-primary font-bold" : "text-aether-text-primary"}`}>{notification.title}</p>
+                    {!notification.read && <span className="w-2 h-2 bg-aether-gold rounded-full" />}
                   </div>
-                  <p className="font-body-sm text-on-surface-variant mt-1 line-clamp-2">{notification.message}</p>
-                  <p className="font-caption text-caption text-outline mt-2">{notification.time}</p>
+                  <p className="font-body-sm text-aether-text-muted mt-1 line-clamp-2">{notification.message}</p>
+                  <p className="font-caption text-caption text-aether-text-muted mt-2">{notification.time}</p>
                 </div>
-                <button className="p-1 opacity-0 group-hover:opacity-100 hover:bg-surface-container-high rounded-lg transition-all">
-                  <span className="material-symbols-outlined text-outline text-lg fill">more_vert</span>
+                <button className="p-1 opacity-0 group-hover:opacity-100 hover:bg-aether-gold/5 rounded-lg transition-all">
+                  <span className="material-symbols-outlined text-aether-text-muted text-lg fill">more_vert</span>
                 </button>
               </div>
             ))}
@@ -124,7 +124,7 @@ export default function NotificationsPage() {
         {/* Clear All */}
         {notifications.length > 0 && (
           <div className="text-center mt-8">
-            <button onClick={clearAll} className="font-body-md text-outline hover:text-on-surface transition-colors underline underline-offset-2">
+            <button onClick={clearAll} className="font-body-md text-aether-text-muted hover:text-aether-text-primary transition-colors underline underline-offset-2">
               Clear all notifications
             </button>
           </div>

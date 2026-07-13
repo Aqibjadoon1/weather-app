@@ -15,7 +15,7 @@ const hideTopBarPaths: string[] = ["/splash"];
 export default function MainLayout({ children }: MainLayoutProps) {
   const pathname = usePathname();
   const hideTopBar = hideTopBarPaths.includes(pathname || "");
-  const weatherPages = ["/dashboard", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
+  const weatherPages = ["/dashboard"];
   const isDashboard = weatherPages.some(p => pathname === p || pathname?.startsWith(p + "/"));
 
   return (

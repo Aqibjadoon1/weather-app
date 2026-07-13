@@ -93,15 +93,18 @@ export default function SettingsPage() {
                     </button>
                   )}
                   {item.type === "select" && (
-                    <select
-                      value={item.value}
-                      onChange={() => {}}
-                      className="bg-aether-bg rounded-xl px-4 py-2 font-body-md text-aether-text-primary outline-none border border-aether-gold/20 focus:border-aether-gold cursor-pointer"
-                    >
-                      {item.options?.map((opt) => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={item.value}
+                        onChange={() => {}}
+                        className="appearance-none bg-aether-bg rounded-xl pl-4 pr-10 py-2.5 font-body-md text-aether-text-primary outline-none border border-aether-gold/20 hover:border-aether-gold/50 focus:border-aether-gold cursor-pointer transition-colors"
+                      >
+                        {item.options?.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                      </select>
+                      <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-aether-text-muted text-lg pointer-events-none fill">expand_more</span>
+                    </div>
                   )}
                   {item.type === "link" && (
                     <span className="font-body-md text-aether-gold flex items-center gap-1">

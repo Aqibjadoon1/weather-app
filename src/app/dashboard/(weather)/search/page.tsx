@@ -97,25 +97,25 @@ export default function SearchPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
+    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
       {/* Hero Search */}
-      <section className="bg-surface-container-low rounded-b-[3rem] -mx-container-padding px-container-padding pt-8 pb-12 mb-8">
+      <section className="bg-aether-bg-soft rounded-b-[3rem] -mx-container-padding px-container-padding pt-8 pb-12 mb-8">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="font-headline-md text-headline-md text-on-surface">Explore</h1>
-          <Link href="/dashboard" className="text-primary font-label-bold text-label-bold hover:underline">Cancel</Link>
+          <h1 className="font-headline-md text-headline-md text-aether-text-primary">Explore</h1>
+          <Link href="/dashboard" className="text-aether-gold font-label-bold text-label-bold hover:underline">Cancel</Link>
         </div>
         <form onSubmit={handleSearch} className="relative max-w-2xl">
-          <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-outline pointer-events-none fill">search</span>
+          <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-aether-text-muted pointer-events-none fill">search</span>
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-14 pr-14 py-5 bg-surface rounded-3xl font-headline-sm text-headline-sm text-on-surface placeholder-on-surface-variant outline-none editorial-shadow"
+            className="w-full pl-14 pr-14 py-5 bg-aether-bg-soft rounded-3xl font-headline-sm text-headline-sm text-aether-text-primary placeholder-aether-text-muted outline-none editorial-shadow"
             placeholder="Search cities, countries, landmarks..."
             autoFocus
           />
           {query && (
-            <button type="button" onClick={() => { setQuery(""); setResults([]); }} className="absolute right-5 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors">
+            <button type="button" onClick={() => { setQuery(""); setResults([]); }} className="absolute right-5 top-1/2 -translate-y-1/2 text-aether-text-muted hover:text-aether-text-primary transition-colors">
               <span className="material-symbols-outlined fill">close</span>
             </button>
           )}
@@ -126,19 +126,19 @@ export default function SearchPage() {
         <>
           {/* Popular Destinations */}
           <section className="mb-10">
-            <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-5">Popular Destinations</h2>
+            <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-5">Popular Destinations</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {popularDestinations.map((dest) => (
                 <button
                   key={dest.city}
                   onClick={() => { setQuery(dest.city); handleSearch(dest.city); }}
-                  className="bg-aether-surface rounded-2xl p-5 border border-black/5 hover:shadow-lg transition-all text-left group"
+                  className="bg-aether-bg-soft rounded-2xl p-5 border border-aether-gold/10 hover:shadow-lg transition-all text-left group"
                 >
                   <span className="material-symbols-outlined text-3xl text-aether-gold fill mb-3">{dest.icon}</span>
-                  <p className="font-headline-sm text-headline-sm text-aether-ink">{dest.city}</p>
-                  <p className="font-caption text-caption text-aether-ink-muted">{dest.country}</p>
-                  <p className="font-data text-xl text-aether-slate tabular-nums mt-2">{dest.temp}°</p>
-                  <p className="font-caption text-caption text-aether-ink-muted mt-1">{dest.landmark}</p>
+                  <p className="font-headline-sm text-headline-sm text-aether-text-primary">{dest.city}</p>
+                  <p className="font-caption text-caption text-aether-text-muted">{dest.country}</p>
+                  <p className="font-data text-xl text-aether-text-muted tabular-nums mt-2">{dest.temp}°</p>
+                  <p className="font-caption text-caption text-aether-text-muted mt-1">{dest.landmark}</p>
                 </button>
               ))}
             </div>
@@ -147,11 +147,11 @@ export default function SearchPage() {
           {/* Recent Searches */}
           {recentSearches.length > 0 && (
             <section className="mb-10">
-              <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-4">Recent Searches</h2>
+              <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-4">Recent Searches</h2>
               <div className="flex flex-wrap gap-3">
                 {recentSearches.map((city) => (
-                  <button key={city} onClick={() => { setQuery(city); handleSearch(city); }} className="flex items-center gap-2 px-5 py-3 bg-aether-surface rounded-full border border-black/5 text-aether-ink-muted hover:text-aether-gold hover:border-aether-gold transition-colors">
-                    <span className="material-symbols-outlined text-aether-ink-muted text-lg fill">schedule</span>
+                  <button key={city} onClick={() => { setQuery(city); handleSearch(city); }} className="flex items-center gap-2 px-5 py-3 bg-aether-bg-soft rounded-full border border-aether-gold/10 text-aether-text-muted hover:text-aether-gold hover:border-aether-gold transition-colors">
+                    <span className="material-symbols-outlined text-aether-text-muted text-lg fill">schedule</span>
                     <span className="font-body-md">{city}</span>
                   </button>
                 ))}
@@ -161,7 +161,7 @@ export default function SearchPage() {
 
           {/* Explore by Category */}
           <section className="mb-10">
-            <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-5">Explore by Category</h2>
+            <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-5">Explore by Category</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { icon: "wb_sunny", label: "Sunny" },
@@ -169,9 +169,9 @@ export default function SearchPage() {
                 { icon: "ac_unit", label: "Cold" },
                 { icon: "beach_access", label: "Beach" },
               ].map((cat) => (
-                <button key={cat.label} className="bg-aether-surface rounded-2xl p-6 flex flex-col items-center gap-3 border border-black/5 hover:shadow-lg transition-all">
+                <button key={cat.label} className="bg-aether-bg-soft rounded-2xl p-6 flex flex-col items-center gap-3 border border-aether-gold/10 hover:shadow-lg transition-all">
                   <span className="material-symbols-outlined text-3xl text-aether-gold fill">{cat.icon}</span>
-                  <span className="font-label-bold text-label-bold text-aether-ink">{cat.label}</span>
+                  <span className="font-label-bold text-label-bold text-aether-text-primary">{cat.label}</span>
                 </button>
               ))}
             </div>
@@ -179,24 +179,24 @@ export default function SearchPage() {
 
           {/* Saved Cities Map Preview */}
           <section>
-            <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-4">Your Saved Cities</h2>
+            <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-4">Your Saved Cities</h2>
             {saved.size === 0 ? (
-              <div className="bg-surface-container-low rounded-3xl p-10 text-center">
-                <span className="material-symbols-outlined text-4xl text-outline fill">bookmark_border</span>
-                <p className="font-body-md text-on-surface-variant mt-3">No saved cities yet</p>
+              <div className="bg-aether-bg-soft rounded-3xl p-10 text-center">
+                <span className="material-symbols-outlined text-4xl text-aether-text-muted fill">bookmark_border</span>
+                <p className="font-body-md text-aether-text-muted mt-3">No saved cities yet</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {[...saved].slice(0, 6).map((key) => {
                   const [city, country] = key.split(", ");
                   return (
-                    <div key={key} className="flex items-center gap-4 p-4 bg-aether-surface rounded-2xl border border-black/5">
+                    <div key={key} className="flex items-center gap-4 p-4 bg-aether-bg-soft rounded-2xl border border-aether-gold/10">
                       <div className="w-10 h-10 bg-aether-gold/10 rounded-xl flex items-center justify-center">
                         <span className="material-symbols-outlined text-aether-gold fill">location_on</span>
                       </div>
                       <div className="flex-1">
-                        <p className="font-body-md text-aether-ink">{city}</p>
-                        <p className="font-caption text-caption text-aether-ink-muted">{country}</p>
+                        <p className="font-body-md text-aether-text-primary">{city}</p>
+                        <p className="font-caption text-caption text-aether-text-muted">{country}</p>
                       </div>
                       <button onClick={() => toggleSave(key)} className="text-aether-gold">
                         <span className="material-symbols-outlined fill">bookmark</span>
@@ -211,32 +211,32 @@ export default function SearchPage() {
       ) : (
         /* Search Results */
         <section>
-          <h2 className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider mb-4">Results for &ldquo;{query}&rdquo;</h2>
+          <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-4">Results for &ldquo;{query}&rdquo;</h2>
           {results.length === 0 ? (
-            <div className="text-center py-20 bg-surface-container-low rounded-3xl">
-              <span className="material-symbols-outlined text-5xl text-outline fill">search</span>
-              <p className="font-headline-sm text-headline-sm text-on-surface mt-4">No results found</p>
-              <p className="font-body-md text-on-surface-variant mt-2">Try a different search term</p>
+            <div className="text-center py-20 bg-aether-bg-soft rounded-3xl">
+              <span className="material-symbols-outlined text-5xl text-aether-text-muted fill">search</span>
+              <p className="font-headline-sm text-headline-sm text-aether-text-primary mt-4">No results found</p>
+              <p className="font-body-md text-aether-text-muted mt-2">Try a different search term</p>
             </div>
           ) : (
             <div className="space-y-4">
               {results.map((result, i) => {
                 const key = `${result.city}, ${result.country}`;
                 return (
-                  <div key={i} className="flex items-center gap-5 p-6 bg-surface rounded-3xl editorial-shadow hover:shadow-lg transition-shadow">
-                    <div className="w-14 h-14 bg-primary-fixed rounded-2xl flex items-center justify-center">
-                      <span className="material-symbols-outlined text-primary fill text-2xl">{result.icon}</span>
+                  <div key={i} className="flex items-center gap-5 p-6 bg-aether-bg-soft rounded-3xl editorial-shadow hover:shadow-lg transition-shadow">
+                    <div className="w-14 h-14 bg-aether-gold/10 rounded-2xl flex items-center justify-center">
+                      <span className="material-symbols-outlined text-aether-gold fill text-2xl">{result.icon}</span>
                     </div>
                     <div className="flex-1">
-                      <p className="font-headline-sm text-headline-sm text-on-surface">{result.city}</p>
-                      <p className="font-body-sm text-on-surface-variant">{result.country}</p>
+                      <p className="font-headline-sm text-headline-sm text-aether-text-primary">{result.city}</p>
+                      <p className="font-body-sm text-aether-text-muted">{result.country}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-data text-2xl text-aether-ink tabular-nums">{result.temperature}°</p>
-                      <p className="font-caption text-caption text-aether-ink-muted">{result.condition}</p>
+                      <p className="font-data text-2xl text-aether-text-primary tabular-nums">{result.temperature}°</p>
+                      <p className="font-caption text-caption text-aether-text-muted">{result.condition}</p>
                     </div>
-                    <button onClick={() => toggleSave(key)} className="p-2 hover:bg-surface-container-high rounded-xl transition-colors">
-                      <span className={`material-symbols-outlined fill text-2xl ${saved.has(key) ? "text-primary" : "text-outline"}`}>
+                    <button onClick={() => toggleSave(key)} className="p-2 hover:bg-aether-gold/5 rounded-xl transition-colors">
+                      <span className={`material-symbols-outlined fill text-2xl ${saved.has(key) ? "text-aether-gold" : "text-aether-text-muted"}`}>
                         {saved.has(key) ? "bookmark" : "bookmark_border"}
                       </span>
                     </button>

@@ -17,9 +17,10 @@ export default function TopNavbar() {
       <div className="w-full px-container-padding flex items-center justify-between h-16">
         <Link
           href="/dashboard"
-          className="font-headline-md text-aether-gold tracking-tighter whitespace-nowrap"
+          className="flex items-center gap-2.5 group"
         >
-          Aether Weather
+          <img src="/logo.svg" alt="Aether Weather" className="w-7 h-7 transition-transform duration-300 group-hover:scale-110" />
+          <span className="font-serif text-lg font-bold text-aether-gold tracking-tight">Aether Weather</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
