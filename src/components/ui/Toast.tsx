@@ -34,8 +34,9 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
 
   return (
     <div
+      role="alert"
       className={[
-        "flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl min-w-[280px] max-w-sm animate-in slide-in-from-right",
+        "flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl min-w-[280px] max-w-sm animate-fade-in-up",
         typeStyles[toast.type] || typeStyles.info,
       ].join(" ")}
     >
@@ -59,11 +60,13 @@ interface ToastContainerProps {
 }
 
 export default function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
+  const visibleToasts = toasts.slice(-3);
+
   if (toasts.length === 0) return null;
 
   return (
     <div className="fixed bottom-24 right-6 z-50 flex flex-col gap-3 max-sm:bottom-20 max-sm:right-3 max-sm:left-3">
-      {toasts.map((toast) => (
+      {visibleToasts.map((toast) => (
         <ToastItem key={toast.id} toast={toast} onDismiss={onDismiss} />
       ))}
     </div>
