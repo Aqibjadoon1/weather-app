@@ -201,12 +201,6 @@
   .editorial-shadow {
     box-shadow: 0 40px 80px -20px rgba(76, 74, 202, 0.04);
   }
-  .glass-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
   .glass-header {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);

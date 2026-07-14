@@ -13,7 +13,7 @@ interface BadgeProps {
 const variantStyles: Record<BadgeVariant, string> = {
   default: "bg-surface-variant text-on-surface",
   primary: "bg-primary text-on-primary",
-  success: "bg-primary text-on-primary",
+  success: "bg-success text-on-success",
   warning: "bg-tertiary-container text-on-tertiary-container",
   error: "bg-error text-on-error",
 };
