@@ -169,9 +169,9 @@ export default function SearchPage() {
                 { icon: "ac_unit", label: "Cold" },
                 { icon: "beach_access", label: "Beach" },
               ].map((cat) => (
-                <button key={cat.label} className="bg-aether-bg-soft rounded-2xl p-6 flex flex-col items-center gap-3 border border-aether-gold/10 hover:shadow-lg transition-all">
-                  <span className="material-symbols-outlined text-3xl text-aether-gold fill">{cat.icon}</span>
-                  <span className="font-label-bold text-label-bold text-aether-text-primary">{cat.label}</span>
+                <button key={cat.label} className="cursor-pointer group bg-aether-bg-soft rounded-2xl p-6 flex flex-col items-center gap-3 border border-aether-gold/10 hover:border-aether-gold/30 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.97] transition-all">
+                  <span className="material-symbols-outlined text-3xl text-aether-gold/70 group-hover:text-aether-gold fill">{cat.icon}</span>
+                  <span className="font-label-bold text-label-bold text-aether-text-primary group-hover:text-aether-gold transition-colors">{cat.label}</span>
                 </button>
               ))}
             </div>
