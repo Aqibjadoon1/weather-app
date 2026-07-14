@@ -14,10 +14,14 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<{ displayName?: string; email?: string; password?: string }>({});
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     if (user) router.push("/dashboard");
+    else setChecking(false);
   }, [user, router]);
+
+  if (checking) return null;
 
   const validate = () => {
     const errors: { displayName?: string; email?: string; password?: string } = {};

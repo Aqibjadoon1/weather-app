@@ -44,10 +44,10 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       } else {
         clearInterval(msgInterval);
         setMessage("Ready!");
-        setTimeout(() => {
+          setTimeout(() => {
           setShow(false);
           if (onComplete) onComplete();
-          else router.push("/login");
+          else router.push("/dashboard");
         }, 500);
       }
     };

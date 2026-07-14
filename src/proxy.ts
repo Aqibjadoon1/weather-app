@@ -14,13 +14,6 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith("/dashboard")) {
-    const session = request.cookies.get("auth-session")?.value;
-    if (!session) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-  }
-
   return NextResponse.next();
 }
 

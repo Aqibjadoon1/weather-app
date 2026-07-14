@@ -13,10 +13,14 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<{ email?: string; password?: string }>({});
+  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
     if (user) router.push("/dashboard");
+    else setChecking(false);
   }, [user, router]);
+
+  if (checking) return null;
 
   const validate = () => {
     const errors: { email?: string; password?: string } = {};
