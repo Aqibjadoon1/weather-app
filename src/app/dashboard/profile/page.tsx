@@ -81,7 +81,7 @@ export default function ProfilePage() {
             </Link>
             <button
               onClick={handleLogout}
-              className="px-6 py-3 border border-error/40 rounded-full text-sm text-error hover:bg-error/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
+              className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
             >
               <span className="material-symbols-outlined text-[16px]">logout</span>
               Sign Out
