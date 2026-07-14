@@ -15,6 +15,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<{ displayName?: string; email?: string; password?: string }>({});
   const [checking, setChecking] = useState(true);
+  const [unit, setUnit] = useState<"metric" | "imperial">("metric");
 
   useEffect(() => {
     if (user) router.push("/dashboard");
@@ -43,8 +44,6 @@ export default function RegisterPage() {
   const handleGoogle = async () => {
     await signInWithGoogle();
   };
-
-  const [unit, setUnit] = useState<"metric" | "imperial">("metric");
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row bg-background">
