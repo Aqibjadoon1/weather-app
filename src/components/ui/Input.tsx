@@ -12,6 +12,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, icon, onIconClick, className = "", value, ...rest }, ref) => {
     const id = useId();
+    const { name } = rest;
+    const errorId = name ? `${name}-error` : undefined;
     const [focused, setFocused] = useState(false);
     const hasValue = value !== undefined && value !== "";
     const isFloating = focused || hasValue;
@@ -23,6 +25,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={id}
             value={value}
+            aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
             onFocus={(e) => {
               setFocused(true);
               rest.onFocus?.(e);
@@ -80,7 +84,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <p className="text-error text-sm font-label-bold animate-pulse">{error}</p>
+          <p id={errorId} role="alert" className="text-error text-sm font-label-bold animate-pulse">{error}</p>
         )}
       </div>
     );
