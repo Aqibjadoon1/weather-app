@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import WeatherShader from "./WeatherShader";
-import ThreeScene from "./ThreeScene";
+import SkyForeground from "./SkyForeground";
 
 interface SplashScreenProps {
   onComplete?: () => void;
@@ -64,7 +64,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-aether-bg">
       <WeatherShader className="absolute inset-0 z-0" />
-      <ThreeScene className="absolute inset-0 z-10 opacity-90 pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
+      <SkyForeground state="clear-day" />
       <div className="relative z-30 flex flex-col items-center px-6">
         <div className="w-48 h-48 md:w-64 md:h-64 mb-8 animate-fade-in-up relative" style={{ animationDelay: "0.2s" }}>
           <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_30px_rgba(201,154,62,0.15)]">

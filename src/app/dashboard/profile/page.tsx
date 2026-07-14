@@ -76,15 +76,17 @@ export default function ProfilePage() {
             </p>
           </div>
           <div className="flex flex-col items-center md:items-end gap-3">
-            <Link href="/dashboard/settings" className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold">
+            <button onClick={() => router.push("/dashboard/settings")} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">settings</span>
               Edit Profile
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
-            >
+            </button>
+            <button onClick={handleLogout} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-[16px]">logout</span>
               Sign Out
+            </button>
+            <button onClick={() => router.push("/login")} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">login</span>
+              Log In
             </button>
           </div>
         </div>
