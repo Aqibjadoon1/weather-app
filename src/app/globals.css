@@ -160,6 +160,17 @@
   --font-body-md: "Inter", sans-serif;
   --font-label-bold: "Inter", sans-serif;
   --font-data: "Inter", sans-serif;
+
+  --color-aether-text-primary: rgba(255, 255, 255, 0.95);
+  --color-aether-text-secondary: rgba(255, 255, 255, 0.70);
+  --color-aether-text-muted: rgba(255, 255, 255, 0.45);
+  --color-aether-ink: rgba(255, 255, 255, 0.95);
+  --color-aether-ink-muted: rgba(255, 255, 255, 0.45);
+  --color-aether-icon: rgba(255, 255, 255, 0.85);
+  --color-aether-gold: #B8892E;
+  --color-aether-gold-soft: #D4A94A;
+  --color-aether-bg: #141313;
+  --color-aether-surface: #1c1b1b;
 }
 
 
