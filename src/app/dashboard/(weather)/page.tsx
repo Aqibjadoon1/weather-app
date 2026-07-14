@@ -88,14 +88,14 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 lg:gap-6 items-start">
           <div className="sm:col-span-12 lg:col-span-8 space-y-4 lg:space-y-section-margin">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative overflow-hidden group`}>
+              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative group`}>
                 <div className="flex items-center gap-2 mb-3 md:mb-5">
                   <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">water_drop</span>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Humidity</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Humidity</span>
                 </div>
                 <div className="flex items-end justify-between">
-                  <span className={`font-data text-xl md:text-4xl ${textPrimary} tabular-nums`}>{weather ? weather.humidity : 45}<span className={`font-body-md font-normal text-sm md:text-lg ${textMuted}`}>%</span></span>
-                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-aether-gold/20 flex items-center justify-center">
+                  <span className={`font-data text-2xl md:text-4xl ${textPrimary} tabular-nums`}>{weather ? weather.humidity : 45}<span className={`font-body-md font-normal text-base md:text-lg ${textMuted}`}>%</span></span>
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-aether-gold/20 flex items-center justify-center flex-shrink-0">
                     <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-aether-gold border-t-transparent animate-spin duration-[3s]" style={{ clipPath: "polygon(0 0, 100% 0, 100% 40%, 0 40%)" }} />
                   </div>
                 </div>
@@ -104,32 +104,32 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative overflow-hidden group`}>
+              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative group`}>
                 <div className="flex items-center gap-2 mb-3 md:mb-5">
                   <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">air</span>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Wind</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Wind</span>
                 </div>
                 <div className="flex flex-col">
-                  <span className={`font-data text-xl md:text-4xl ${textPrimary} tabular-nums`}>
-                    {weather ? Math.round(weather.windSpeed) : 12}<span className={`font-body-md font-normal text-sm md:text-lg ${textMuted} ml-1`}>km/h</span>
+                  <span className={`font-data text-2xl md:text-4xl ${textPrimary} tabular-nums`}>
+                    {weather ? Math.round(weather.windSpeed) : 12}<span className={`font-body-md font-normal text-base md:text-lg ${textMuted} ml-1`}>km/h</span>
                   </span>
                   <div className="mt-2 md:mt-4 flex flex-wrap items-center gap-2">
                     <div className="flex items-center gap-1.5 px-2 md:px-3 py-1 md:py-1.5 rounded-full bg-aether-gold/10">
                       <span className="material-symbols-outlined text-xs md:text-sm text-aether-gold">navigation</span>
-                      <span className="font-label-bold text-aether-gold text-[10px] md:text-xs">{weather ? weather.windDirection : "NE"}</span>
+                      <span className="font-label-bold text-aether-gold text-xs md:text-xs">{weather ? weather.windDirection : "NE"}</span>
                     </div>
-                    <span className={`font-caption text-[10px] md:text-caption ${textMuted}`}>Gusts <span className="font-data tabular-nums">{weather ? Math.round(weather.windSpeed * 1.5) : 18}</span> km/h</span>
+                    <span className={`font-caption text-xs md:text-caption ${textMuted}`}>Gusts <span className="font-data tabular-nums">{weather ? Math.round(weather.windSpeed * 1.5) : 18}</span> km/h</span>
                   </div>
                 </div>
               </div>
 
-              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative overflow-hidden group`}>
+              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative group`}>
                 <div className="flex items-center gap-2 mb-3 md:mb-5">
                   <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">wb_sunny</span>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">UV Index</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">UV Index</span>
                 </div>
                 <div className="flex items-end justify-between">
-                  <span className={`font-data text-lg md:text-4xl ${textPrimary} tabular-nums`}>{weather ? uvRiskLevel(weather.uvIndex) : "Low"}</span>
+                  <span className={`font-data text-xl md:text-4xl ${textPrimary} tabular-nums`}>{weather ? uvRiskLevel(weather.uvIndex) : "Low"}</span>
                   <span className={`font-data text-sm md:text-lg ${textMuted} tabular-nums`}>{weather ? weather.uvIndex : 0}/11</span>
                 </div>
                 <div className="relative h-6 md:h-8 w-full mt-2 md:mt-3">
@@ -153,15 +153,15 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className={`col-span-1 sm:col-span-2 ${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative overflow-hidden group`}>
+              <div className={`col-span-1 sm:col-span-2 ${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative group`}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   <div>
                     <div className="flex items-center gap-2 mb-3 md:mb-4">
                       <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">visibility</span>
-                      <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Visibility</span>
+                      <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Visibility</span>
                     </div>
-                    <span className={`font-data text-xl md:text-4xl ${textPrimary} tabular-nums`}>{weather ? weather.visibility : 10}<span className={`font-body-md font-normal text-sm md:text-lg ${textMuted} ml-1`}>km</span></span>
-                    <p className={`font-caption text-[10px] md:text-caption ${textMuted} mt-1 md:mt-2 flex items-center gap-1.5`}>
+                    <span className={`font-data text-2xl md:text-4xl ${textPrimary} tabular-nums`}>{weather ? weather.visibility : 10}<span className={`font-body-md font-normal text-base md:text-lg ${textMuted} ml-1`}>km</span></span>
+                    <p className={`font-caption text-xs md:text-caption ${textMuted} mt-1 md:mt-2 flex items-center gap-1.5`}>
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                       Clear horizon view
                     </p>
@@ -169,9 +169,9 @@ export default function DashboardPage() {
                   <div>
                     <div className="flex items-center gap-2 mb-3 md:mb-4">
                       <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">monitoring</span>
-                      <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Air Quality</span>
+                      <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Air Quality</span>
                     </div>
-                    <span className={`font-data text-xl md:text-4xl ${textPrimary} tabular-nums`}>Good</span>
+                    <span className={`font-data text-2xl md:text-4xl ${textPrimary} tabular-nums`}>Good</span>
                     <div className="mt-2 md:mt-3 flex items-center gap-2">
                       <div className="flex gap-0.5">
                         <div className="w-1 md:w-1.5 h-3 md:h-4 rounded-full bg-aether-gold" />
@@ -179,16 +179,16 @@ export default function DashboardPage() {
                         <div className="w-1 md:w-1.5 h-2 md:h-3 rounded-full bg-aether-gold/40" />
                         <div className="w-1 md:w-1.5 h-1.5 md:h-2 rounded-full bg-aether-gold/30" />
                       </div>
-                      <span className="font-caption text-[10px] md:text-caption text-aether-gold">Healthy</span>
+                      <span className="font-caption text-xs md:text-caption text-aether-gold">Healthy</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative overflow-hidden group`}>
+              <div className={`${glassClass} rounded-2xl p-4 md:p-6 bouncy-hover relative group`}>
                 <div className="flex items-center gap-2 mb-3 md:mb-5">
                   <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">brightness_3</span>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Moon Phase</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Moon Phase</span>
                 </div>
                 <div className="flex flex-col items-center pt-1 md:pt-2">
                   <div className="relative">
@@ -242,42 +242,41 @@ export default function DashboardPage() {
           </div>
 
           <aside className="lg:col-span-4 space-y-3 md:space-y-6">
-            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative overflow-hidden`}>
+            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative`}>
               <div className="flex items-center gap-2 mb-3 md:mb-5">
                 <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">wb_twilight</span>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Daylight</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Daylight</span>
               </div>
               <div className="flex justify-between items-center mb-4 md:mb-6">
                 <div>
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold block">Sunrise</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold block">Sunrise</span>
                   <div className="flex items-center gap-1 md:gap-2 mt-1">
                     <span className="material-symbols-outlined text-aether-gold text-base md:text-lg">clear_day</span>
-                    <span className={`font-data font-headline-sm text-sm md:text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunrise, "06:34")}</span>
+                    <span className={`font-data font-headline-sm text-base md:text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunrise, "06:34")}</span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold block">Sunset</span>
+                  <span className="font-body text-xs md:text-xs tracking-wide text-aether-gold block">Sunset</span>
                   <div className="flex items-center gap-1 md:gap-2 mt-1 justify-end">
-                    <span className={`font-data font-headline-sm text-sm md:text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunset, "19:45")}</span>
+                    <span className={`font-data font-headline-sm text-base md:text-headline-sm ${textPrimary} tabular-nums`}>{fmtTime(weather?.sunset, "19:45")}</span>
                     <span className="material-symbols-outlined text-aether-gold text-base md:text-lg">nightlight</span>
                   </div>
                 </div>
               </div>
-              <div className="relative h-14 md:h-20 w-full flex items-center justify-center">
-                <div className="absolute inset-0 border-t-2 border-dashed rounded-[100%] opacity-20" style={{ borderColor: lightBg ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)" }} />
+              <div className="relative h-14 md:h-20 w-full flex items-center justify-center mb-2 md:mb-0">
                 <div className="w-3 md:w-4 h-3 md:h-4 bg-aether-gold rounded-full shadow-[0_0_20px_rgba(201,154,62,0.6)] absolute left-1/4 top-0 -translate-y-1/2" />
                 <div className="absolute left-1/3 top-7 w-1.5 h-1.5 rounded-full bg-aether-gold/40" />
               </div>
               <div className="mt-3 md:mt-4 flex items-center justify-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-aether-gold animate-pulse" />
-                <span className={`font-data font-caption text-[10px] md:text-caption ${textMuted}`}>Daylight: 13h 11m</span>
+                <span className={`font-data font-caption text-xs md:text-caption ${textMuted}`}>Daylight: 13h 11m</span>
               </div>
             </div>
 
-            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative overflow-hidden`}>
+            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative`}>
               <div className="flex items-center gap-2 mb-3 md:mb-5">
                 <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">checkroom</span>
-                <h3 className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">What to Wear</h3>
+                <h3 className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">What to Wear</h3>
               </div>
               <div className="space-y-3 md:space-y-4">
                 {[
@@ -298,10 +297,10 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative overflow-hidden`}>
+            <div className={`${glassClass} rounded-2xl p-4 md:p-6 relative`}>
               <div className="flex items-center gap-2 mb-3 md:mb-5">
                 <span className="material-symbols-outlined text-aether-gold text-base md:text-lg fill">location_on</span>
-                <h3 className="font-body text-[10px] md:text-xs tracking-wide text-aether-gold uppercase">Saved Cities</h3>
+                <h3 className="font-body text-xs md:text-xs tracking-wide text-aether-gold uppercase">Saved Cities</h3>
               </div>
               <div className="space-y-2">
                 {[
