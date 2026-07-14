@@ -47,7 +47,7 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding pb-28 md:pb-0">
       <div className="py-6">
         <Link href="/dashboard" className="inline-flex items-center gap-2 text-aether-text-muted hover:text-aether-gold transition-colors">
           <span className="material-symbols-outlined fill text-lg">arrow_back</span>
@@ -55,12 +55,12 @@ export default function ProfilePage() {
         </Link>
       </div>
 
-      <div className="bg-aether-bg-soft rounded-2xl p-8 md:p-12 border border-aether-gold/10 mb-8">
+      <div className="glass-card rounded-2xl p-8 md:p-12 mb-8">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
           {user?.photoURL ? (
             <img src={user.photoURL} alt={displayName} className="w-24 h-24 rounded-full object-cover ring-2 ring-aether-gold/30" />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-aether-gold to-aether-slate flex items-center justify-center text-aether-bg font-data text-3xl font-bold">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-aether-gold to-aether-slate flex items-center justify-center text-aether-bg font-body-md tabular-nums text-3xl font-bold">
               {initials}
             </div>
           )}
@@ -92,7 +92,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="flex gap-1 bg-aether-bg-soft rounded-2xl p-1 mb-8">
+      <div className="flex gap-1 glass-card rounded-2xl p-1 mb-8">
         {(["overview", "stats", "badges"] as const).map((tab) => (
           <button
             key={tab}
@@ -106,7 +106,7 @@ export default function ProfilePage() {
 
       {activeTab === "overview" && (
         <>
-          <div className="bg-aether-bg-soft rounded-2xl p-8 border border-aether-gold/10 mb-8">
+          <div className="glass-card rounded-2xl p-8 mb-8">
             <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-6">Recent Activity</h2>
             <div className="space-y-4">
               {recentActivities.map((activity, i) => (
@@ -123,11 +123,11 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="bg-aether-bg-soft rounded-2xl p-8 border border-aether-gold/10">
+          <div className="glass-card rounded-2xl p-8">
             <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-6">Connected Cities</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {["Stockholm", "Copenhagen", "Oslo", "Helsinki", "Reykjavik", "Tallinn", "Riga", "Vilnius"].map((city) => (
-                <div key={city} className="bg-aether-bg rounded-xl p-4 border border-aether-gold/10 hover:border-aether-gold/30 transition-colors">
+                <div key={city} className="glass-card rounded-xl p-4 hover:border-aether-gold/30 transition-colors">
                   <span className="material-symbols-outlined text-aether-slate fill">location_on</span>
                   <p className="font-label-bold text-label-bold text-aether-text-primary mt-2">{city}</p>
                   <p className="text-xs text-aether-text-muted mt-1">18° / 12°</p>
@@ -141,9 +141,9 @@ export default function ProfilePage() {
       {activeTab === "stats" && (
         <div className="grid grid-cols-2 gap-4">
           {statsCards.map((stat) => (
-            <div key={stat.label} className="bg-aether-bg-soft rounded-2xl p-6 border border-aether-gold/10">
+            <div key={stat.label} className="glass-card rounded-2xl p-6">
               <span className="material-symbols-outlined text-aether-gold fill text-2xl">{stat.icon}</span>
-              <p className="font-data text-3xl text-aether-text-primary tabular-nums mt-3">{stat.value}</p>
+              <p className="font-body-md tabular-nums text-3xl text-aether-text-primary mt-3">{stat.value}</p>
               <p className="text-xs text-aether-text-muted mt-2">{stat.label}</p>
             </div>
           ))}
@@ -153,7 +153,7 @@ export default function ProfilePage() {
       {activeTab === "badges" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {badges.map((badge) => (
-            <div key={badge.name} className="bg-aether-bg-soft rounded-2xl p-6 border border-aether-gold/10 flex items-center gap-5">
+            <div key={badge.name} className="glass-card rounded-2xl p-6 flex items-center gap-5">
               <div className="w-14 h-14 bg-aether-gold/10 rounded-2xl flex items-center justify-center">
                 <span className="material-symbols-outlined text-aether-gold fill text-3xl">{badge.icon}</span>
               </div>
