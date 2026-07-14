@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { playfair, inter, libreCaslon, hankenGrotesk, jetbrainsMono } from "./fonts";
+import { playfair, inter } from "./fonts";
 import "./globals.css";
 import ReduxProvider from "@/providers/ReduxProvider";
 import AuthProvider from "@/providers/AuthProvider";
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${libreCaslon.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${playfair.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -27,10 +27,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:wght@400;700&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         <link
