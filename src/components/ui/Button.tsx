@@ -49,6 +49,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         className={[
           "spring-button rounded-full font-label-bold uppercase tracking-widest inline-flex items-center justify-center gap-2",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm",
           variantStyles[variant],
           sizeStyles[size],
           fullWidth ? "w-full" : "",

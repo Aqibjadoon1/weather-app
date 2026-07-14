@@ -62,7 +62,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-aether-bg">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden sky-gradient" style={{ background: "linear-gradient(180deg, #2B6CB0 0%, #4A90D9 25%, #6DB3F2 50%, #8FC5F7 75%, #B0D9FA 100%)" }}>
       <WeatherShader className="absolute inset-0 z-0" />
       <ThreeScene className="absolute inset-0 z-10 opacity-90 pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
       <div className="relative z-30 flex flex-col items-center px-6 mt-32 md:mt-48">

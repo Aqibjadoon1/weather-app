@@ -9,8 +9,7 @@ export default function LocationDeniedPage() {
   const popularCities = ["Stockholm", "London", "New York", "Tokyo", "Paris", "Sydney"];
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary flex flex-col items-center justify-center px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-aether-bg/80 via-aether-bg/60 to-aether-bg" />
+    <div className="min-h-screen text-aether-text-primary flex flex-col items-center justify-center px-6 relative overflow-hidden">
       <div className="relative z-10 text-center max-w-lg">
         <span className="material-symbols-outlined text-6xl text-aether-gold/30 mb-4">location_off</span>
         <h1 className="font-headline-md text-4xl md:text-5xl text-aether-text-primary mb-4">Location Access Required</h1>

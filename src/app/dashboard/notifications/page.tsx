@@ -45,7 +45,7 @@ export default function NotificationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
         {/* Header */}
         <header className="py-8 flex justify-between items-center">
           <div>

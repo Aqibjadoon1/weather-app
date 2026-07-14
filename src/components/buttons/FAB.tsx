@@ -15,6 +15,7 @@ export default function FAB({ icon, onClick, className = "" }: FABProps) {
         "w-16 h-16 rounded-full bg-tertiary-container text-on-tertiary-container",
         "shadow-2xl hover:scale-110 active:scale-90 transition-all duration-200",
         "flex items-center justify-center cursor-pointer",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm",
         className,
       ].join(" ")}
     >

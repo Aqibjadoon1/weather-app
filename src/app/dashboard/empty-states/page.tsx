@@ -50,8 +50,7 @@ const emptyStates: EmptyState[] = [
 
 export default function EmptyStatesPage() {
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary relative overflow-hidden -mx-container-padding px-container-padding">
-      <div className="absolute inset-0 bg-gradient-to-b from-aether-bg/80 via-aether-bg/60 to-aether-bg" />
+    <div className="min-h-screen text-aether-text-primary relative overflow-hidden -mx-container-padding px-container-padding">
       <div className="relative z-10 pb-32">
         <header className="py-8">
           <div className="flex items-center justify-between">
@@ -65,12 +64,12 @@ export default function EmptyStatesPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {emptyStates.map((state) => (
-            <div key={state.title} className="bg-aether-bg-soft/80 backdrop-blur-xl border border-aether-gold/10 rounded-2xl p-10 text-center flex flex-col items-center justify-center min-h-[300px]">
+            <div key={state.title} className="glass-card rounded-2xl p-10 text-center flex flex-col items-center justify-center min-h-[300px]">
               <span className="material-symbols-outlined text-5xl text-aether-gold/20 mb-6">{state.icon}</span>
               <h2 className="font-headline-md text-2xl text-aether-text-primary mb-3">{state.title}</h2>
               <p className="text-sm text-aether-text-muted mb-6 max-w-xs">{state.description}</p>
               {state.action && (
-                <Link href={state.action.href} className="inline-flex items-center gap-2 px-6 py-3 bg-aether-gold/10 border border-aether-gold/20 rounded-full text-sm text-aether-gold hover:bg-aether-gold/20 transition-all">
+                <Link href={state.action.href} className="inline-flex items-center gap-2 px-6 py-3 glass-card rounded-full text-sm text-aether-gold hover:bg-aether-gold/20 transition-all">
                   <span className="material-symbols-outlined text-lg fill">add</span>
                   {state.action.label}
                 </Link>

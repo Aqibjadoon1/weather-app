@@ -11,12 +11,12 @@ interface CardProps {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-aether-bg-soft rounded-2xl border border-aether-gold/10",
+  default: "glass-card rounded-2xl",
   glass: "glass-card rounded-xl",
   elevated:
-    "bg-aether-bg-soft rounded-2xl border border-aether-gold/10 border-l-4 border-l-aether-gold",
+    "glass-card rounded-2xl border-l-4 border-l-aether-gold",
   checklist:
-    "bg-aether-bg-soft rounded-2xl border border-aether-gold/10",
+    "glass-card rounded-2xl",
 };
 
 const paddingStyles: Record<CardPadding, string> = {

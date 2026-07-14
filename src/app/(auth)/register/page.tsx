@@ -50,9 +50,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col md:flex-row bg-background">
+    <main className="min-h-screen flex flex-col md:flex-row">
       {/* Left Side */}
-      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden bg-aether-bg">
+      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden">
         <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0.04, 0.05, 0.08]} skyBottom={[0.07, 0.09, 0.12]} />
         <ThreeScene className="absolute inset-0 w-full h-full opacity-80 mix-blend-screen pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
         <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 z-10">
@@ -74,9 +74,9 @@ export default function RegisterPage() {
       </section>
 
       {/* Right Side */}
-      <section className="w-full md:w-1/2 flex items-start justify-center px-4 sm:px-6 py-8 md:py-10 bg-aether-bg overflow-y-auto">
+      <section className="w-full md:w-1/2 flex items-start justify-center px-4 sm:px-6 py-8 md:py-10 overflow-y-auto">
         <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
-          <div className="bg-aether-bg-soft border border-aether-gold/10 rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
+          <div className="glass-card rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
             <header className="mb-6">
               <h1 className="font-headline-lg text-headline-lg text-aether-gold tracking-tight">Join the Atmosphere</h1>
               <p className="font-body-md text-body-md text-aether-text-muted mt-2">Create your account to start your journey.</p>
@@ -89,7 +89,7 @@ export default function RegisterPage() {
 
             <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="flex items-center gap-4 group cursor-pointer">
-                <div className="relative w-16 h-16 rounded-full bg-aether-bg flex items-center justify-center border-2 border-dashed border-aether-gold/30 transition-all group-hover:border-aether-gold group-hover:bg-aether-gold/5 flex-shrink-0">
+                <div className="relative w-16 h-16 rounded-full glass-card flex items-center justify-center border-2 border-dashed border-aether-gold/30 transition-all group-hover:border-aether-gold group-hover:bg-aether-gold/5 flex-shrink-0">
                   <span className="material-symbols-outlined text-aether-text-muted group-hover:text-aether-gold transition-colors text-2xl">add_a_photo</span>
                   <div className="absolute -bottom-1 -right-1 bg-aether-gold text-aether-bg rounded-full w-6 h-6 flex items-center justify-center border-2 border-aether-bg">
                     <span className="material-symbols-outlined text-xs">add</span>
@@ -154,7 +154,7 @@ export default function RegisterPage() {
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 border-y border-aether-gold/10">
                 <div className="flex items-center gap-3">
                   <span className="font-label-bold text-label-bold text-aether-text-muted">Units</span>
-                  <div className="bg-aether-bg rounded-full p-1 flex items-center border border-aether-gold/10">
+                  <div className="glass-card rounded-full p-1 flex items-center">
                     <button
                       type="button"
                       onClick={() => setUnit("metric")}

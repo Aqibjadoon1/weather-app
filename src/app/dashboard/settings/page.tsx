@@ -65,7 +65,7 @@ export default function SettingsPage() {
   const toggle = (label: string) => setToggles((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
         <header className="py-8 flex justify-between items-center">
           <div>
             <h1 className="font-headline-md text-headline-md text-aether-text-primary">Settings</h1>
@@ -77,7 +77,7 @@ export default function SettingsPage() {
         {settingsSections.map((section) => (
           <div key={section.title} className="mb-10">
             <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-4">{section.title}</h2>
-            <div className="bg-aether-bg-soft rounded-2xl overflow-hidden border border-aether-gold/10">
+            <div className="glass-card rounded-2xl overflow-hidden">
               {section.items.map((item, i) => (
                 <div key={item.label} className={`flex items-center justify-between p-5 ${i < section.items.length - 1 ? "border-b border-aether-gold/10" : ""}`}>
                   <div className="flex-1">
@@ -97,7 +97,7 @@ export default function SettingsPage() {
                       <select
                         value={item.value}
                         onChange={() => {}}
-                        className="appearance-none bg-aether-bg rounded-xl pl-4 pr-10 py-2.5 font-body-md text-aether-text-primary outline-none border border-aether-gold/20 hover:border-aether-gold/50 focus:border-aether-gold cursor-pointer transition-colors"
+                        className="appearance-none glass-card rounded-xl pl-4 pr-10 py-2.5 font-body-md text-aether-text-primary outline-none hover:border-aether-gold/50 focus:border-aether-gold cursor-pointer transition-colors"
                       >
                         {item.options?.map((opt) => (
                           <option key={opt} value={opt}>{opt}</option>

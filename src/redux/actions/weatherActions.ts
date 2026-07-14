@@ -9,6 +9,7 @@ import {
   SET_SAVED_CITIES,
   ADD_SAVED_CITY,
   REMOVE_SAVED_CITY,
+  ADD_RECENT_SEARCH,
 } from "@/redux/constants/actionTypes";
 import type { ReduxAction, WeatherData, ForecastDay, LocationData, SavedCity } from "@/redux/types";
 
@@ -57,5 +58,10 @@ export const addSavedCity = (city: SavedCity): ReduxAction => ({
 
 export const removeSavedCity = (cityName: string): ReduxAction => ({
   type: REMOVE_SAVED_CITY,
+  payload: cityName,
+});
+
+export const addRecentSearch = (cityName: string): ReduxAction => ({
+  type: ADD_RECENT_SEARCH,
   payload: cityName,
 });

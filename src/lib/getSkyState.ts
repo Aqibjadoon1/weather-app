@@ -30,17 +30,17 @@ export function getSkyState({ weatherCode, currentTime, sunrise, sunset }: SkySt
 }
 
 export const skyGradients: Record<SkyState, string> = {
-  "clear-day":    "linear-gradient(180deg, #2E7BC4 0%, #5CA8DE 45%, #A9D4EE 80%, #D7ECF7 100%)",
-  "clear-night":  "linear-gradient(180deg, #060810 0%, #0B0E14 40%, #171B26 75%, #1F2433 100%)",
-  "cloudy-day":   "linear-gradient(180deg, #5C6B7A 0%, #8493A0 45%, #ABB7C0 80%, #CDD5DB 100%)",
-  "cloudy-night": "linear-gradient(180deg, #0D0F16 0%, #14171F 40%, #1D212B 75%, #262B36 100%)",
-  "rainy-day":    "linear-gradient(180deg, #3E4C58 0%, #5E6E7A 45%, #7F8D97 80%, #A0ABB2 100%)",
-  "rainy-night":  "linear-gradient(180deg, #070911 0%, #0D1017 40%, #161A22 75%, #1E232B 100%)",
-  "stormy":       "linear-gradient(180deg, #12131C 0%, #221C2E 40%, #34273F 75%, #3F2E4C 100%)",
-  "snowy":        "linear-gradient(180deg, #57687A 0%, #8797A6 45%, #C0CBD4 80%, #EDF2F5 100%)",
-  "foggy":        "linear-gradient(180deg, #6E7378 0%, #8F9398 45%, #B4B8BB 80%, #D6D9DB 100%)",
-  "dawn":         "linear-gradient(180deg, #131625 0%, #4A3B57 35%, #A85D6B 65%, #E39B5C 88%, #F2C27A 100%)",
-  "dusk":         "linear-gradient(180deg, #0D0E17 0%, #362A45 35%, #A14E5E 65%, #D97E4E 88%, #EBA65E 100%)",
+  "clear-day":    "linear-gradient(180deg, #2B6CB0 0%, #4A90D9 25%, #6DB3F2 50%, #8FC5F7 75%, #B0D9FA 100%)",
+  "clear-night":  "linear-gradient(180deg, #0B1021 0%, #1A1F35 40%, #2D3354 75%, #3D4470 100%)",
+  "cloudy-day":   "linear-gradient(180deg, #4A7A9E 0%, #6B9BBD 30%, #8DB5D0 55%, #AECDE0 80%, #CEE0EC 100%)",
+  "cloudy-night": "linear-gradient(180deg, #141822 0%, #1D2130 40%, #282D3E 75%, #32384B 100%)",
+  "rainy-day":    "linear-gradient(180deg, #3D6480 0%, #5A84A0 30%, #7AA3BC 55%, #9AC0D4 80%, #B8D4E4 100%)",
+  "rainy-night":  "linear-gradient(180deg, #0F1420 0%, #181D2B 40%, #212738 75%, #2B3144 100%)",
+  "stormy":       "linear-gradient(180deg, #1D1E28 0%, #2E2536 40%, #3D2E44 75%, #4A354F 100%)",
+  "snowy":        "linear-gradient(180deg, #7BA3C8 0%, #A0C0DC 35%, #C0D8EA 60%, #DCE8F4 85%, #EDF2F8 100%)",
+  "foggy":        "linear-gradient(180deg, #6A8A9E 0%, #8AAABE 35%, #AAC4D4 60%, #C8DCE8 85%, #E0EAF2 100%)",
+  "dawn":         "linear-gradient(180deg, #1E1B30 0%, #4E3B55 35%, #A85D6B 65%, #E39B5C 88%, #F2C27A 100%)",
+  "dusk":         "linear-gradient(180deg, #101020 0%, #3A2D48 35%, #A14E5E 65%, #D97E4E 88%, #EBA65E 100%)",
 };
 
 export const lightBgStates: SkyState[] = ["clear-day", "cloudy-day", "snowy", "foggy"];

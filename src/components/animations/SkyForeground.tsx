@@ -30,26 +30,55 @@ function moonPhase(seed: number): "new" | "crescent" | "quarter" | "gibbous" | "
   return "new";
 }
 
-function MoonSVG({ phase }: { phase: string }) {
-  const clipId = useId();
+function RealisticMoonSVG({ phase }: { phase: string }) {
   if (phase === "new") return null;
-  if (phase === "full") {
-    return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" fill="#EAE7DD" opacity="0.9">
-        <circle cx="50" cy="50" r="42" />
-      </svg>
-    );
-  }
-  const rx = phase === "crescent" ? 32 : phase === "quarter" ? 18 : 10;
+  const id = useId();
+  const craters = [
+    { cx: 35, cy: 30, r: 6, o: 0.15 }, { cx: 55, cy: 42, r: 8, o: 0.12 },
+    { cx: 42, cy: 55, r: 5, o: 0.18 }, { cx: 60, cy: 28, r: 4, o: 0.14 },
+    { cx: 48, cy: 38, r: 3, o: 0.20 }, { cx: 38, cy: 48, r: 4, o: 0.16 },
+    { cx: 52, cy: 58, r: 3, o: 0.15 }, { cx: 30, cy: 38, r: 3.5, o: 0.13 },
+    { cx: 65, cy: 48, r: 3, o: 0.17 }, { cx: 45, cy: 28, r: 2.5, o: 0.19 },
+    { cx: 58, cy: 52, r: 2, o: 0.22 }, { cx: 40, cy: 62, r: 2, o: 0.18 },
+    { cx: 50, cy: 48, r: 1.5, o: 0.25 }, { cx: 32, cy: 55, r: 2, o: 0.15 },
+    { cx: 62, cy: 35, r: 2, o: 0.16 }, { cx: 44, cy: 44, r: 5, o: 0.10 },
+  ];
+  const shadowRx = phase === "crescent" ? 32 : phase === "quarter" ? 18 : 10;
+  const shadowCx = phase === "crescent" ? 38 : 44;
   return (
-    <svg viewBox="0 0 100 100" className="w-full h-full" opacity="0.85">
+    <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_20px_rgba(200,190,170,0.35)_0_0_60px_rgba(200,190,170,0.12)]">
       <defs>
-        <clipPath id={clipId}>
+        <radialGradient id={`${id}-glow`} cx="50%" cy="50%" r="50%">
+          <stop offset="70%" stopColor="rgba(220,210,190,0.35)" />
+          <stop offset="100%" stopColor="rgba(220,210,190,0)" />
+        </radialGradient>
+        <radialGradient id={`${id}-surface`} cx="38%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#F0EDE6" />
+          <stop offset="50%" stopColor="#E0D9CB" />
+          <stop offset="100%" stopColor="#C8BFAE" />
+        </radialGradient>
+        <radialGradient id={`${id}-crater`} cx="40%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#CBC3B2" />
+          <stop offset="100%" stopColor="#B8AF9E" />
+        </radialGradient>
+        <filter id={`${id}-crater-filter`}>
+          <feDropShadow dx="0.3" dy="0.5" stdDeviation="0.4" floodColor="rgba(0,0,0,0.15)" />
+        </filter>
+        <clipPath id={`${id}-clip`}>
           <circle cx="50" cy="50" r="42" />
         </clipPath>
       </defs>
-      <circle cx="50" cy="50" r="42" fill="#EAE7DD" />
-      <ellipse cx={phase === "crescent" ? 38 : 44} cy="50" rx={rx} ry="38" fill="#060810" clipPath={`url(#${clipId})`} />
+      <circle cx="50" cy="50" r="46" fill={`url(#${id}-glow)`} />
+      <circle cx="50" cy="50" r="42" fill={`url(#${id}-surface)`} />
+      {craters.map((c, i) => (
+        <g key={i} clipPath={`url(#${id}-clip)`}>
+          <circle cx={c.cx} cy={c.cy} r={c.r} fill={`url(#${id}-crater)`} opacity={c.o} filter={`url(#${id}-crater-filter)`} />
+          <ellipse cx={c.cx - c.r * 0.15} cy={c.cy - c.r * 0.15} rx={c.r * 0.35} ry={c.r * 0.2} fill="rgba(255,255,255,0.12)" />
+        </g>
+      ))}
+      {phase !== "full" && (
+        <ellipse cx={shadowCx} cy="50" rx={shadowRx} ry="38" fill="#060810" opacity="0.95" clipPath={`url(#${id}-clip)`} />
+      )}
     </svg>
   );
 }
@@ -398,7 +427,7 @@ export default function SkyForeground({ state }: SkyForegroundProps) {
             zIndex: 5,
           }}
         >
-          <MoonSVG phase={moonPh} />
+          <RealisticMoonSVG phase={moonPh} />
         </div>
       )}
 

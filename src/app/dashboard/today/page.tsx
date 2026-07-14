@@ -57,9 +57,9 @@ export default function TodayPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-on-surface -mx-container-padding px-container-padding">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8 bg-aether-bg">
+      <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8">
         <WeatherShader className="absolute inset-0 w-full h-full" condition={weather?.condition} isNight={isNight} />
         <div className="relative z-10">
           <header className="flex justify-between items-center">
@@ -93,7 +93,7 @@ export default function TodayPage() {
         <h2 className="font-headline-sm text-headline-sm text-on-surface mb-5">Today&apos;s Journey</h2>
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-3 -mx-2 px-2">
           {displayHourly.map((slot, i) => (
-            <div key={i} className="min-w-[120px] bg-surface rounded-2xl p-4 editorial-shadow flex flex-col items-center gap-2 flex-shrink-0">
+            <div key={i} className="min-w-[120px] glass-card rounded-2xl p-4 flex flex-col items-center gap-2 flex-shrink-0">
               <span className="font-label-bold text-label-bold text-on-surface-variant">{formatTime(slot.time)}</span>
               <span className="material-symbols-outlined text-3xl text-primary fill">{slot.icon}</span>
               <span className="font-headline-sm text-headline-sm text-on-surface">{slot.temperature}°</span>
@@ -105,7 +105,7 @@ export default function TodayPage() {
 
       {/* Details Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-surface rounded-3xl p-6 editorial-shadow">
+        <div className="glass-card rounded-3xl p-6">
           <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Sunrise & Sunset</span>
           <div className="mt-4 flex justify-between">
             <div>
@@ -123,7 +123,7 @@ export default function TodayPage() {
           </div>
         </div>
 
-        <div className="bg-surface rounded-3xl p-6 editorial-shadow">
+        <div className="glass-card rounded-3xl p-6">
           <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Precipitation</span>
           <div className="mt-4">
             <p className="font-headline-lg text-headline-lg text-on-surface">{displayHourly[0]?.precipitation ?? 10}%</p>
@@ -136,7 +136,7 @@ export default function TodayPage() {
           </div>
         </div>
 
-        <div className="bg-surface rounded-3xl p-6 editorial-shadow">
+        <div className="glass-card rounded-3xl p-6">
           <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Wind</span>
           <div className="mt-4">
             <p className="font-headline-lg text-headline-lg text-on-surface">{weather ? Math.round(weather.windSpeed) : 12}</p>
@@ -161,7 +161,7 @@ export default function TodayPage() {
           { label: "Visibility", value: weather ? `${weather.visibility} km` : "10 km", sub: "Clear" },
           { label: "Pressure", value: "1013 hPa", sub: "Steady" },
         ].map((item) => (
-          <div key={item.label} className="bg-surface-container-low rounded-2xl p-5">
+          <div key={item.label} className="glass-card rounded-2xl p-5">
             <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">{item.label}</span>
             <p className="font-headline-sm text-headline-sm text-on-surface mt-2">{item.value}</p>
             <p className="font-caption text-caption text-on-surface-variant mt-1">{item.sub}</p>

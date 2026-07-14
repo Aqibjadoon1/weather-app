@@ -114,22 +114,22 @@ export default function PackingPage() {
   const packedEssentialCount = packingList.filter((item) => item.essential && item.packed).length;
 
   return (
-    <div className="min-h-screen bg-aether-bg text-aether-text-primary -mx-container-padding px-container-padding">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
       <header className="py-8 flex justify-between items-center">
         <div>
           <h1 className="font-headline-md text-headline-md text-aether-text-primary">AI Packing Companion</h1>
           <p className="font-body-md text-aether-text-muted mt-1">Smart packing list tailored to your forecast</p>
         </div>
-        <Link href="/dashboard" className="text-aether-gold font-label-bold text-label-bold hover:underline">Back to Dashboard</Link>
+        <Link href="/dashboard" className="text-aether-gold font-label-bold text-label-bold hover:underline">Back</Link>
       </header>
 
-      <div className="bg-aether-bg-soft rounded-3xl p-8 editorial-shadow mb-8 relative overflow-hidden">
+      <div className="glass-card rounded-3xl p-8 mb-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-aether-gold/5 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="relative z-10">
           <h2 className="font-headline-sm text-headline-sm text-aether-text-primary">{destination}</h2>
           <p className="font-body-md text-aether-text-muted mt-2">{dateRange}</p>
           <div className="mt-6 flex flex-wrap gap-6">
-            <div className="bg-aether-bg-soft rounded-2xl p-4 flex-1 min-w-[120px]">
+            <div className="glass-card rounded-2xl p-4 flex-1 min-w-[120px]">
               {weatherLoading ? (
                 <div className="w-8 h-8 border-2 border-aether-gold/30 border-t-aether-gold rounded-full animate-spin" />
               ) : (
@@ -142,7 +142,7 @@ export default function PackingPage() {
                 </>
               )}
             </div>
-            <div className="bg-aether-bg-soft rounded-2xl p-4 flex-1 min-w-[120px]">
+            <div className="glass-card rounded-2xl p-4 flex-1 min-w-[120px]">
               <span className="material-symbols-outlined text-aether-gold fill text-2xl">rainy</span>
               <p className="font-headline-md text-headline-md text-aether-text-primary mt-2">20%</p>
               <p className="font-caption text-caption text-aether-text-muted">Chance of Rain</p>
@@ -151,7 +151,7 @@ export default function PackingPage() {
         </div>
       </div>
 
-      <div className="bg-aether-bg-soft rounded-3xl p-6 mb-8">
+      <div className="glass-card rounded-3xl p-6 mb-8">
         <div className="flex justify-between items-center mb-3">
           <span className="font-label-bold text-label-bold text-aether-text-primary">Packing Progress</span>
           <span className="font-body-sm text-aether-text-muted">{packedCount}/{packingList.length} items</span>
@@ -164,7 +164,7 @@ export default function PackingPage() {
         </div>
       </div>
 
-      <div className="bg-aether-bg-soft rounded-3xl p-8 editorial-shadow mb-8">
+      <div className="glass-card rounded-3xl p-8 mb-8">
         <h2 className="font-headline-sm text-headline-sm text-aether-text-primary mb-4">Generate New Packing List</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="relative">
@@ -173,7 +173,7 @@ export default function PackingPage() {
               type="text"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-aether-bg-soft rounded-2xl font-body-md text-aether-text-primary placeholder-aether-text-muted outline-none focus:ring-2 focus:ring-aether-gold transition-all"
+              className="w-full pl-12 pr-4 py-4 glass-card rounded-2xl font-body-md text-aether-text-primary placeholder-aether-text-muted outline-none focus:ring-2 focus:ring-aether-gold transition-all"
               placeholder="Where are you going?"
             />
           </div>
@@ -183,7 +183,7 @@ export default function PackingPage() {
               type="text"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-aether-bg-soft rounded-2xl font-body-md text-aether-text-primary placeholder-aether-text-muted outline-none focus:ring-2 focus:ring-aether-gold transition-all"
+              className="w-full pl-12 pr-4 py-4 glass-card rounded-2xl font-body-md text-aether-text-primary placeholder-aether-text-muted outline-none focus:ring-2 focus:ring-aether-gold transition-all"
               placeholder="When are you going?"
             />
           </div>
@@ -191,7 +191,7 @@ export default function PackingPage() {
         <button
           onClick={handleGenerate}
           disabled={isGenerating || weatherLoading}
-          className="w-full py-4 rounded-xl bg-aether-gold text-aether-bg font-body font-medium hover:bg-aether-gold-soft transition-colors disabled:opacity-60"
+          className="w-full md:w-auto md:px-10 mx-auto py-4 rounded-xl bg-aether-gold text-aether-bg font-body font-medium hover:bg-aether-gold-soft transition-colors disabled:opacity-60"
         >
           {isGenerating || weatherLoading ? (
             <span className="flex items-center justify-center gap-2">
@@ -217,7 +217,7 @@ export default function PackingPage() {
                 return (
                   <label
                     key={item.name}
-                    className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-200 ${item.packed ? "bg-aether-gold/10 border border-aether-gold/20" : "bg-aether-bg-soft border border-aether-gold/10 hover:border-aether-gold/30"}`}
+                    className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-200 glass-card ${item.packed ? "border border-aether-gold/20" : "border border-aether-gold/10 hover:border-aether-gold/30"}`}
                   >
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${item.packed ? "bg-aether-gold border-aether-gold text-aether-bg" : "border-aether-gold/30"}`}>
                       {item.packed && <span className="material-symbols-outlined text-sm fill">check</span>}
@@ -236,7 +236,7 @@ export default function PackingPage() {
       })}
 
       {weatherData && (
-        <div className="bg-aether-bg-soft rounded-3xl p-8 mt-8 editorial-shadow">
+        <div className="glass-card rounded-3xl p-8 mt-8">
           <h2 className="font-headline-sm text-headline-sm text-aether-text-primary mb-4">Weather Tips</h2>
           <div className="space-y-3">
             <div className="flex items-start gap-3">

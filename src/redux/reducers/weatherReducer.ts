@@ -10,6 +10,7 @@ import {
   SET_SAVED_CITIES,
   ADD_SAVED_CITY,
   REMOVE_SAVED_CITY,
+  ADD_RECENT_SEARCH,
 } from "@/redux/constants/actionTypes";
 
 export interface WeatherState {
@@ -17,6 +18,7 @@ export interface WeatherState {
   forecast: ForecastDay[];
   currentLocation: LocationData | null;
   savedCities: SavedCity[];
+  recentSearches: string[];
   isLoading: boolean;
   error: string | null;
 }
@@ -26,6 +28,7 @@ const initialState: WeatherState = {
   forecast: [],
   currentLocation: null,
   savedCities: [],
+  recentSearches: [],
   isLoading: false,
   error: null,
 };
@@ -52,6 +55,11 @@ const weatherReducer = (state = initialState, action: ReduxAction): WeatherState
       return { ...state, savedCities: [...state.savedCities, action.payload as SavedCity] };
     case REMOVE_SAVED_CITY:
       return { ...state, savedCities: state.savedCities.filter((c) => c.name !== (action.payload as string)) };
+    case ADD_RECENT_SEARCH: {
+      const city = action.payload as string;
+      const filtered = state.recentSearches.filter((c) => c !== city);
+      return { ...state, recentSearches: [city, ...filtered].slice(0, 8) };
+    }
     default:
       return state;
   }

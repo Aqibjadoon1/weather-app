@@ -47,9 +47,9 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col md:flex-row bg-background">
+    <main className="min-h-screen flex flex-col md:flex-row">
       {/* Left Side */}
-      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden bg-aether-bg">
+      <section className="relative w-full md:w-1/2 h-[40vh] md:min-h-screen overflow-hidden">
         <WeatherShader className="absolute inset-0 w-full h-full" skyTop={[0.04, 0.05, 0.08]} skyBottom={[0.07, 0.09, 0.12]} />
         <ThreeScene className="absolute inset-0 w-full h-full opacity-80 mix-blend-screen pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
         <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-10 z-10">
@@ -71,16 +71,15 @@ export default function LoginPage() {
       </section>
 
       {/* Right Side */}
-      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-16 md:py-20 bg-aether-bg overflow-y-auto">
+      <section className="w-full md:w-1/2 flex items-center justify-center px-4 sm:px-6 py-16 md:py-20 overflow-y-auto">
         <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg">
           <header className="mb-8">
             <h2 className="font-headline-md text-headline-md text-aether-text-primary mb-2">Welcome Back</h2>
             <p className="text-aether-text-muted font-body-md">Enter your credentials to access your dashboard.</p>
           </header>
 
-          <div className="bg-aether-bg-soft border border-aether-gold/10 rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
+          <div className="glass-card rounded-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-aether-gold/20" />
-            <div className="grain-texture absolute inset-0" />
             <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
               {error && (
                 <div className="p-4 bg-error/10 border border-error/20 rounded-xl">

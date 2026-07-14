@@ -45,7 +45,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps) {
       <p className="flex-1 text-sm font-label-bold">{toast.message}</p>
       <button
         onClick={handleDismiss}
-        className="shrink-0 opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
+        className="shrink-0 opacity-70 hover:opacity-100 transition-opacity cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
       >
         <span className="material-symbols-outlined text-xl leading-none">close</span>
       </button>
