@@ -20,13 +20,13 @@ export default function HeaderBar({ cityName, date }: Props) {
       <div className="flex items-center gap-1">
         <Link
           href="/dashboard/search"
-          className="p-2 rounded-xl hover:bg-aether-gold/10 transition-colors active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
+          className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
         >
           <span className="material-symbols-outlined text-aether-text-muted fill">search</span>
         </Link>
         <Link
           href="/dashboard/settings"
-          className="p-2 rounded-xl hover:bg-aether-gold/10 transition-colors active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
+          className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
         >
           <span className="material-symbols-outlined text-aether-text-muted">settings</span>
         </Link>

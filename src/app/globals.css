@@ -99,6 +99,8 @@
   --spacing-unit: 8px;
   --spacing-container-padding: 24px;
   --spacing-section-margin: 40px;
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .dark {
@@ -184,19 +186,13 @@
 
 @layer utilities {
   .spring-button {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.3s var(--ease-spring);
   }
   .spring-button:hover {
     transform: scale(1.02) translateY(-2px);
   }
   .spring-button:active {
     transform: scale(0.95);
-  }
-  .bouncy-hover {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .bouncy-hover:hover {
-    transform: scale(1.02) translateY(-4px);
   }
   .editorial-shadow {
     box-shadow: 0 40px 80px -20px rgba(76, 74, 202, 0.04);
@@ -286,15 +282,6 @@
   .tracking-caption {
     letter-spacing: 0.03em;
   }
-}
-
-@keyframes spring-bounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.95); }
-  100% { transform: scale(1); }
-}
-.animate-spring:active {
-  animation: spring-bounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes wind-current {

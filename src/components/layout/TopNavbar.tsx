@@ -49,13 +49,13 @@ export default function TopNavbar() {
         </div>
 
         <div className="flex items-center gap-1">
-          <Link href="/dashboard/notifications" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
+          <Link href="/dashboard/notifications" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
             <span className="material-symbols-outlined text-aether-gold">notifications</span>
           </Link>
-          <Link href="/dashboard/profile" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
+          <Link href="/dashboard/profile" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
             <span className="material-symbols-outlined text-aether-gold">account_circle</span>
           </Link>
-          <Link href="/dashboard/settings" className="transition-all active:scale-95 p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
+          <Link href="/dashboard/settings" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
             <span className="material-symbols-outlined text-aether-gold">settings</span>
           </Link>
         </div>
