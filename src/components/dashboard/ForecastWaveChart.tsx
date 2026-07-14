@@ -77,7 +77,7 @@ export default function ForecastWaveChart({
               fill={isSelected ? "#B8892E" : "rgba(184,137,46,0.3)"}
               stroke="#fff"
               strokeWidth={isSelected ? 2 : 1}
-              className="cursor-pointer transition-all duration-300"
+              className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm cursor-pointer transition-all duration-300"
               onClick={() => onSelect(i)}
             />
           </g>

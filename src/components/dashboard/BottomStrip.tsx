@@ -36,7 +36,7 @@ export default function BottomStrip({ forecast, isLoading }: Props) {
           <button
             key={day.date}
             onClick={() => setSelectedIndex(i)}
-            className={`font-label-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer ${
+            className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm font-label-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer ${
               i === selectedIndex
                 ? "text-aether-gold"
                 : "text-aether-text-muted hover:text-aether-text-primary"

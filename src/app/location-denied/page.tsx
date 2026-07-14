@@ -23,7 +23,7 @@ export default function LocationDeniedPage() {
           </Button>
           <Link
             href="/search"
-            className="text-sm text-aether-gold hover:underline font-label-bold"
+            className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-sm text-aether-gold hover:underline font-label-bold"
           >
             Search Manually
           </Link>

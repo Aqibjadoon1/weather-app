@@ -158,14 +158,14 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setUnit("metric")}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${unit === "metric" ? "bg-aether-gold text-aether-bg shadow-sm" : "text-aether-text-muted"}`}
+                      className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm px-3 py-1 rounded-full text-xs font-semibold transition-all ${unit === "metric" ? "bg-aether-gold text-aether-bg shadow-sm" : "text-aether-text-muted"}`}
                     >
                       Metric
                     </button>
                     <button
                       type="button"
                       onClick={() => setUnit("imperial")}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${unit === "imperial" ? "bg-aether-gold text-aether-bg shadow-sm" : "text-aether-text-muted"}`}
+                      className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm px-3 py-1 rounded-full text-xs font-semibold transition-all ${unit === "imperial" ? "bg-aether-gold text-aether-bg shadow-sm" : "text-aether-text-muted"}`}
                     >
                       Imperial
                     </button>
@@ -173,7 +173,7 @@ export default function RegisterPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <input type="checkbox" id="terms" className="w-4 h-4 rounded border-aether-gold/30 text-aether-gold focus:ring-aether-gold/20" />
-                  <label htmlFor="terms" className="text-xs text-aether-text-muted">I agree to the <Link href="#" className="text-aether-gold font-bold hover:underline">Terms</Link></label>
+                  <label htmlFor="terms" className="text-xs text-aether-text-muted">I agree to the <Link href="#" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-bold hover:underline">Terms</Link></label>
                 </div>
               </div>
 
@@ -212,7 +212,7 @@ export default function RegisterPage() {
 
             <footer className="mt-6 text-center">
               <p className="text-aether-text-muted font-body-md">
-                Already have an account? <Link href="/login" className="text-aether-gold font-bold hover:underline">Sign In</Link>
+                Already have an account? <Link href="/login" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-bold hover:underline">Sign In</Link>
               </p>
             </footer>
           </div>

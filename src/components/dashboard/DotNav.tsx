@@ -17,7 +17,7 @@ export default function DotNav({ cities, activeIndex, onSelect }: Props) {
         <button
           key={`${city.name}-${i}`}
           onClick={() => onSelect(i)}
-          className={`transition-all duration-300 rounded-full ${
+          className={`focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm transition-all duration-300 rounded-full ${
             i === activeIndex
               ? "w-5 h-2 bg-aether-gold"
               : "w-2 h-2 bg-aether-gold/30 hover:bg-aether-gold/50"

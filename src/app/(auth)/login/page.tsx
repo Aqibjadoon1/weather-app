@@ -133,7 +133,7 @@ export default function LoginPage() {
                   </div>
                   <span className="text-aether-text-muted font-label-bold text-label-bold group-hover:text-aether-text-primary transition-colors">Remember me</span>
                 </label>
-                <Link href="/forgot-password" className="text-aether-gold font-label-bold text-label-bold hover:text-aether-gold-soft transition-colors">
+                <Link href="/forgot-password" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-label-bold text-label-bold hover:text-aether-gold-soft transition-colors">
                   Forgot Password?
                 </Link>
               </div>
@@ -174,7 +174,7 @@ export default function LoginPage() {
           <footer className="mt-8 text-center">
             <p className="font-body-md text-aether-text-muted">
               New to Accurate Weather?
-              <Link href="/register" className="text-aether-gold font-bold hover:underline decoration-2 underline-offset-4 ml-1">
+              <Link href="/register" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-bold hover:underline decoration-2 underline-offset-4 ml-1">
                 Create Account
               </Link>
             </p>

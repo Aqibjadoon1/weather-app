@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
                 </p>
               </div>
               <p className="text-center text-sm text-aether-text-muted">
-                <Link href="/login" className="text-aether-gold font-label-bold hover:underline">
+                <Link href="/login" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-label-bold hover:underline">
                   Back to Sign In
                 </Link>
               </p>
@@ -83,7 +83,7 @@ export default function ForgotPasswordPage() {
               </form>
 
               <p className="mt-6 text-center text-sm text-aether-text-muted">
-                <Link href="/login" className="text-aether-gold font-label-bold hover:underline">
+                <Link href="/login" className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm text-aether-gold font-label-bold hover:underline">
                   Back to Sign In
                 </Link>
               </p>

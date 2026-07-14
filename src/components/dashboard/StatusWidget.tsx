@@ -67,7 +67,7 @@ export default function StatusWidget({ weather }: Props) {
 
       <Link
         href="/dashboard/today"
-        className="inline-flex items-center gap-1 text-aether-gold font-label-bold text-[11px] uppercase tracking-wider hover:underline group"
+        className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm inline-flex items-center gap-1 text-aether-gold font-label-bold text-[11px] uppercase tracking-wider hover:underline group"
       >
         See More
         <span className="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
