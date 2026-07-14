@@ -16,8 +16,12 @@ export default function LoginPage() {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (user) router.push("/dashboard");
-    else setChecking(false);
+    if (user) {
+      const params = new URLSearchParams(window.location.search);
+      router.push(params.get("redirect") || "/dashboard");
+    } else {
+      setChecking(false);
+    }
   }, [user, router]);
 
   if (checking) return null;

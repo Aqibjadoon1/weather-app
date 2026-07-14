@@ -18,8 +18,12 @@ export default function RegisterPage() {
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
 
   useEffect(() => {
-    if (user) router.push("/dashboard");
-    else setChecking(false);
+    if (user) {
+      const params = new URLSearchParams(window.location.search);
+      router.push(params.get("redirect") || "/dashboard");
+    } else {
+      setChecking(false);
+    }
   }, [user, router]);
 
   if (checking) return null;
