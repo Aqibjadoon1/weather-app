@@ -65,7 +65,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-aether-bg">
       <WeatherShader className="absolute inset-0 z-0" />
       <ThreeScene className="absolute inset-0 z-10 opacity-90 pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
-      <div className="relative z-30 flex flex-col items-center px-6">
+      <div className="relative z-30 flex flex-col items-center px-6 mt-32 md:mt-48">
         <h1 className="font-headline-lg-mobile md:font-headline-lg text-aether-gold animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
           Accurate Weather
         </h1>
