@@ -5,15 +5,3 @@ export const playfair = {
 export const inter = {
   variable: "--font-sans",
 };
-
-export const libreCaslon = {
-  variable: "--font-dark-serif",
-};
-
-export const hankenGrotesk = {
-  variable: "--font-dark-sans",
-};
-
-export const jetbrainsMono = {
-  variable: "--font-data",
-};
