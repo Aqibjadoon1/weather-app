@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import WeatherShader from "./WeatherShader";
-import SkyForeground from "./SkyForeground";
+import ThreeScene from "./ThreeScene";
 
 interface SplashScreenProps {
   onComplete?: () => void;
@@ -64,22 +64,22 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-aether-bg">
       <WeatherShader className="absolute inset-0 z-0" />
-      <SkyForeground state="clear-day" />
+      <ThreeScene className="absolute inset-0 z-10 opacity-90 pointer-events-none" variant="sun" sunPosition={[3, 3, -5]} />
       <div className="relative z-30 flex flex-col items-center px-6">
         <div className="w-48 h-48 md:w-64 md:h-64 mb-8 animate-fade-in-up relative" style={{ animationDelay: "0.2s" }}>
           <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_30px_rgba(201,154,62,0.15)]">
             <defs>
               <radialGradient id="cloudGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#C99A3E" stop-opacity="0.12"/>
-                <stop offset="100%" stop-color="#C99A3E" stop-opacity="0"/>
+                <stop offset="0%" stopColor="#C99A3E" stopOpacity="0.12"/>
+                <stop offset="100%" stopColor="#C99A3E" stopOpacity="0"/>
               </radialGradient>
               <linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#EAE7DD"/>
-                <stop offset="100%" stop-color="#C99A3E"/>
+                <stop offset="0%" stopColor="#EAE7DD"/>
+                <stop offset="100%" stopColor="#C99A3E"/>
               </linearGradient>
               <linearGradient id="cloudGrad2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#EAE7DD" stop-opacity="0.6"/>
-                <stop offset="100%" stop-color="#C99A3E" stop-opacity="0.2"/>
+                <stop offset="0%" stopColor="#EAE7DD" stopOpacity="0.6"/>
+                <stop offset="100%" stopColor="#C99A3E" stopOpacity="0.2"/>
               </linearGradient>
               <filter id="cloudBlur">
                 <feGaussianBlur stdDeviation="3"/>
@@ -107,7 +107,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
               </path>
             </g>
             <g opacity="0.5">
-              <path d="M120 80C125 78 135 75 145 80" stroke="#EAE7DD" stroke-width="2" stroke-linecap="round" fill="none">
+              <path d="M120 80C125 78 135 75 145 80" stroke="#EAE7DD" strokeWidth="2" strokeLinecap="round" fill="none">
                 <animate attributeName="d" dur="8s" repeatCount="indefinite" values="
                   M120 80C125 78 135 75 145 80;
                   M120 75C125 73 135 70 145 75;

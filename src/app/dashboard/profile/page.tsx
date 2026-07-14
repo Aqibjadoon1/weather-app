@@ -79,16 +79,14 @@ export default function ProfilePage() {
             <Link href="/dashboard/settings" className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold">
               Edit Profile
             </Link>
+            <button
+              onClick={handleLogout}
+              className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-[16px]">logout</span>
+              Sign Out
+            </button>
           </div>
-        </div>
-        <div className="mt-8 pt-8 border-t border-aether-gold/10 flex justify-center md:justify-end">
-          <button
-            onClick={handleLogout}
-            className="px-8 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
-          >
-            <span className="material-symbols-outlined text-[16px]">logout</span>
-            Sign Out
-          </button>
         </div>
       </div>
 
