@@ -3,11 +3,20 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "@/redux/reducers/rootReducer";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAuthentication } from "@/hooks/useAuthentication";
 
 export default function ProfilePage() {
   const user = useSelector((state: RootState) => state.auth.user);
+  const { logout } = useAuthentication();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"overview" | "stats" | "badges">("overview");
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/dashboard");
+  };
 
   const initials = user?.displayName
     ? user.displayName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
@@ -66,9 +75,18 @@ export default function ProfilePage() {
               Exploring the world through weather. Tracking conditions across cities with personalized alerts and AI-powered packing lists.
             </p>
           </div>
-          <Link href="/dashboard/settings" className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold">
-            Edit Profile
-          </Link>
+          <div className="flex flex-col items-center md:items-end gap-3">
+            <Link href="/dashboard/settings" className="px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold">
+              Edit Profile
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="px-6 py-3 border border-error/40 rounded-full text-sm text-error hover:bg-error/10 transition-colors whitespace-nowrap font-label-bold flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-[16px]">logout</span>
+              Sign Out
+            </button>
+          </div>
         </div>
       </div>
 
