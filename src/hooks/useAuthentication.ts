@@ -41,7 +41,10 @@ export const useAuthentication = () => {
     dispatch(authStart());
     try {
       const user = await loginWithEmail(email, password);
-      if (user) dispatch(authSuccess(user));
+      if (user) {
+        document.cookie = `auth-session=${user.uid}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+        dispatch(authSuccess(user));
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed. Please try again.";
       dispatch(authFailure(message));
@@ -56,7 +59,10 @@ export const useAuthentication = () => {
     dispatch(authStart());
     try {
       const user = await registerWithEmail(email, password, displayName);
-      if (user) dispatch(authSuccess(user));
+      if (user) {
+        document.cookie = `auth-session=${user.uid}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+        dispatch(authSuccess(user));
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Registration failed. Please try again.";
       dispatch(authFailure(message));
@@ -67,7 +73,10 @@ export const useAuthentication = () => {
     dispatch(authStart());
     try {
       const user = await loginWithGoogle();
-      if (user) dispatch(authSuccess(user));
+      if (user) {
+        document.cookie = `auth-session=${user.uid}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+        dispatch(authSuccess(user));
+      }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Google sign-in failed.";
       dispatch(authFailure(message));

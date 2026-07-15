@@ -17,6 +17,20 @@ const assetExtensions = [".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Guest login via query param — set cookie and redirect cleanly
+  if (pathname === "/dashboard" && request.nextUrl.searchParams.get("guest") === "true") {
+    const dest = request.nextUrl.clone();
+    dest.searchParams.delete("guest");
+    const response = NextResponse.redirect(dest);
+    response.cookies.set("guest-session", "true", {
+      path: "/",
+      maxAge: 86400,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+    return response;
+  }
+
   // Always allow static Next.js assets and public paths
   if (
     pathname.startsWith("/_next/") ||

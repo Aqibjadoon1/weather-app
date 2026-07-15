@@ -181,10 +181,7 @@ export default function LoginPage() {
             <div className="mt-6 pt-6 border-t border-aether-gold/10">
               <button
                 type="button"
-                onClick={async () => {
-                  await fetch("/api/guest-login", { method: "POST" });
-                  router.push("/dashboard");
-                }}
+                onClick={() => router.push("/dashboard?guest=true")}
                 className="spring-button w-full h-12 md:h-14 bg-transparent border border-aether-gold/40 text-aether-text-muted rounded-full font-label-bold text-[13px] uppercase tracking-widest hover:border-aether-gold hover:text-aether-gold transition-all flex items-center justify-center gap-2"
               >
                 <span className="material-symbols-outlined text-[18px]">visibility</span>
