@@ -162,6 +162,7 @@ void main() {
 
 interface WeatherShaderProps {
   className?: string;
+  style?: React.CSSProperties;
   skyTop?: [number, number, number];
   skyBottom?: [number, number, number];
   condition?: string;
@@ -204,6 +205,7 @@ function getRainIntensity(condition: string | undefined): number {
 
 export default function WeatherShader({
   className = "",
+  style,
   skyTop: skyTopProp,
   skyBottom: skyBottomProp,
   condition,
@@ -346,7 +348,7 @@ export default function WeatherShader({
     <canvas
       ref={canvasRef}
       className={className}
-      style={{ display: "block", width: "100%", height: "100%" }}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", ...style }}
     />
   );
 }

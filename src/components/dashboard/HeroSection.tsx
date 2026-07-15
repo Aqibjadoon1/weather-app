@@ -6,68 +6,151 @@ interface Props {
   weather: WeatherData | null;
   forecast: ForecastDay[];
   isLoading: boolean;
+  /** Remove bottom margin when rendered inside a grid cell */
+  noMargin?: boolean;
 }
 
-export default function HeroSection({ weather, forecast, isLoading }: Props) {
+export default function HeroSection({ weather, forecast, isLoading, noMargin = false }: Props) {
   const hi = forecast.length > 0 ? forecast[0].high : null;
   const lo = forecast.length > 0 ? forecast[0].low : null;
 
-  return (
-    <div className="glass-card rounded-3xl p-6 mb-6 relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div
-          className="w-72 h-72 rounded-full opacity-60"
-          style={{
-            background: "radial-gradient(circle, rgba(184,137,46,0.25) 0%, rgba(184,137,46,0.08) 40%, transparent 70%)",
-          }}
-        />
-      </div>
-      <div className="flex items-start justify-between relative z-10">
-        <div>
-          {isLoading && !weather ? (
-            <div className="space-y-2">
-              <div className="h-16 w-32 bg-aether-gold/10 rounded-lg animate-pulse" />
-              <div className="h-4 w-48 bg-aether-gold/10 rounded animate-pulse" />
-            </div>
-          ) : (
-            <>
-              <div className="flex items-start gap-4">
-                <span className="font-hero-temp text-7xl md:text-[100px] leading-none text-aether-text-primary tracking-tight tabular-nums">
-                  {weather ? `${Math.round(weather.temperature)}°` : "72°"}
-                </span>
-                <div className="flex flex-col gap-1.5 pt-2">
-                  {hi !== null && (
-                    <span className="font-label-bold text-xs text-aether-text-muted flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                      H: {hi}°
-                    </span>
-                  )}
-                  {lo !== null && (
-                    <span className="font-label-bold text-xs text-aether-text-muted flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                      L: {lo}°
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="mt-2">
-                <p className="font-headline-md text-xl text-aether-text-primary">
-                  {weather ? weather.condition : "Partly Cloudy"}
-                </p>
-                <p className="font-body-md text-sm text-aether-text-muted mt-0.5">
-                  {weather
-                    ? `${weather.description}. Feels like ${Math.round(weather.feelsLike)}°`
-                    : "Clear skies with a gentle breeze."}
-                </p>
-              </div>
-            </>
-          )}
+  if (isLoading && !weather) {
+    return (
+      <div className={`glass-card-elevated rounded-3xl p-6 relative overflow-hidden ${noMargin ? "" : "mb-5"}`}>
+        <div className="flex items-start justify-between">
+          <div className="space-y-3">
+            <div className="h-24 w-40 skeleton-shimmer rounded-2xl" />
+            <div className="h-5 w-48 skeleton-shimmer rounded-lg" />
+            <div className="h-4 w-64 skeleton-shimmer rounded-lg" />
+          </div>
+          <div className="h-16 w-16 skeleton-shimmer rounded-2xl" />
         </div>
-        {weather && (
-          <span className="material-symbols-outlined text-5xl text-aether-gold fill">
-            {weather.icon || "wb_sunny"}
-          </span>
-        )}
+        <div className="mt-6 grid grid-cols-3 gap-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-16 skeleton-shimmer rounded-2xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const uvLevel =
+    !weather?.uvIndex ? null
+    : weather.uvIndex <= 2 ? { label: "Low", color: "text-green-400" }
+    : weather.uvIndex <= 5 ? { label: "Moderate", color: "text-yellow-400" }
+    : weather.uvIndex <= 7 ? { label: "High", color: "text-orange-400" }
+    : { label: "Very High", color: "text-red-400" };
+
+  return (
+    <div className={`glass-card-elevated rounded-3xl p-6 relative overflow-hidden ${noMargin ? "" : "mb-5"}`}>
+      {/* Background ambient glow */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 55% at 80% 20%, rgba(184,137,46,0.12) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Main row */}
+      <div className="relative z-10 flex items-start justify-between gap-4">
+        {/* Temperature block */}
+        <div className="flex items-start gap-4 flex-1 min-w-0">
+          <div>
+            <span className="temp-hero">
+              {weather ? `${Math.round(weather.temperature)}°` : "72°"}
+            </span>
+          </div>
+
+          {/* Hi/Lo inline */}
+          <div className="flex flex-col gap-1.5 pt-3 flex-shrink-0">
+            {hi !== null && (
+              <span className="font-label-bold text-[11px] text-aether-text-muted flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-orange-400 shadow-sm shadow-orange-400/50" />
+                H: {hi}°
+              </span>
+            )}
+            {lo !== null && (
+              <span className="font-label-bold text-[11px] text-aether-text-muted flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50" />
+                L: {lo}°
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Condition icon + label */}
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          <div className="w-16 h-16 rounded-2xl glass-inset flex items-center justify-center">
+            <span className="material-symbols-outlined text-aether-gold text-4xl fill">
+              {weather?.icon || "wb_sunny"}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Condition + description */}
+      <div className="relative z-10 mt-3">
+        <h2 className="font-headline-md text-xl text-aether-text-primary leading-tight">
+          {weather ? weather.condition : "Partly Cloudy"}
+        </h2>
+        <p className="font-body-md text-sm text-aether-text-muted mt-0.5 leading-relaxed">
+          {weather
+            ? `${weather.description}. Feels like ${Math.round(weather.feelsLike)}°`
+            : "Clear skies with a gentle breeze."}
+        </p>
+      </div>
+
+      {/* Quick-stat strip */}
+      <div className="relative z-10 mt-5 pt-5 border-t border-white/8 grid grid-cols-3 gap-3">
+        {[
+          {
+            icon: "air",
+            label: "Wind",
+            value: weather ? `${Math.round(weather.windSpeed)} km/h` : "—",
+          },
+          {
+            icon: "water_drop",
+            label: "Humidity",
+            value: weather ? `${weather.humidity}%` : "—",
+          },
+          ...(weather?.uvIndex != null
+            ? [{
+                icon: "wb_sunny",
+                label: "UV Index",
+                value: `${weather.uvIndex}`,
+                extra: uvLevel?.label,
+                extraColor: uvLevel?.color,
+              }]
+            : [{
+                icon: "visibility",
+                label: "Visibility",
+                value: weather ? `${weather.visibility} km` : "—",
+              }]),
+        ].map((s) => (
+          <div
+            key={s.label}
+            className="glass-inset rounded-2xl px-4 py-3 flex flex-col gap-1"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-aether-gold text-[15px] fill">
+                {s.icon}
+              </span>
+              <span className="font-label-bold text-[9px] uppercase tracking-widest text-aether-text-muted">
+                {s.label}
+              </span>
+            </div>
+            <p className="font-headline-md text-base text-aether-text-primary leading-none tabular-nums">
+              {s.value}
+            </p>
+            {("extra" in s) && s.extra && (
+              <span className={`font-label-bold text-[10px] ${s.extraColor}`}>
+                {s.extra}
+              </span>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ interface NotificationItem {
   read: boolean;
 }
 
-const initialNotifications: NotificationItem[] = [
+const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   { id: "1", icon: "thunderstorm", title: "Severe Storm Warning", message: "Thunderstorms expected in Stockholm from 3 PM. Gusts up to 70 km/h.", time: "2 hours ago", type: "alert", read: false },
   { id: "2", icon: "rainy", title: "Rain Expected Tomorrow", message: "70% chance of rain in the afternoon. Don't forget your umbrella.", time: "5 hours ago", type: "forecast", read: false },
   { id: "3", icon: "ac_unit", title: "Temperature Drop Alert", message: "Temperature dropping to 8°C tonight — 5°C below average.", time: "1 day ago", type: "alert", read: true },
@@ -23,112 +23,168 @@ const initialNotifications: NotificationItem[] = [
   { id: "7", icon: "wb_sunny", title: "UV Index Alert", message: "High UV index (6) expected tomorrow. Consider sun protection.", time: "3 days ago", type: "alert", read: true },
 ];
 
+const TYPE_CONFIG = {
+  alert: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/20", dot: "bg-red-400" },
+  forecast: { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/20", dot: "bg-sky-400" },
+  tip: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/20", dot: "bg-amber-400" },
+  system: { bg: "bg-violet-500/10", text: "text-violet-400", border: "border-violet-500/20", dot: "bg-violet-400" },
+} as const;
+
+const FILTERS = [
+  { key: "all", label: "All", icon: "notifications" },
+  { key: "unread", label: "Unread", icon: "mark_email_unread" },
+  { key: "alert", label: "Alerts", icon: "warning" },
+  { key: "forecast", label: "Forecasts", icon: "calendar_month" },
+  { key: "tip", label: "Tips", icon: "lightbulb" },
+  { key: "system", label: "System", icon: "settings" },
+] as const;
+
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(initialNotifications);
-  const [filter, setFilter] = useState<"all" | "unread" | string>("all");
+  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  const [filter, setFilter] = useState<string>("all");
 
   const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-
-  const markAsRead = (id: string) => setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
-
+  const markAsRead = (id: string) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
   const clearAll = () => setNotifications([]);
 
-  const filtered = filter === "all" ? notifications : filter === "unread" ? notifications.filter((n) => !n.read) : notifications.filter((n) => n.type === filter);
+  const filtered =
+    filter === "all" ? notifications
+    : filter === "unread" ? notifications.filter((n) => !n.read)
+    : notifications.filter((n) => n.type === filter);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const typeColors: Record<string, string> = {
-    alert: "bg-red-500/20 text-red-400 border-red-500/30",
-    forecast: "bg-aether-slate/20 text-aether-slate border-aether-slate/30",
-    tip: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-    system: "bg-purple-500/20 text-purple-400 border-purple-500/30",
-  };
-
   return (
-    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
-        {/* Header */}
-        <header className="py-6 sm:py-8 flex justify-between items-center">
-          <div>
-            <div className="flex items-center gap-3">
-              <h1 className="font-headline-md text-headline-md text-aether-text-primary">Notifications</h1>
-              {unreadCount > 0 && (
-                <span className="px-2.5 py-1 bg-aether-gold text-aether-bg rounded-full font-label-bold text-label-bold text-xs">{unreadCount}</span>
-              )}
-            </div>
-            <p className="font-body-md text-aether-text-muted mt-1">Stay informed about weather changes</p>
-          </div>
-          <div className="flex gap-2">
+    <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding pb-28 md:pb-12">
+
+      {/* ── Header ───────────────────────────────────── */}
+      <header className="py-6 sm:py-8 flex items-start justify-between gap-4">
+        <div>
+          <p className="font-label-bold text-[10px] uppercase tracking-widest text-aether-text-muted mb-1">
+            Stay informed
+          </p>
+          <div className="flex items-center gap-3">
+            <h1 className="font-headline-md text-headline-md text-aether-text-primary leading-tight">
+              Notifications
+            </h1>
             {unreadCount > 0 && (
-              <button onClick={markAllRead} className="px-4 py-2 text-aether-gold font-label-bold text-label-bold hover:bg-aether-gold/10 rounded-xl transition-colors">
-                Mark all read
-              </button>
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-aether-gold text-aether-bg font-label-bold text-[11px] tabular-nums">
+                {unreadCount}
+              </span>
             )}
           </div>
-        </header>
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {unreadCount > 0 && (
+            <button
+              onClick={markAllRead}
+              className="font-label-bold text-[11px] uppercase tracking-wider text-aether-gold hover:text-aether-gold-soft transition-colors px-3 py-2 rounded-xl hover:bg-aether-gold/8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold"
+            >
+              Mark all read
+            </button>
+          )}
+        </div>
+      </header>
 
-        {/* Filters */}
-        <div className="flex gap-2 overflow-x-auto no-scrollbar mb-6">
-          {[
-            { key: "all", label: "All", icon: "notifications" },
-            { key: "unread", label: "Unread", icon: "mark_email_unread" },
-            { key: "alert", label: "Alerts", icon: "warning" },
-            { key: "forecast", label: "Forecasts", icon: "calendar_month" },
-            { key: "tip", label: "Tips", icon: "lightbulb" },
-            { key: "system", label: "System", icon: "settings" },
-          ].map((f) => (
+      {/* ── Filter chips ──────────────────────────────── */}
+      <div
+        role="tablist"
+        aria-label="Filter notifications"
+        className="flex gap-2 overflow-x-auto no-scrollbar mb-6 pb-1 -mx-1 px-1"
+      >
+        {FILTERS.map((f) => {
+          const active = filter === f.key;
+          return (
             <button
               key={f.key}
+              role="tab"
+              aria-selected={active}
               onClick={() => setFilter(f.key)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl font-label-bold text-label-bold whitespace-nowrap transition-all ${filter === f.key ? "bg-aether-gold text-aether-bg" : "bg-aether-bg-soft text-aether-text-muted hover:bg-aether-gold/5"}`}
+              className={[
+                "flex items-center gap-2 px-4 py-2.5 rounded-xl font-label-bold text-[11px] uppercase tracking-wider",
+                "whitespace-nowrap transition-all duration-200 flex-shrink-0",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold",
+                active
+                  ? "bg-aether-gold text-aether-bg shadow-sm shadow-aether-gold/20"
+                  : "glass-card-elevated text-aether-text-muted hover:text-aether-text-primary hover:border-aether-gold/25",
+              ].join(" ")}
             >
-              <span className="material-symbols-outlined text-lg fill">{f.icon}</span>
+              <span className={`material-symbols-outlined text-[16px] ${active ? "" : "fill"}`}>{f.icon}</span>
               {f.label}
             </button>
-          ))}
+          );
+        })}
+      </div>
+
+      {/* ── Notification list ─────────────────────────── */}
+      {filtered.length === 0 ? (
+        <div className="glass-card-elevated rounded-3xl p-16 text-center">
+          <span className="material-symbols-outlined text-5xl text-aether-text-muted fill block mb-4">notifications_off</span>
+          <p className="font-headline-md text-xl text-aether-text-primary">All clear</p>
+          <p className="font-body-md text-sm text-aether-text-muted mt-1">No notifications here</p>
         </div>
-
-        {/* Notification List */}
-        {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <span className="material-symbols-outlined text-5xl text-aether-text-muted fill">notifications_off</span>
-            <p className="font-headline-sm text-headline-sm text-aether-text-primary mt-4">No notifications</p>
-            <p className="font-body-md text-aether-text-muted mt-2">You're all caught up!</p>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {filtered.map((notification) => (
+      ) : (
+        <div className="space-y-2" role="list" aria-label="Notifications">
+          {filtered.map((n) => {
+            const cfg = TYPE_CONFIG[n.type];
+            return (
               <div
-                key={notification.id}
-                onClick={() => markAsRead(notification.id)}
-                className={`flex items-start gap-5 p-4 sm:p-5 rounded-3xl cursor-pointer transition-all duration-200 ${notification.read ? "bg-aether-bg-soft border border-aether-gold/10" : "bg-aether-bg-soft border-l-4 border-l-aether-gold editorial-shadow"}`}
+                key={n.id}
+                role="listitem"
+                onClick={() => markAsRead(n.id)}
+                className={[
+                  "flex items-start gap-4 p-4 sm:p-5 rounded-2xl cursor-pointer",
+                  "transition-all duration-200 group",
+                  n.read
+                    ? "glass-card hover:border-white/15"
+                    : "glass-card-elevated border-l-2 border-l-aether-gold",
+                ].join(" ")}
               >
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${typeColors[notification.type]}`}>
-                  <span className="material-symbols-outlined text-xl fill">{notification.icon}</span>
+                {/* Icon badge */}
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center border flex-shrink-0 ${cfg.bg} ${cfg.border}`}>
+                  <span className={`material-symbols-outlined text-[18px] fill ${cfg.text}`}>{n.icon}</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <p className={`font-body-md ${!notification.read ? "text-aether-text-primary font-bold" : "text-aether-text-primary"}`}>{notification.title}</p>
-                    {!notification.read && <span className="w-2 h-2 bg-aether-gold rounded-full" />}
-                  </div>
-                  <p className="font-body-sm text-aether-text-muted mt-1 line-clamp-2">{notification.message}</p>
-                  <p className="font-caption text-caption text-aether-text-muted mt-2">{notification.time}</p>
-                </div>
-                <button className="p-1 opacity-0 group-hover:opacity-100 hover:bg-aether-gold/5 rounded-lg transition-all">
-                  <span className="material-symbols-outlined text-aether-text-muted text-lg fill">more_vert</span>
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
 
-        {/* Clear All */}
-        {notifications.length > 0 && (
-          <div className="text-center mt-8">
-            <button onClick={clearAll} className="font-body-md text-aether-text-muted hover:text-aether-text-primary transition-colors underline underline-offset-2">
-              Clear all notifications
-            </button>
-          </div>
-        )}
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className={`font-body-md text-sm leading-tight ${n.read ? "text-aether-text-primary" : "text-aether-text-primary font-semibold"}`}>
+                      {n.title}
+                    </p>
+                    {!n.read && (
+                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dot}`} aria-label="Unread" />
+                    )}
+                  </div>
+                  <p className="font-body-md text-[13px] text-aether-text-muted leading-relaxed line-clamp-2">
+                    {n.message}
+                  </p>
+                  <p className="font-caption text-[10px] text-aether-text-muted mt-1.5 flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[12px]">schedule</span>
+                    {n.time}
+                  </p>
+                </div>
+
+                {/* Type chip */}
+                <span className={`badge-chip border flex-shrink-0 hidden sm:inline-flex ${cfg.bg} ${cfg.text} ${cfg.border}`}>
+                  {n.type}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Clear all */}
+      {notifications.length > 0 && (
+        <div className="text-center mt-8 pb-4">
+          <button
+            onClick={clearAll}
+            className="font-label-bold text-[11px] uppercase tracking-wider text-aether-text-muted hover:text-aether-text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm"
+          >
+            Clear all notifications
+          </button>
+        </div>
+      )}
     </div>
   );
 }

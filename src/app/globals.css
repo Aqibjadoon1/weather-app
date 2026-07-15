@@ -406,28 +406,215 @@
 .sky-gradient {
   transition: background 2000ms ease-in-out;
 }
-.sky-gradient-clear-day    { background: linear-gradient(180deg, #2B6CB0 0%, #4A90D9 25%, #6DB3F2 50%, #8FC5F7 75%, #B0D9FA 100%); }
-.sky-gradient-clear-night  { background: linear-gradient(180deg, #0B1021 0%, #1A1F35 40%, #2D3354 75%, #3D4470 100%); }
-.sky-gradient-cloudy-day   { background: linear-gradient(180deg, #4A7A9E 0%, #6B9BBD 30%, #8DB5D0 55%, #AECDE0 80%, #CEE0EC 100%); }
-.sky-gradient-cloudy-night { background: linear-gradient(180deg, #141822 0%, #1D2130 40%, #282D3E 75%, #32384B 100%); }
-.sky-gradient-rainy-day    { background: linear-gradient(180deg, #3D6480 0%, #5A84A0 30%, #7AA3BC 55%, #9AC0D4 80%, #B8D4E4 100%); }
-.sky-gradient-rainy-night  { background: linear-gradient(180deg, #0F1420 0%, #181D2B 40%, #212738 75%, #2B3144 100%); }
-.sky-gradient-stormy       { background: linear-gradient(180deg, #1D1E28 0%, #2E2536 40%, #3D2E44 75%, #4A354F 100%); }
-.sky-gradient-snowy        { background: linear-gradient(180deg, #7BA3C8 0%, #A0C0DC 35%, #C0D8EA 60%, #DCE8F4 85%, #EDF2F8 100%); }
-.sky-gradient-foggy        { background: linear-gradient(180deg, #6A8A9E 0%, #8AAABE 35%, #AAC4D4 60%, #C8DCE8 85%, #E0EAF2 100%); }
-.sky-gradient-dawn         { background: linear-gradient(180deg, #1E1B30 0%, #4E3B55 35%, #A85D6B 65%, #E39B5C 88%, #F2C27A 100%); }
-.sky-gradient-dusk         { background: linear-gradient(180deg, #101020 0%, #3A2D48 35%, #A14E5E 65%, #D97E4E 88%, #EBA65E 100%); }
+/* Clear day — deep navy top so cards read clearly, rich mid-blue for the sky window */
+.sky-gradient-clear-day    { background: linear-gradient(180deg, #071428 0%, #0E2448 22%, #153870 45%, #1C4C92 68%, #2256A8 100%); }
+.sky-gradient-clear-night  { background: linear-gradient(180deg, #020408 0%, #060A14 40%, #0C1020 75%, #101526 100%); }
+/* Cloudy day — slate-steel, dark enough for white glass */
+.sky-gradient-cloudy-day   { background: linear-gradient(180deg, #0C1820 0%, #162432 30%, #1E3040 55%, #263C50 80%, #2E4860 100%); }
+.sky-gradient-cloudy-night { background: linear-gradient(180deg, #050709 0%, #0A0E14 40%, #10141C 75%, #141820 100%); }
+/* Rainy day — desaturated dark teal */
+.sky-gradient-rainy-day    { background: linear-gradient(180deg, #0A1018 0%, #121C26 30%, #1A2834 55%, #223040 80%, #2A3C4E 100%); }
+.sky-gradient-rainy-night  { background: linear-gradient(180deg, #060810 0%, #0C1018 40%, #121620 75%, #181C28 100%); }
+.sky-gradient-stormy       { background: linear-gradient(180deg, #080A10 0%, #100C18 40%, #180E22 75%, #1C1228 100%); }
+/* Snowy — cool dark blue-grey, no more pale white */
+.sky-gradient-snowy        { background: linear-gradient(180deg, #0E1C2C 0%, #162436 35%, #1E2E42 60%, #26384E 85%, #2C4058 100%); }
+/* Foggy — muted dark slate */
+.sky-gradient-foggy        { background: linear-gradient(180deg, #0C1418 0%, #141E24 35%, #1C2830 60%, #24323C 85%, #2C3C48 100%); }
+/* Dawn / dusk keep their warm character but darken the base */
+.sky-gradient-dawn         { background: linear-gradient(180deg, #080614 0%, #1E1224 35%, #5C2030 65%, #A84E20 88%, #C87030 100%); }
+.sky-gradient-dusk         { background: linear-gradient(180deg, #04040C 0%, #160E1C 35%, #581830 65%, #943C18 88%, #B05C22 100%); }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px) saturate(100%);
-  -webkit-backdrop-filter: blur(4px) saturate(100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 8px rgba(31, 38, 135, 0.03);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 16px rgba(31, 38, 135, 0.05);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.24);
 }
 
+
+/* ============================================================
+   REDESIGN — Elevated card, section headers, stat cells, etc.
+   ============================================================ */
+
+/* Stronger glass — for cards that need more depth */
+.glass-card-elevated {
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.glass-card-elevated:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Inset/sunken glass — for input areas inside cards */
+.glass-inset {
+  background: rgba(0, 0, 0, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gold accent left-border stripe */
+.card-accent-border {
+  position: relative;
+}
+.card-accent-border::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, #B8892E 0%, rgba(184, 137, 46, 0.3) 100%);
+}
+
+/* Horizontal rule styled as gold hairline */
+.gold-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 137, 46, 0.25), transparent);
+  margin: 0;
+}
+
+/* Stat chip — compact label+value pair */
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-chip .stat-value {
+  font-family: var(--font-headline-md);
+  font-size: 22px;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-chip .stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Section heading row */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-header .section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.section-header .section-action {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #B8892E;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+.section-header .section-action:hover {
+  opacity: 0.75;
+}
+
+/* Nav item active pill */
+.nav-item-active {
+  background: rgba(184, 137, 46, 0.14);
+  color: #B8892E;
+  border-radius: 10px;
+}
+
+/* Temperature display */
+.temp-hero {
+  font-family: var(--font-hero-temp);
+  font-size: clamp(72px, 12vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.95);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Subtle row hover for list items */
+.list-row {
+  transition: background 0.15s ease;
+  border-radius: 12px;
+}
+.list-row:hover {
+  background: rgba(184, 137, 46, 0.06);
+}
+
+/* Badge chip */
+.badge-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.10) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* Gradient text for gold hero headings */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #D4A94A 0%, #B8892E 50%, #C99A3E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hover lift effect for interactive cards */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18), 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Precipitation bar */
+.precip-bar {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(184, 137, 46, 0.15);
+  overflow: hidden;
+}
+.precip-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #B8892E, #D4A94A);
+  transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}

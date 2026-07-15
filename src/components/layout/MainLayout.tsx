@@ -22,10 +22,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const isDash = isDashboard(pathname);
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden ${isDash ? "" : "bg-aether-bg text-aether-text-primary"}`}>
+    <div className={`relative z-[2] min-h-screen font-sans selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden ${isDash ? "" : "bg-aether-bg text-aether-text-primary"}`}>
       <div className="grain-overlay" />
       {!hideTopBar && <TopNavbar />}
-      <main className={`w-full px-container-padding ${isDash ? "min-h-[100dvh]" : "pb-32"}`}>
+      <main className={`w-full ${isDash ? "min-h-[100dvh] overflow-hidden relative p-0" : "px-container-padding pb-32"}`}>
         {children}
       </main>
       {!isDash && <Footer />}

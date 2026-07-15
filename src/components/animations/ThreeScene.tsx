@@ -4,12 +4,14 @@ import { useEffect, useRef } from "react";
 
 interface ThreeSceneProps {
   className?: string;
+  style?: React.CSSProperties;
   variant?: "sun" | "particles" | "birds" | "profile_orb";
   sunPosition?: [number, number, number];
 }
 
 export default function ThreeScene({
   className = "",
+  style,
   variant = "sun",
   sunPosition = [3, 3, -5],
 }: ThreeSceneProps) {
@@ -36,6 +38,12 @@ export default function ThreeScene({
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      // Pin the canvas so it never contributes to document flow
+      renderer.domElement.style.position = "absolute";
+      renderer.domElement.style.top = "0";
+      renderer.domElement.style.left = "0";
+      renderer.domElement.style.width = "100%";
+      renderer.domElement.style.height = "100%";
       container.appendChild(renderer.domElement);
 
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -239,5 +247,11 @@ export default function ThreeScene({
     };
   }, [variant, sunPosition[0], sunPosition[1], sunPosition[2]]);
 
-  return <div ref={containerRef} className={className} />;
+  return (
+    <div
+      ref={containerRef}
+      className={className}
+      style={{ position: "absolute", inset: 0, overflow: "hidden", ...style }}
+    />
+  );
 }

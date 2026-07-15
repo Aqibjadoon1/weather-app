@@ -8,69 +8,117 @@ interface Props {
   weather: WeatherData | null;
 }
 
+const severityConfig = {
+  Good: {
+    bg: "bg-green-500/10",
+    text: "text-green-400",
+    border: "border-green-500/20",
+    bar: "bg-green-400",
+    color: "#4ade80",
+  },
+  Moderate: {
+    bg: "bg-yellow-500/10",
+    text: "text-yellow-400",
+    border: "border-yellow-500/20",
+    bar: "bg-yellow-400",
+    color: "#facc15",
+  },
+  Unhealthy: {
+    bg: "bg-orange-500/10",
+    text: "text-orange-400",
+    border: "border-orange-500/20",
+    bar: "bg-orange-400",
+    color: "#fb923c",
+  },
+  Dangerous: {
+    bg: "bg-red-500/10",
+    text: "text-red-400",
+    border: "border-red-500/20",
+    bar: "bg-red-400",
+    color: "#f87171",
+  },
+} as const;
+
+const sparklinePoints = [
+  "0,20", "10,14", "20,18", "30,8", "40,15",
+  "50,6", "60,13", "70,4", "80,10", "90,2",
+].join(" ");
+
 export default function StatusWidget({ weather }: Props) {
   if (!weather) return null;
-  const severity = weather
-    ? calculateWeatherSeverity(weather.condition, weather.windSpeed)
-    : { score: 15, label: "Good" as const, color: "#22c55e" };
 
-  const severityBg = {
-    Good: "bg-green-500/10 text-green-600",
-    Moderate: "bg-yellow-500/10 text-yellow-600",
-    Unhealthy: "bg-orange-500/10 text-orange-600",
-    Dangerous: "bg-red-500/10 text-red-600",
-  }[severity.label];
-
-  const sparklinePoints = [
-    "0,20", "8,15", "16,22", "24,10", "32,18",
-    "40,8", "48,16", "56,5", "64,12", "72,3",
-  ].join(" ");
+  const severity = calculateWeatherSeverity(weather.condition, weather.windSpeed);
+  const cfg = severityConfig[severity.label];
 
   return (
-    <div className="glass-card rounded-2xl p-5">
+    <div className="glass-card-elevated rounded-2xl p-4">
+      {/* Top row — label + badge */}
       <div className="flex items-center justify-between mb-3">
-        <span className="font-label-bold text-[10px] uppercase tracking-widest text-aether-text-muted">
+        <p className="font-label-bold text-[9px] uppercase tracking-widest text-aether-text-muted">
           Weather Status
-        </span>
-        <div className={`px-2.5 py-1 rounded-full text-[10px] font-label-bold uppercase tracking-wider ${severityBg}`}>
+        </p>
+        <span
+          className={[
+            "badge-chip border",
+            cfg.bg, cfg.text, cfg.border,
+          ].join(" ")}
+        >
           {severity.label}
-        </div>
-      </div>
-
-      <div className="flex items-end gap-2 mb-3">
-        <span className="font-hero-temp text-4xl leading-none text-aether-text-primary tabular-nums">
-          {severity.score}
-          <span className="font-body-md text-base font-normal text-aether-text-muted">%</span>
         </span>
       </div>
 
-      <svg viewBox="0 0 80 25" className="w-full h-8 mb-3">
+      {/* Score */}
+      <div className="flex items-end gap-2 mb-1">
+        <span className="font-headline-md text-5xl leading-none text-aether-text-primary tabular-nums">
+          {severity.score}
+        </span>
+        <span className="font-body-md text-sm text-aether-text-muted mb-1">/ 100</span>
+      </div>
+      <p className="font-caption text-[10px] text-aether-text-muted mb-3">
+        Outdoor conditions index
+      </p>
+
+      {/* Progress bar */}
+      <div className="precip-bar mb-4">
+        <div
+          className={`precip-bar-fill ${cfg.bar}`}
+          style={{ width: `${severity.score}%`, background: cfg.color }}
+        />
+      </div>
+
+      {/* Mini sparkline */}
+      <svg viewBox="0 0 96 24" className="w-full h-7 mb-3" aria-hidden="true">
         <defs>
-          <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={severity.color} stopOpacity="0.3" />
-            <stop offset="100%" stopColor={severity.color} stopOpacity="0" />
+          <linearGradient id="sparkFill2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={cfg.color} stopOpacity="0.3" />
+            <stop offset="100%" stopColor={cfg.color} stopOpacity="0" />
           </linearGradient>
         </defs>
+        <polygon
+          points={`0,24 ${sparklinePoints} 90,24`}
+          fill="url(#sparkFill2)"
+        />
         <polyline
           points={sparklinePoints}
           fill="none"
-          stroke={severity.color}
+          stroke={cfg.color}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <polygon
-          points={`0,25 ${sparklinePoints} 72,25`}
-          fill="url(#sparkFill)"
-        />
       </svg>
 
+      {/* CTA */}
       <Link
         href="/dashboard/today"
-        className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm inline-flex items-center gap-1 text-aether-gold font-label-bold text-[11px] uppercase tracking-wider hover:underline group"
+        className={[
+          "inline-flex items-center gap-1.5 font-label-bold text-[11px] uppercase tracking-wider",
+          "text-aether-gold hover:text-aether-gold-soft transition-colors",
+          "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm",
+        ].join(" ")}
       >
-        See More
-        <span className="material-symbols-outlined text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+        Full Details
+        <span className="material-symbols-outlined text-sm">arrow_forward</span>
       </Link>
     </div>
   );
