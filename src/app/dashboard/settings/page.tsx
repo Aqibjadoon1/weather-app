@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface SettingSection {
   title: string;
@@ -51,6 +51,10 @@ const settingsSections: SettingSection[] = [
   },
 ];
 
+const selectDefaults = Object.fromEntries(
+  settingsSections.flatMap((s) => s.items.filter((i) => i.type === "select").map((i) => [i.label, i.value!]))
+);
+
 export default function SettingsPage() {
   const [toggles, setToggles] = useState<Record<string, boolean>>({
     "Daily Forecast": true,
@@ -61,25 +65,45 @@ export default function SettingsPage() {
     "Share Usage Data": false,
     "Location History": true,
   });
+  const [selectValues, setSelectValues] = useState<Record<string, string>>(selectDefaults);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const toggle = (label: string) => setToggles((prev) => ({ ...prev, [label]: !prev[label] }));
+  const handleSelect = useCallback((label: string, value: string) => {
+    setSelectValues((prev) => ({ ...prev, [label]: value }));
+    setOpenDropdown(null);
+  }, []);
+
+  useEffect(() => {
+    if (!openDropdown) return;
+    const handler = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest(".glass-select-wrapper")) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [openDropdown]);
 
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
-        <header className="py-8 flex justify-between items-center">
+        <header className="py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h1 className="font-headline-md text-headline-md text-aether-text-primary">Settings</h1>
             <p className="font-body-md text-aether-text-muted mt-1">Customize your experience</p>
           </div>
-          <Link href="/dashboard/profile" className="text-aether-gold font-label-bold text-label-bold hover:underline">Profile</Link>
+          <Link href="/dashboard/profile" className="self-start sm:self-auto inline-flex items-center gap-1.5 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+            <span className="material-symbols-outlined fill text-lg">account_circle</span>
+            Profile
+          </Link>
         </header>
 
         {settingsSections.map((section) => (
-          <div key={section.title} className="mb-10">
+          <div key={section.title} className="mb-8 sm:mb-10">
             <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-4">{section.title}</h2>
-            <div className="glass-card rounded-2xl overflow-hidden">
-              {section.items.map((item, i) => (
-                <div key={item.label} className={`flex items-center justify-between p-5 ${i < section.items.length - 1 ? "border-b border-aether-gold/10" : ""}`}>
+            <div className="glass-card rounded-2xl">
+              {section.items.map((item) => (
+                <div key={item.label} className="flex items-center justify-between p-4 sm:p-5">
                   <div className="flex-1">
                     <p className="font-body-md text-aether-text-primary">{item.label}</p>
                     <p className="font-body-sm text-aether-text-muted mt-0.5">{item.description}</p>
@@ -93,17 +117,27 @@ export default function SettingsPage() {
                     </button>
                   )}
                   {item.type === "select" && (
-                    <div className="relative">
-                      <select
-                        value={item.value}
-                        onChange={() => {}}
-                        className="appearance-none glass-card rounded-xl pl-4 pr-10 py-2.5 font-body-md text-aether-text-primary outline-none hover:border-aether-gold/50 focus:border-aether-gold cursor-pointer transition-colors"
+                    <div className="relative glass-select-wrapper">
+                      <button
+                        onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                        className="flex items-center gap-2 glass-card rounded-xl pl-4 pr-3 py-2.5 font-body-md text-aether-text-primary outline-none hover:border-aether-gold/50 focus-visible:border-aether-gold cursor-pointer transition-colors border border-aether-gold/10 whitespace-nowrap"
                       >
-                        {item.options?.map((opt) => (
-                          <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                      </select>
-                      <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-aether-text-muted text-lg pointer-events-none fill">expand_more</span>
+                        <span>{selectValues[item.label] || item.value}</span>
+                        <span className={`material-symbols-outlined text-aether-text-muted text-lg fill transition-transform duration-200 ${openDropdown === item.label ? "rotate-180" : ""}`}>expand_more</span>
+                      </button>
+                      {openDropdown === item.label && (
+                        <div className="absolute top-full right-0 mt-1.5 min-w-[140px] z-50 rounded-xl p-1 shadow-xl shadow-black/20 border border-aether-gold/10" style={{ background: "rgba(255, 255, 255, 0.08)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)" }}>
+                          {item.options?.map((opt) => (
+                            <button
+                              key={opt}
+                              onClick={() => handleSelect(item.label, opt)}
+                              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectValues[item.label] === opt ? "bg-aether-gold/20 text-aether-gold" : "text-aether-text-primary hover:bg-aether-gold/10"}`}
+                            >
+                              {opt}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                   {item.type === "link" && (
@@ -118,9 +152,9 @@ export default function SettingsPage() {
           </div>
         ))}
 
-        <div className="text-center pt-6 border-t border-aether-gold/10">
+        <div className="text-center pt-10 sm:pt-12">
           <p className="font-body-sm text-aether-text-muted">Version 1.0.0</p>
-          <div className="flex justify-center gap-6 mt-4">
+          <div className="flex justify-center gap-6 mt-6">
             <button className="font-body-sm text-aether-gold hover:underline">Privacy Policy</button>
             <button className="font-body-sm text-aether-gold hover:underline">Terms of Service</button>
             <button className="font-body-sm text-aether-gold hover:underline">Licenses</button>

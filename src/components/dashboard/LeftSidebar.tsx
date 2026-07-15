@@ -92,6 +92,7 @@ export default function LeftSidebar({
       <div className="glass-card rounded-2xl p-3 flex flex-col gap-1 mt-auto">
         {[
           { href: "/dashboard", label: "Overview", icon: "dashboard" },
+          { href: "/dashboard/today", label: "Today", icon: "today" },
           { href: "/dashboard/weekly", label: "Weekly", icon: "calendar_month" },
           { href: "/dashboard/packing", label: "Packing", icon: "checkroom" },
           { href: "/dashboard/search", label: "Explore", icon: "explore" },

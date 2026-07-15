@@ -22,21 +22,22 @@ export default function NetworkErrorPage() {
           <button
             onClick={handleRetry}
             disabled={isRetrying}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-aether-gold/10 backdrop-blur-xl border border-aether-gold/20 rounded-full text-aether-gold hover:bg-aether-gold/20 transition-all disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-aether-gold rounded-full text-sm sm:text-base text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all disabled:opacity-50"
           >
             {isRetrying ? (
               <>
-                <span className="w-5 h-5 border-2 border-aether-gold/30 border-t-aether-gold rounded-full animate-spin" />
+                <span className="w-5 h-5 border-2 border-aether-bg/30 border-t-aether-bg rounded-full animate-spin" />
                 Retrying...
               </>
             ) : (
               <>
-                <span className="material-symbols-outlined fill">refresh</span>
+                <span className="material-symbols-outlined fill text-aether-bg">refresh</span>
                 Retry Connection
               </>
             )}
           </button>
-          <Link href="/dashboard" className="text-aether-text-muted hover:text-aether-gold transition-colors text-sm">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+            <span className="material-symbols-outlined fill text-lg">arrow_back</span>
             Go to Dashboard
           </Link>
         </div>

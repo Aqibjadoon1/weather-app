@@ -13,8 +13,16 @@ export default function HeroSection({ weather, forecast, isLoading }: Props) {
   const lo = forecast.length > 0 ? forecast[0].low : null;
 
   return (
-    <div className="glass-card rounded-3xl p-6 mb-6">
-      <div className="flex items-start justify-between">
+    <div className="glass-card rounded-3xl p-6 mb-6 relative overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div
+          className="w-72 h-72 rounded-full opacity-60"
+          style={{
+            background: "radial-gradient(circle, rgba(184,137,46,0.25) 0%, rgba(184,137,46,0.08) 40%, transparent 70%)",
+          }}
+        />
+      </div>
+      <div className="flex items-start justify-between relative z-10">
         <div>
           {isLoading && !weather ? (
             <div className="space-y-2">

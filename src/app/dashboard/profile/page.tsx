@@ -48,14 +48,15 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding pb-28 md:pb-0">
-      <div className="py-6">
-        <Link href="/dashboard" className="inline-flex items-center gap-2 text-aether-text-muted hover:text-aether-gold transition-colors">
+      <div className="py-4 sm:py-6">
+        <Link href="/dashboard" className="inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
           <span className="material-symbols-outlined fill text-lg">arrow_back</span>
-          <span className="font-label-bold text-label-bold">Back</span>
+          <span className="hidden sm:inline">Back to Dashboard</span>
+          <span className="sm:hidden">Dashboard</span>
         </Link>
       </div>
 
-      <div className="glass-card rounded-2xl p-8 md:p-12 mb-8">
+      <div className="glass-card rounded-2xl p-6 md:p-8 mb-8 sm:mb-10">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
           {user?.photoURL ? (
             <img src={user.photoURL} alt={displayName} className="w-24 h-24 rounded-full object-cover ring-2 ring-aether-gold/30" />
@@ -67,7 +68,7 @@ export default function ProfilePage() {
           <div className="flex-1 text-center md:text-left">
             <h1 className="font-headline-md text-headline-md text-aether-text-primary">{displayName}</h1>
             <p className="text-aether-text-muted mt-2">{email}</p>
-            <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-3 mt-4 justify-start">
               <span className="px-4 py-2 bg-aether-gold/10 text-aether-gold rounded-full text-sm font-label-bold">Weather Enthusiast</span>
               <span className="px-4 py-2 bg-aether-slate/10 text-aether-slate rounded-full text-sm font-label-bold">Premium Member</span>
             </div>
@@ -75,18 +76,14 @@ export default function ProfilePage() {
               Exploring the world through weather. Tracking conditions across cities with personalized alerts and AI-powered packing lists.
             </p>
           </div>
-          <div className="flex flex-col items-center md:items-end gap-3">
-            <button onClick={() => router.push("/dashboard/settings")} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
+          <div className="self-stretch flex flex-col items-end gap-3">
+            <button onClick={() => router.push("/dashboard/settings")} className="w-full md:w-auto px-6 py-3 bg-aether-gold rounded-full text-sm text-aether-bg hover:brightness-110 transition-all whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-[16px]">settings</span>
               Edit Profile
             </button>
-            <button onClick={handleLogout} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
+            <button onClick={handleLogout} className="w-full md:w-auto px-6 py-3 bg-aether-gold rounded-full text-sm text-aether-bg hover:brightness-110 transition-all whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-[16px]">logout</span>
               Sign Out
-            </button>
-            <button onClick={() => router.push("/login")} className="w-full md:w-auto px-6 py-3 border border-aether-gold/30 rounded-full text-sm text-aether-gold hover:bg-aether-gold/10 transition-colors whitespace-nowrap font-label-bold flex items-center justify-center gap-2">
-              <span className="material-symbols-outlined text-[16px]">login</span>
-              Log In
             </button>
           </div>
         </div>
@@ -106,9 +103,9 @@ export default function ProfilePage() {
 
       {activeTab === "overview" && (
         <>
-          <div className="glass-card rounded-2xl p-8 mb-8">
-            <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-6">Recent Activity</h2>
-            <div className="space-y-4">
+          <div className="glass-card rounded-2xl p-6 mb-6 sm:mb-8">
+            <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-4">Recent Activity</h2>
+            <div className="space-y-3">
               {recentActivities.map((activity, i) => (
                 <div key={i} className="flex items-center gap-4 p-3 rounded-2xl hover:bg-aether-gold/5 transition-colors">
                   <div className="w-10 h-10 bg-aether-gold/10 rounded-xl flex items-center justify-center">
@@ -123,8 +120,8 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="glass-card rounded-2xl p-8">
-            <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-6">Connected Cities</h2>
+          <div className="glass-card rounded-2xl p-6">
+            <h2 className="font-body text-xs tracking-wide text-aether-text-muted uppercase mb-4">Connected Cities</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {["Stockholm", "Copenhagen", "Oslo", "Helsinki", "Reykjavik", "Tallinn", "Riga", "Vilnius"].map((city) => (
                 <div key={city} className="glass-card rounded-xl p-4 hover:border-aether-gold/30 transition-colors">

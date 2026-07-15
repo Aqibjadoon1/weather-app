@@ -31,8 +31,9 @@ export function proxy(request: NextRequest) {
   // Protect dashboard routes and user-facing API endpoints
   if (protectedPrefixes.some((prefix) => pathname.startsWith(prefix))) {
     const sessionCookie = request.cookies.get("auth-session");
+    const guestCookie = request.cookies.get("guest-session");
 
-    if (!sessionCookie?.value) {
+    if (!sessionCookie?.value && !guestCookie?.value) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";
       loginUrl.searchParams.set("redirect", pathname);

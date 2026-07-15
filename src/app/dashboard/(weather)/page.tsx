@@ -68,7 +68,7 @@ export default function DashboardPage() {
       <main className="flex-1 min-w-0 pb-28 md:pb-0">
         <HeaderBar cityName={cityName} date={dateStr} />
         <HeroSection weather={weather} forecast={forecast} isLoading={isLoading} />
-        <RecentlySearched />
+        <RecentlySearched loading={isLoading} />
         <BottomStrip forecast={forecast} isLoading={forecastLoading} />
       </main>
     </div>

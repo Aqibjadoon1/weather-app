@@ -2,6 +2,7 @@
 
 import { useWeather } from "@/hooks/useWeather";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import WeatherShader from "@/components/animations/WeatherShader";
 
@@ -58,39 +59,51 @@ export default function TodayPage() {
 
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-b-[2rem] -mx-container-padding px-container-padding pt-6 pb-8 mb-8">
+      {/* Page header — matches weekly/packing/search pattern */}
+      <header className="py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 className="font-headline-md text-headline-md text-aether-text-primary">Today</h1>
+          <p className="font-body-md text-aether-text-muted mt-1">Current conditions at your location</p>
+        </div>
+        <Link href="/dashboard" className="self-start sm:self-auto inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+          <span className="material-symbols-outlined fill text-lg">arrow_back</span>
+          <span className="hidden sm:inline">Back to Dashboard</span>
+          <span className="sm:hidden">Dashboard</span>
+        </Link>
+      </header>
+
+      {/* Hero weather card */}
+      <section className="relative overflow-hidden rounded-3xl mb-8">
         <WeatherShader className="absolute inset-0 w-full h-full" condition={weather?.condition} isNight={isNight} />
-        <div className="relative z-10">
-          <header className="flex justify-between items-center">
+        <div className="relative z-10 glass-card rounded-3xl p-6">
+          <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-6xl md:text-7xl font-headline-md text-headline-md text-aether-text-primary leading-none">
+              <p className="font-headline-sm text-headline-sm text-aether-text-muted">{cityName}</p>
+              <h2 className="text-6xl md:text-7xl font-headline-md text-headline-md text-aether-text-primary leading-none mt-1">
                 {weather ? `${Math.round(weather.temperature)}°` : "18°"}
-              </h1>
+              </h2>
               <p className="font-headline-sm text-headline-sm text-aether-text-muted mt-1">
                 {weather ? weather.condition : "Partly Cloudy"}
               </p>
             </div>
             <div className="text-right">
-              <p className="font-label-bold text-label-bold text-aether-gold uppercase tracking-wider">{cityName}</p>
-              <p className="font-caption text-caption text-aether-text-muted mt-1">
+              <p className="font-caption text-caption text-aether-text-muted">
                 {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
               </p>
+              <div className="mt-4 flex items-center gap-2 justify-end">
+                <span className="material-symbols-outlined text-aether-text-muted fill">wb_sunny</span>
+                <span className="font-body-md text-aether-text-muted">
+                  Feels like {weather ? `${Math.round(weather.feelsLike)}°C` : "16°C"}
+                </span>
+              </div>
             </div>
-          </header>
-
-          <div className="mt-6 flex items-center gap-2">
-            <span className="material-symbols-outlined text-aether-text-muted fill">wb_sunny</span>
-            <span className="font-body-md text-aether-text-muted">
-              Feels like {weather ? `${Math.round(weather.feelsLike)}°C` : "16°C"}
-            </span>
           </div>
         </div>
       </section>
 
       {/* Hourly */}
       <section className="mb-8">
-        <h2 className="font-headline-sm text-headline-sm text-on-surface mb-5">Today&apos;s Journey</h2>
+        <h2 className="font-headline-sm text-headline-sm text-on-surface mb-6">Today&apos;s Journey</h2>
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-3 -mx-2 px-2">
           {displayHourly.map((slot, i) => (
             <div key={i} className="min-w-[120px] glass-card rounded-2xl p-4 flex flex-col items-center gap-2 flex-shrink-0">
@@ -104,7 +117,7 @@ export default function TodayPage() {
       </section>
 
       {/* Details Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="glass-card rounded-3xl p-6">
           <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Sunrise & Sunset</span>
           <div className="mt-4 flex justify-between">
@@ -154,14 +167,14 @@ export default function TodayPage() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 mb-8">
         {[
           { label: "UV Index", value: weather ? weather.uvIndex.toString() : "2", sub: "Low" },
           { label: "Humidity", value: weather ? `${weather.humidity}%` : "45%", sub: "Comfortable" },
           { label: "Visibility", value: weather ? `${weather.visibility} km` : "10 km", sub: "Clear" },
           { label: "Pressure", value: "1013 hPa", sub: "Steady" },
         ].map((item) => (
-          <div key={item.label} className="glass-card rounded-2xl p-5">
+          <div key={item.label} className="glass-card rounded-2xl p-4 sm:p-5">
             <span className="font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">{item.label}</span>
             <p className="font-headline-sm text-headline-sm text-on-surface mt-2">{item.value}</p>
             <p className="font-caption text-caption text-on-surface-variant mt-1">{item.sub}</p>

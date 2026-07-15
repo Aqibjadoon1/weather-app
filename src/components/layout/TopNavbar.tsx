@@ -4,13 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
+  { href: "/dashboard/today", label: "Today" },
   { href: "/dashboard/weekly", label: "Weekly" },
   { href: "/dashboard/packing", label: "Packing" },
   { href: "/dashboard/search", label: "Explore" },
 ];
 
 const blurPages = ["/dashboard"];
-const themedPages = ["/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
+const themedPages = ["/dashboard/today", "/dashboard/weekly", "/dashboard/packing", "/dashboard/search"];
 
 export default function TopNavbar() {
   const pathname = usePathname();
@@ -52,8 +53,9 @@ export default function TopNavbar() {
           <Link href="/dashboard/notifications" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
             <span className="material-symbols-outlined text-aether-gold">notifications</span>
           </Link>
-          <Link href="/dashboard/profile" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
-            <span className="material-symbols-outlined text-aether-gold">account_circle</span>
+          <Link href="/dashboard/profile" className="inline-flex items-center gap-1.5 bg-transparent sm:bg-aether-gold rounded-xl p-2 sm:px-3 sm:py-2 text-sm text-aether-gold sm:text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold">
+            <span className="material-symbols-outlined text-lg fill">account_circle</span>
+            <span className="hidden sm:inline">Profile</span>
           </Link>
           <Link href="/dashboard/settings" className="spring-button p-2 rounded-xl hover:bg-aether-gold/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aether-gold focus-visible:rounded-sm">
             <span className="material-symbols-outlined text-aether-gold">settings</span>

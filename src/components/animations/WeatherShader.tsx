@@ -153,7 +153,10 @@ void main() {
     }
   }
 
-  fragColor = vec4(sky, 1.0);
+  float gloss = smoothstep(0.2, 0.8, uv.x * 0.6 + uv.y * 0.4);
+  vec3 glossColor = vec3(1.0, 0.98, 0.95) * 0.06 * gloss;
+  vec3 finalColor = sky * 0.35 + glossColor;
+  fragColor = vec4(finalColor, 0.3);
 }
 `;
 
@@ -217,7 +220,7 @@ export default function WeatherShader({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext("webgl2", { alpha: false });
+    const gl = canvas.getContext("webgl2", { alpha: true, premultipliedAlpha: false });
     if (!gl) return;
 
     const vertexShader = gl.createShader(gl.VERTEX_SHADER)!;

@@ -115,15 +115,18 @@ export default function PackingPage() {
 
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
-      <header className="py-8 flex justify-between items-center">
+      <header className="py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="font-headline-md text-headline-md text-aether-text-primary">AI Packing Companion</h1>
           <p className="font-body-md text-aether-text-muted mt-1">Smart packing list tailored to your forecast</p>
         </div>
-        <Link href="/dashboard" className="text-aether-gold font-label-bold text-label-bold hover:underline">Back</Link>
+        <Link href="/dashboard" className="self-start sm:self-auto inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+          <span className="material-symbols-outlined fill text-lg">arrow_back</span>
+          <span>Dashboard</span>
+        </Link>
       </header>
 
-      <div className="glass-card rounded-3xl p-8 mb-8 relative overflow-hidden">
+      <div className="glass-card rounded-3xl p-6 mb-6 sm:mb-8 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-aether-gold/5 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="relative z-10">
           <h2 className="font-headline-sm text-headline-sm text-aether-text-primary">{destination}</h2>
@@ -164,7 +167,7 @@ export default function PackingPage() {
         </div>
       </div>
 
-      <div className="glass-card rounded-3xl p-8 mb-8">
+      <div className="glass-card rounded-3xl p-6 mb-6 sm:mb-8">
         <h2 className="font-headline-sm text-headline-sm text-aether-text-primary mb-4">Generate New Packing List</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="relative">
@@ -236,7 +239,7 @@ export default function PackingPage() {
       })}
 
       {weatherData && (
-        <div className="glass-card rounded-3xl p-8 mt-8">
+        <div className="glass-card rounded-3xl p-6 mt-6 sm:mt-8">
           <h2 className="font-headline-sm text-headline-sm text-aether-text-primary mb-4">Weather Tips</h2>
           <div className="space-y-3">
             <div className="flex items-start gap-3">

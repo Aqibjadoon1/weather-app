@@ -47,7 +47,7 @@ export default function NotificationsPage() {
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding">
         {/* Header */}
-        <header className="py-8 flex justify-between items-center">
+        <header className="py-6 sm:py-8 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-3">
               <h1 className="font-headline-md text-headline-md text-aether-text-primary">Notifications</h1>
@@ -100,7 +100,7 @@ export default function NotificationsPage() {
               <div
                 key={notification.id}
                 onClick={() => markAsRead(notification.id)}
-                className={`flex items-start gap-5 p-5 rounded-3xl cursor-pointer transition-all duration-200 ${notification.read ? "bg-aether-bg-soft border border-aether-gold/10" : "bg-aether-bg-soft border-l-4 border-l-aether-gold editorial-shadow"}`}
+                className={`flex items-start gap-5 p-4 sm:p-5 rounded-3xl cursor-pointer transition-all duration-200 ${notification.read ? "bg-aether-bg-soft border border-aether-gold/10" : "bg-aether-bg-soft border-l-4 border-l-aether-gold editorial-shadow"}`}
               >
                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border ${typeColors[notification.type]}`}>
                   <span className="material-symbols-outlined text-xl fill">{notification.icon}</span>

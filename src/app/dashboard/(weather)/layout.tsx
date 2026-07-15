@@ -23,8 +23,10 @@ export default function WeatherLayout({ children }: { children: React.ReactNode 
         isNight={isNight}
       />
       <SkyForeground state={currentState} />
-      <div className="relative z-10">
-        {children}
+      <div className="relative z-10 w-full">
+        <div className="max-w-7xl mx-auto w-full px-container-padding md:px-8 lg:px-10">
+          {children}
+        </div>
       </div>
     </div>
   );

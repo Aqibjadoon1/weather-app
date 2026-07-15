@@ -125,7 +125,7 @@ export default function SearchPage() {
       {!query ? (
         <>
           {/* Popular Destinations */}
-          <section className="mb-10">
+          <section className="mb-8 sm:mb-10">
             <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-5">Popular Destinations</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {popularDestinations.map((dest) => (
@@ -146,7 +146,7 @@ export default function SearchPage() {
 
           {/* Recent Searches */}
           {recentSearches.length > 0 && (
-            <section className="mb-10">
+            <section className="mb-8 sm:mb-10">
               <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-4">Recent Searches</h2>
               <div className="flex flex-wrap gap-3">
                 {recentSearches.map((city) => (
@@ -160,7 +160,7 @@ export default function SearchPage() {
           )}
 
           {/* Explore by Category */}
-          <section className="mb-10">
+          <section className="mb-8 sm:mb-10">
             <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-5">Explore by Category</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -181,7 +181,7 @@ export default function SearchPage() {
           <section>
             <h2 className="font-label-bold text-label-bold text-aether-text-muted uppercase tracking-wider mb-4">Your Saved Cities</h2>
             {saved.size === 0 ? (
-              <div className="glass-card rounded-3xl p-10 text-center">
+              <div className="glass-card rounded-3xl p-8 text-center">
                 <span className="material-symbols-outlined text-4xl text-aether-text-muted fill">bookmark_border</span>
                 <p className="font-body-md text-aether-text-muted mt-3">No saved cities yet</p>
               </div>

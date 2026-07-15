@@ -23,12 +23,16 @@ export default function WeeklyPage() {
 
   return (
     <div className="min-h-screen text-aether-text-primary -mx-container-padding px-container-padding flex flex-col">
-      <header className="py-8 flex justify-between items-center flex-shrink-0">
+      <header className="py-6 sm:py-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 flex-shrink-0">
         <div>
           <h1 className="font-headline-md text-headline-md text-aether-text-primary">Weekly Forecast</h1>
           <p className="font-body-md text-aether-text-muted mt-1">7-day atmospheric timeline</p>
         </div>
-        <Link href="/dashboard" className="text-aether-gold font-label-bold hover:underline">Back to Dashboard</Link>
+        <Link href="/dashboard" className="self-start sm:self-auto inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+          <span className="material-symbols-outlined fill text-lg">arrow_back</span>
+          <span className="hidden sm:inline">Back to Dashboard</span>
+          <span className="sm:hidden">Dashboard</span>
+        </Link>
       </header>
 
       {isLoading && displayForecast.length === 0 ? (
@@ -81,7 +85,7 @@ export default function WeeklyPage() {
 
           <div className="md:hidden flex overflow-x-auto no-scrollbar gap-4 pb-4 flex-shrink-0">
             {(displayForecast.length ? displayForecast : []).map((day, i) => (
-              <div key={day.day + i} className={`min-w-[140px] rounded-3xl p-5 glass-card flex-shrink-0 grain-texture ${i === 0 ? "bg-aether-gold/[0.08]" : ""}`}>
+              <div key={day.day + i} className={`min-w-[140px] rounded-3xl p-6 glass-card flex-shrink-0 grain-texture ${i === 0 ? "bg-aether-gold/[0.08]" : ""}`}>
                 <span className="font-label-bold text-aether-text-muted block text-center">{day.day}</span>
                 <span className="material-symbols-outlined text-3xl text-aether-gold fill block text-center my-4">{day.icon}</span>
                 <div className="text-center">
@@ -101,7 +105,7 @@ export default function WeeklyPage() {
             <div className="glass-card rounded-3xl overflow-hidden flex-1 flex flex-col">
               <div className="flex-1 overflow-auto">
                 {(displayForecast.length ? displayForecast : []).map((day, i) => (
-                  <div key={day.day + i} className={`flex items-center gap-4 px-6 py-4 ${i < displayForecast.length - 1 ? "border-b border-aether-gold/10" : ""} hover:bg-aether-gold/5 transition-colors`}>
+                  <div key={day.day + i} className="flex items-center gap-4 px-6 py-4 hover:bg-aether-gold/5 transition-colors">
                     <span className="w-20 font-label-bold text-aether-text-muted">{day.day}</span>
                     <span className="material-symbols-outlined text-aether-gold fill">{day.icon}</span>
                     <span className="flex-1 font-body-md text-aether-text-muted">{day.condition}</span>

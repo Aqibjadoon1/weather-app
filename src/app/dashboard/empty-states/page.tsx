@@ -52,19 +52,22 @@ export default function EmptyStatesPage() {
   return (
     <div className="min-h-screen text-aether-text-primary relative overflow-hidden -mx-container-padding px-container-padding">
       <div className="relative z-10 pb-32">
-        <header className="py-8">
-          <div className="flex items-center justify-between">
+        <header className="py-6 sm:py-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h1 className="font-headline-md text-4xl text-aether-text-primary">Empty States</h1>
+              <h1 className="font-headline-md text-3xl sm:text-4xl text-aether-text-primary">Empty States</h1>
               <p className="text-aether-text-muted mt-2">Design examples for empty data scenarios</p>
             </div>
-            <Link href="/dashboard" className="text-aether-text-muted hover:text-aether-gold transition-colors text-sm font-label-bold">Back</Link>
+            <Link href="/dashboard" className="self-start sm:self-auto inline-flex items-center gap-2 bg-aether-gold rounded-full px-4 sm:px-6 py-2.5 sm:py-3 text-sm text-aether-bg font-label-bold whitespace-nowrap hover:brightness-110 transition-all">
+              <span className="material-symbols-outlined fill text-lg">arrow_back</span>
+              <span>Back</span>
+            </Link>
           </div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {emptyStates.map((state) => (
-            <div key={state.title} className="glass-card rounded-2xl p-10 text-center flex flex-col items-center justify-center min-h-[300px]">
+            <div key={state.title} className="glass-card rounded-2xl p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
               <span className="material-symbols-outlined text-5xl text-aether-gold/20 mb-6">{state.icon}</span>
               <h2 className="font-headline-md text-2xl text-aether-text-primary mb-3">{state.title}</h2>
               <p className="text-sm text-aether-text-muted mb-6 max-w-xs">{state.description}</p>
